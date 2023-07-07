@@ -31,15 +31,19 @@ export default {
 
 <template>
     <div>
-        <h1>Is this correct?</h1>
-        <div id="check" v-for="(value, key ) in info" > {{ key }}: {{ value }}
-        </div>
-        <button class="button" id="submit" type="button" @click="formConfirmed"> Yes!</button>
-        <button class="button" id="redo" type="button" @click="redoForm"> No!</button>
+        <body class="bg-white text-center mx-44">
+            <h1 class="mt-10 p-10">Is this correct?</h1>
+            <div class="">
+                <div id="check" v-for="(value, key ) in info" class="text-lg grid gap-1 grid-cols-3 grid-rows-2"> {{ key }}: {{ value }}
+                </div>
+            </div>
+            <button class="button cursor-pointer p-3 mb-10 bg-green-500 border-none" id="submit" type="button" @click="formConfirmed"> Yes!</button>
+            <button class="button cursor-pointer ml-4 p-3 bg-red-500 border-none" id="redo" type="button" @click="redoForm"> No!</button>
+        </body>
     </div>
 </template>
 
-<style scoped>
+<style scoped>/*
 #submit {
     background-color: greenyellow;
     scale: 150%;
@@ -50,8 +54,14 @@ export default {
     margin-left: 20px;
     scale: 150%;
 }
-.button:hover {
+.button:hover 
     cursor: pointer;
 }
-
+*/
+#div {
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+}
 </style>
