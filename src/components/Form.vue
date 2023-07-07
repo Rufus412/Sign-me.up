@@ -1,23 +1,17 @@
 <script setup>
-/*
-defineProps({
-  info: {
-    type: Object,
-    reqired: true,
-    default: {
-      name: '',
-      email: '',
-      gender: ''
-      phonenumber: ''
-    }
-  }
-})*/
+
+import BaseInut from './BaseInput.vue';
+
 
 
 </script>
 
 
 <script>
+
+
+
+
 export default {
   props: {
     info: {
@@ -31,12 +25,7 @@ export default {
               alert("Not everyy field has been filed in!")
               return
           }
-          const Membership = {
-              name: this.info.name,
-              email: this.info.email,
-              gender: this.info.gender,
-              phonenumber: this.info.phonenumber
-          }
+          const Membership = this.info
           this.$emit('review-submitted', Membership)
           console.log("emitted")
           //this.name = ''
@@ -54,11 +43,39 @@ export default {
   <div id="form">
     <form class="membership-form" @submit.prevent="onSubmit ">
     <h3>SignUp</h3>
-    <label for="name">Name:</label>
-    <input id="name" v-model="info.name" >
-
-    <label for="email">Email:</label>      
-    <input id="email" v-model="info.email">
+    
+    <BaseInut v-model="info.firstName"
+    label="First name"
+    type="text"
+    />
+    <BaseInut v-model="info.lastName"
+    label="Last name"
+    type="text"
+    />
+    <BaseInut v-model="info.email"
+    label="Email"
+    type="text"
+    />
+    <BaseInut v-model="info.country"
+    label="Country"
+    type="text"
+    />
+    <BaseInut v-model="info.city"
+    label="City"
+    type="text"
+    />
+    <BaseInut v-model="info.adress"
+    label="Adress"
+    type="text"
+    />
+    <BaseInut v-model="info.zip"
+    label="Zip"
+    type="text"
+    />
+    <BaseInut v-model="info.phoneNumber"
+    label="PhoneNumber"
+    type="number"
+    />
   
     <label for="gender">Gender:</label>
     <select id="gender" v-model="info.gender">
@@ -66,9 +83,6 @@ export default {
       <option>Female</option>
       <option>Neither</option>
     </select>
-  
-    <label for="phonenumber">PhoneNumber:</label>
-    <input id="phonenumber" v-model="info.phonenumber">
 
     
 

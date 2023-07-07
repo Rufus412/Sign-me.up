@@ -18,6 +18,7 @@ export default {
     methods: {
         formConfirmed() {         
             const store = useStore()
+            console.log(this.info + ' <------')
             store.addMember(this.info)
             this.$router.push( {name: 'QR' })
         },

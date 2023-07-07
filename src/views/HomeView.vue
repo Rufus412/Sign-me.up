@@ -12,10 +12,15 @@ export default {
   data() {
     return {
       info: {
-        name: '',
-        email: '',
-        gender: '',
-        phonenumber: ''
+        firstName: '1',
+        lastName:'2',
+        email: '3',
+        country: '4',
+        city: '5',
+        adress: '6',
+        zip: '7',
+        phoneNumber: 0,
+        gender: 'Male'
       },
       formSubmitted: false
     }
@@ -24,10 +29,7 @@ export default {
     doSMTH(form) {
       console.log(form)
       this.formSubmitted = true
-      this.info.name = form.name
-      this.info.email = form.email
-      this.info.gender = form.gender
-      this.info.phonenumber = form.phonenumber
+      this.info = form
       console.log("-->" + ' ' + this.info.name)
     },
     redoForm() {
