@@ -20,7 +20,8 @@ export default {
         adress: '6',
         zip: '7',
         phoneNumber: 0,
-        gender: 'Male'
+        gender: 'Male',
+        newsLetter: true
       },
       formSubmitted: false
     }
