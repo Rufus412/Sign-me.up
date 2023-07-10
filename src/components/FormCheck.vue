@@ -5,7 +5,6 @@ import { useStore } from '../stores/counter.js';
 <script>
 
 export default {
-
     props: {
         info: {
             required: false
@@ -30,38 +29,51 @@ export default {
 </script>
 
 <template>
-    <div>
-        <body class="bg-white text-center mx-44">
-            <h1 class="mt-10 p-10">Is this correct?</h1>
-            <div class="">
-                <div id="check" v-for="(value, key ) in info" class="text-lg grid gap-1 grid-cols-3 grid-rows-2"> {{ key }}: {{ value }}
-                </div>
-            </div>
-            <button class="button cursor-pointer p-3 mb-10 bg-green-500 border-none" id="submit" type="button" @click="formConfirmed"> Yes!</button>
-            <button class="button cursor-pointer ml-4 p-3 bg-red-500 border-none" id="redo" type="button" @click="redoForm"> No!</button>
-        </body>
+  <div>
+    <div class="px-4 sm:px-0">
+      <h3 class="text-base font-semibold leading-7 text-gray-900">Applicant Information</h3>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
     </div>
+    <div class="mt-6 border-t border-gray-100">
+      <dl class="divide-y divide-gray-100">
+        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.firstName}} {{ info.lastName }}</dd>
+        </div>
+        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Emial adress</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.email }}</dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Country</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.country }}</dd>
+        </div>
+        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Adress</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.adress }}</dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">City</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.city }}</dd>
+        </div>
+        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Zip / Postal code</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.zip }}</dd>
+        </div>
+      </dl>
+    </div>
+    <div id="buttons">
+        <button type="button" @click="formConfirmed" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register Me</button>
+        <button type="button" @click="redoForm" class="mt-2 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</button>
+    </div>
+  </div>
+
+
 </template>
 
-<style scoped>/*
-#submit {
-    background-color: greenyellow;
-    scale: 150%;
-    margin-top: 10%;
-}
-#redo {
-    background-color: red;
-    margin-left: 20px;
-    scale: 150%;
-}
-.button:hover 
-    cursor: pointer;
-}
-*/
-#div {
-  width: 300px;
-  border: 15px solid green;
-  padding: 50px;
-  margin: 20px;
+<style scoped>
+#buttons {
+    display: flex;
+    flex-direction: column;
 }
 </style>
