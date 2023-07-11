@@ -29,41 +29,41 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="h-screen">
     <div class="px-4 sm:px-0">
       <h3 class="text-base font-semibold leading-7 text-gray-900">Applicant Information</h3>
       <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
     </div>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
-        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
+        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Full name:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.firstName}} {{ info.lastName }}</dd>
         </div>
-        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Emial adress</dt>
+        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.email }}</dd>
         </div>
-        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Country</dt>
+        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.country }}</dd>
         </div>
-        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Adress</dt>
+        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Adress:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.adress }}</dd>
         </div>
-        <div class="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">City</dt>
+        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">City:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.city }}</dd>
         </div>
-        <div class="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Zip / Postal code</dt>
+        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Postal code:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.zip }}</dd>
         </div>
       </dl>
     </div>
-    <div id="buttons">
-        <button type="button" @click="formConfirmed" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register Me</button>
+    <div id="buttons" class="flex flex-col">
+        <button type="button" @click="formConfirmed" class=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Continue</button>
         <button type="button" @click="redoForm" class="mt-2 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Edit</button>
     </div>
   </div>
@@ -72,8 +72,4 @@ export default {
 </template>
 
 <style scoped>
-#buttons {
-    display: flex;
-    flex-direction: column;
-}
 </style>

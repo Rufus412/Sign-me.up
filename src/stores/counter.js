@@ -10,7 +10,7 @@ export const useStore = defineStore('storeId', {
       // all these properties will have their type inferred automatically
       Member: {
         membership: {
-          itemNumber: 123456789,
+          itemNumber: 0,
           members: []
         }
       },
@@ -27,10 +27,10 @@ export const useStore = defineStore('storeId', {
       qr.addData(JSON.stringify(this.Member));
       qr.make();
 
-      this.SvgTag = qr.createSvgTag({
-      cellSize:3, margin:100})
+      this.SvgTag = qr.createSvgTag({})
       console.log(this.SvgTag)
       this.Member.membership.members = []
+      
     }
   }
 })

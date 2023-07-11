@@ -21,7 +21,8 @@ export default {
         zip: '7',
         phoneNumber: 0,
         gender: 'Male',
-        newsLetter: true
+        newsLetter: true,
+        tos: false
       },
       formSubmitted: false
     }
