@@ -11,40 +11,38 @@ import { useStore } from '../stores/counter';
 
 
 export default {
-  
   data() {
     return {
       info: {
-            firstName: '1',
-            lastName:'2',
-            email: '3',
-            country: '4',
-            city: '5',
-            adress: '6',
-            zip: '7',
-            phoneNumber: 0,
-            gender: 'Male',
-            newsLetter: true,
-            tos: false
-          }
-      }
+          firstName: '1',
+          lastName:'2',
+          email: '3',
+          country: '4',
+          city: '5',
+          adress: '6',
+          zip: '7',
+          phoneNumber: 0,
+          gender: 'Male',
+          newsLetter: true,
+          tos: false
+      },
+      failedSubmit: false
+
+    }
   },
   methods: {
-      onSubmit() {
-          if (this.info.name === '' || this.info.email === ''|| this.info.gender === '' || this.info.phonenumber === '') {
-              alert("Not everyy field has been filed in!")
-              return
-          }          
-          const store = useStore()
-          const Membership = this.info
-          store.addMember(Membership)  
-          console.log("emitted")
-          store.Member.membership.itemNumber = (this.$route.query.itemNumber)
-          this.$router.push( {name: 'formCheck' })
-          //this.name = ''
-          //this.email = ''
-          //this.gender = ''
-          //this.phonenumber = ''
+      onSubmit() {  
+        if (Object.values(this.info).some(x => x === null || x === '')) {
+          alert("Not everyy field has been filed in!")
+          return
+        }
+
+        const store = useStore()
+        const Membership = this.info
+        store.addMember(Membership)  
+        console.log("emitted")
+        store.Member.membership.itemNumber = (this.$route.query.itemNumber)
+        this.$router.push( {name: 'formCheck' })
       }
     },
     mounted() {
