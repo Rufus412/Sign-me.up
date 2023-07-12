@@ -5,25 +5,21 @@ import { useStore } from '../stores/counter.js';
 <script>
 
 export default {
-    props: {
-        info: {
-            required: false
-        }
-    },
-      data() {
-        return {
-        }
-    },
     methods: {
         formConfirmed() {         
             const store = useStore()
-            console.log(this.info + ' <------')
-            store.addMember(this.info)
+            store.makeQR(this.inData)
             this.$router.push( {name: 'QR' })
         },
         redoForm() {
-            this.$emit('form-denied')
+            this.$router.push( {name: 'home' })
         }
+    },
+    computed:{
+      inData() {
+        const store = useStore()
+        return store.Member.membership.members[0]
+      }
     }
 }
 </script>
@@ -38,27 +34,27 @@ export default {
       <dl class="divide-y divide-gray-100">
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Full name:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.firstName}} {{ info.lastName }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.firstName}} {{ inData.lastName }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.email }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.email }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.country }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.country }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Adress:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.adress }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.adress }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">City:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.city }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.city }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Postal code:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ info.zip }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.zip }}</dd>
         </div>
       </dl>
     </div>

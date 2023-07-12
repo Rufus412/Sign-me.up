@@ -3,36 +3,53 @@
 import { useStore } from '../stores/counter';
 
 
+
 </script>
 
 
 <script>
 
 
-
 export default {
-  props: {
-    info: {
-      type: Object
-    }
+  
+  data() {
+    return {
+      info: {
+            firstName: '1',
+            lastName:'2',
+            email: '3',
+            country: '4',
+            city: '5',
+            adress: '6',
+            zip: '7',
+            phoneNumber: 0,
+            gender: 'Male',
+            newsLetter: true,
+            tos: false
+          }
+      }
   },
   methods: {
       onSubmit() {
           if (this.info.name === '' || this.info.email === ''|| this.info.gender === '' || this.info.phonenumber === '') {
               alert("Not everyy field has been filed in!")
               return
-          }
-          
+          }          
           const store = useStore()
           const Membership = this.info
-          this.$emit('review-submitted', Membership)
+          store.addMember(Membership)  
           console.log("emitted")
-          store.Member.itemNumber = (this.$route.query.itemNumber)
+          store.Member.membership.itemNumber = (this.$route.query.itemNumber)
+          this.$router.push( {name: 'formCheck' })
           //this.name = ''
           //this.email = ''
           //this.gender = ''
           //this.phonenumber = ''
       }
+    },
+    mounted() {
+      const store = useStore()
+      this.info = store.Member.membership.members[0]    
     }
   }
   
@@ -40,7 +57,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen w-full h-max">
+  <div @load="a" class="h-screen w-full h-max">
     <form>
       <div class="space-y-12 h-max">
 

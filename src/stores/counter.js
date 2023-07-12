@@ -11,7 +11,19 @@ export const useStore = defineStore('storeId', {
       Member: {
         membership: {
           itemNumber: 0,
-          members: []
+          members: [{
+            firstName: '1',
+            lastName:'2',
+            email: '3',
+            country: '4',
+            city: '5',
+            adress: '6',
+            zip: '7',
+            phoneNumber: 0,
+            gender: 'Male',
+            newsLetter: true,
+            tos: false
+          }]
         }
       },
       SvgTag: ''
@@ -19,9 +31,10 @@ export const useStore = defineStore('storeId', {
   },
   actions: {
     addMember(member) {
-      this.Member.membership.members.push(member)
-      console.log("this is a member " + JSON.stringify(this.Member))
-      
+      this.Member.membership.members[0] = (member)
+      console.log("this is a member " + JSON.stringify(this.Member))      
+    },
+    makeQR() {
       const qr = new qrcode(0, 'H');
       console.log("STORE ->" + JSON.stringify(this.Member))
       qr.addData(JSON.stringify(this.Member));
@@ -29,8 +42,6 @@ export const useStore = defineStore('storeId', {
 
       this.SvgTag = qr.createSvgTag({})
       console.log(this.SvgTag)
-      this.Member.membership.members = []
-      
     }
   }
 })

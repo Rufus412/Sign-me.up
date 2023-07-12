@@ -11,32 +11,15 @@ import FormCheck from '../components/FormCheck.vue'
 export default {
   data() {
     return {
-      info: {
-        firstName: '1',
-        lastName:'2',
-        email: '3',
-        country: '4',
-        city: '5',
-        adress: '6',
-        zip: '7',
-        phoneNumber: 0,
-        gender: 'Male',
-        newsLetter: true,
-        tos: false
-      },
       formSubmitted: false
     }
   },
+
   methods: {
     doSMTH(form) {
       console.log(form)
-      this.formSubmitted = true
-      this.info = form
-      console.log("-->" + ' ' + this.info.name)
+      console.log("-->")
     },
-    redoForm() {
-      this.formSubmitted = false
-    }
   }
 }
 
@@ -44,8 +27,8 @@ export default {
 
 <template>
   <div class="Form">
-    <Form v-if="!formSubmitted" @review-submitted="doSMTH" :info="info" ></Form>
-    <FormCheck v-else :info="info" @form-denied="redoForm" ></FormCheck>
+    <Form v-if="!formSubmitted" @review-submitted="doSMTH"></Form>
+    <FormCheck v-else  ></FormCheck>
   </div>
 </template>
 

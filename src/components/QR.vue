@@ -30,8 +30,8 @@ h1 {
     
 }
 #qrCode {
-    transform: scale(0.6);
-    margin-top: -20%;
+    transform: scale(0.7);
+    margin-top: -18%;
 }
 </style>
 
