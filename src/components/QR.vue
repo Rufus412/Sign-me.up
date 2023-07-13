@@ -16,9 +16,9 @@ const store = useStore()
     <meta charset="utf-8">
     <title>QRcode</title>
     <div>
-        <body> 
+        <body class="items-center h-screen w-screen"> 
             <h1 class="text-center mt-20">Show the QR code to the teller to register</h1>
-            <div v-html="store.SvgTag" id="qrCode" >
+            <div v-html="store.SvgTag" id="qrCode" class="h-[75%] w-[75%] ml-[12.5%] lg:h-[50%] lg:w-[50%] lg:ml-[25%] 2xl:h-[30%] 2xl:w-[30%] 2xl:ml-[35%]">
             </div>
         </body>
     </div>
@@ -28,10 +28,9 @@ const store = useStore()
 h1 {
     font-size: 40px;
     
-}
+}/*
 #qrCode {
-    transform: scale(0.7);
-    margin-top: -18%;
-}
+    transform: translate(50%, 0);
+}*/
 </style>
 

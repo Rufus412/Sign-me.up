@@ -42,11 +42,14 @@ export default {
         console.log("emitted")
         store.Member.membership.itemNumber = (this.$route.query.itemNumber)
         this.$router.push( {name: 'formCheck' })
+      },
+      getTOS() {
+        return this.$route.query.tos
       }
     },
     mounted() {
       const store = useStore()
-      this.info = store.Member.membership.members[0]    
+      this.info = store.Member.membership.members[0] 
     }
   }
   
@@ -112,12 +115,12 @@ export default {
                 <input type="text" name="postal-code" id="postal-code" v-model="info.postalCode" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
               </div>
             </div>
-            <div class="sm:col-span-2 mt-0">
-              <input type="checkbox" v-model="info.newsLetter">
-              <label class="">I want to receive newsletters</label><br>
-              <input type="checkbox" v-model="info.tos">
-              <label class="">I have read and agreed to the Terms of service</label><br>
-            </div>
+            <div class="sm:col-span-3 mt-0">
+              <input type="checkbox" v-model="info.newsLetter" id="checkBoxNews">
+              <label class="ml-2">I want to receive newsletters</label><br>
+              <input type="checkbox" v-model="info.tos" id="checkBoxTos">
+              <a class="ml-2" :href='this.$route.query.tos' target="_blank" id="checkBoxTos" >I have read and agreed to the Terms of service</a><br>
+            </div> 
             <div class="flex flex-col sm:col-span-full">
               
               <button type="submit" :disabled="!info.tos"  :class="{ 'cursor-not-allowed': !info.tos, 'bg-slate-300':!info.tos, 'hover:bg-indigo-500': info.tos }" @click="onSubmit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ">Continue</button>
@@ -132,4 +135,16 @@ export default {
     </form>
   </div>
 </template>
+
+
+<style scoped>
+#checkBoxNews {
+  transform: scale(1.25);
+  margin-top: 10px;
+}
+#checkBoxTos {
+  transform: scale(1.25);
+  margin-top: 10px;
+}
+</style>
 
