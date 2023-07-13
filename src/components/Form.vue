@@ -16,13 +16,12 @@ export default {
       info: {
           firstName: '1',
           lastName:'2',
-          email: '3',
+          eMail: '3',
           country: '4',
           city: '5',
           adress: '6',
-          zip: '7',
+          postalCode: '7',
           phoneNumber: 0,
-          gender: 'Male',
           newsLetter: true,
           tos: false
       },
@@ -81,7 +80,7 @@ export default {
             <div class="sm:col-span-4">
               <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
               <div class="mt-0">
-                <input id="email" name="email" type="email" v-model="info.email" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input id="email" name="email" type="email" v-model="info.eMail" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
               </div>
             </div>
 
@@ -110,7 +109,7 @@ export default {
             <div class="sm:col-span-3">
               <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal code</label>
               <div class="mt-0">
-                <input type="text" name="postal-code" id="postal-code" v-model="info.zip" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input type="text" name="postal-code" id="postal-code" v-model="info.postalCode" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
               </div>
             </div>
             <div class="sm:col-span-2 mt-0">

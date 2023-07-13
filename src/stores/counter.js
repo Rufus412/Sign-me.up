@@ -14,13 +14,12 @@ export const useStore = defineStore('storeId', {
           members: [{
             firstName: '1',
             lastName:'2',
-            email: '3',
+            eMail: '3',
             country: '4',
             city: '5',
             adress: '6',
-            zip: '7',
+            postalCode: '7',
             phoneNumber: 0,
-            gender: 'Male',
             newsLetter: true,
             tos: false
           }]
