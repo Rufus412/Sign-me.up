@@ -15,6 +15,7 @@
     "vue": "^3.3.4",
     "vue-country-region-select": "^2.0.16",
     "vue-router": "^4.2.2",
+    "vue-tel-input": "^8.1.1",
     "vue3-country-region-select": "^1.0.0"
   },
   "devDependencies": {

@@ -49,7 +49,21 @@ export default {
     },
     mounted() {
       const store = useStore()
-      this.info = store.Member.membership.members[0] 
+      if (this.$route.query.dev) {
+        store.addMember({
+          firstName: 'Jhon',
+          lastName:'Smith',
+          eMail: 'Jhon.Smith@gmail.com  ',
+          country: 'United States',
+          city: 'New York',
+          adress: '1 Fifth Avenue',
+          postalCode: '10003',
+          phoneNumber: '0734321852',
+          newsLetter: true,
+          tos: true
+        })
+      }
+      this.info = store.Member.membership.memberDetails[0]
     }
   }
   
@@ -89,7 +103,7 @@ export default {
             <div class="sm:col-span-3">
               <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
               <div class="mt-0">
-                <country-select id="country" name="country" v-model="info.country" :countryName=true :usei18n=false :autocomplete=true class="block w-[100.4%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"/>
+                <country-select id="country" name="country" v-model="info.country" :placeholder="info.country" :countryName=true :usei18n=false :autocomplete=true class="block w-[100.4%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"/>
               </div>
             </div>
 

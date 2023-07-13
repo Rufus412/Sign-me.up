@@ -11,7 +11,7 @@ export const useStore = defineStore('storeId', {
       Member: {
         membership: {
           itemNumber: 0,
-          members: [{
+          memberDetails: [{
             firstName: '1',
             lastName:'2',
             eMail: '3',
@@ -19,7 +19,7 @@ export const useStore = defineStore('storeId', {
             city: '5',
             adress: '6',
             postalCode: '7',
-            phoneNumber: 0,
+            phoneNumber: '8',
             newsLetter: true,
             tos: false
           }]
@@ -30,7 +30,7 @@ export const useStore = defineStore('storeId', {
   },
   actions: {
     addMember(member) {
-      this.Member.membership.members[0] = (member)
+      this.Member.membership.memberDetails[0] = (member)
       console.log("this is a member " + JSON.stringify(this.Member))      
     },
     makeQR() {

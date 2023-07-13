@@ -18,7 +18,7 @@ export default {
     computed:{
       inData() {
         const store = useStore()
-        return store.Member.membership.members[0]
+        return store.Member.membership.memberDetails[0]
       }
     }
 }
