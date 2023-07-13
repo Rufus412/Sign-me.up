@@ -15,11 +15,11 @@ export default {
           firstName: '1',
           lastName:'2',
           eMail: '3',
-          country: '4',
+          country: '',
           city: '5',
           adress: '6',
           postalCode: '7',
-          phoneNumber: 0,
+          phoneNumber: '0',
           newsLetter: true,
           tos: false
       },
@@ -100,10 +100,17 @@ export default {
               </div>
             </div>
 
-            <div class="sm:col-span-3">
-              <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
+            <div class="sm:col-span-4">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
               <div class="mt-0">
-                <country-select id="country" name="country" v-model="info.country" :placeholder="info.country" :countryName=true :usei18n=false :autocomplete=true class="block w-[100.4%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"/>
+                <input id="country" name="country" type="country" v-model="info.country" autocomplete="country" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+              </div>
+            </div>
+
+            <div class="sm:col-span-3">
+              <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
+              <div class="mt-0">
+                <vue-tel-input  id="country" name="country" v-model="info.phoneNumber"  class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"/>
               </div>
             </div>
 

@@ -6,14 +6,30 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import vueCountryRegionSelect from 'vue3-country-region-select'
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/vue-tel-input.css';
 
 
+
+const globalOptions = {
+    mode: 'international',
+    dropdownOptions: {
+        showSearchBox: true,
+        showDialCodeInSelection: true
+    },
+    showDialCodeInSelection: {
+        showDialCode: true,
+        
+    }
+};
 
 const pinia = createPinia()
 const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.use(vueCountryRegionSelect)
+app.use(VueTelInput, globalOptions)
+
 
 
 

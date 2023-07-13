@@ -1,5 +1,4 @@
 import { createPinia, defineStore } from 'pinia'
-import { toRaw } from 'vue'
 import qrcode from 'qrcode-generator-es6'
 
 
@@ -15,11 +14,11 @@ export const useStore = defineStore('storeId', {
             firstName: '1',
             lastName:'2',
             eMail: '3',
-            country: '4',
+            country: '',
             city: '5',
             adress: '6',
             postalCode: '7',
-            phoneNumber: '8',
+            phoneNumber: '0',
             newsLetter: true,
             tos: false
           }]
