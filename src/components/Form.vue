@@ -1,7 +1,5 @@
 <script setup>
-//import { PhotoIcon, UserCircleIcon } from '@heroicons/vue/24/solid'
 import { useStore } from '../stores/counter';
-
 
 
 </script>
@@ -25,7 +23,9 @@ export default {
           newsLetter: true,
           tos: false
       },
-      failedSubmit: false
+      failedSubmit: false,
+      tosLink: 'https://google.com'
+
 
     }
   },
@@ -57,13 +57,12 @@ export default {
 </script>
 
 <template>
-  <div @load="a" class="h-screen w-full h-max">
+  <div class="">
     <form>
-      <div class="space-y-12 h-max">
+      <div class="space-y-12">
 
-        <div class="border-b border-gray-900/10 pb-12 h-max">
+        <div class="border-b border-gray-900/10 pb-12 ">
           <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-          <p class="mt-0 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
           <div class="mt-5 grid grid-cols-1 gap-x-5 gap-y-[3%] sm:grid-cols-6">
             <div class="sm:col-span-3">
@@ -119,7 +118,7 @@ export default {
               <input type="checkbox" v-model="info.newsLetter" id="checkBoxNews">
               <label class="ml-2">I want to receive newsletters</label><br>
               <input type="checkbox" v-model="info.tos" id="checkBoxTos">
-              <a class="ml-2" :href='this.$route.query.tos' target="_blank" id="checkBoxTos" >I have read and agreed to the Terms of service</a><br>
+              <a class="ml-2" id="checkBoxTos" :href="tosLink" >I agree to the terms of service</a><br>
             </div> 
             <div class="flex flex-col sm:col-span-full">
               

@@ -5,21 +5,15 @@ const Show = false
 </script>
 
 <template>
-  <header>
-    
-
-    <div class="wrapper">
-
-      <nav>
-        <RouterLink to="/" v-if="Show">Home</RouterLink> 
-        <RouterLink to="/about" v-if="Show">About</RouterLink>
-      </nav>
-    </div>
+  <header class="">
+      <img id="logo" src="./assets/Logo.png" class="ml-[50%] mt-2" >
   </header>
 
   <RouterView />
 </template>
 
 <style scoped>
-
+#logo {
+  transform: translate(-50%);
+}
 </style>
