@@ -23,7 +23,8 @@ export const useStore = defineStore('storeId', {
           }]
         }
       },
-      SvgTag: ''
+      SvgTag: '',
+      devMode : false
     }
   },
   actions: {
@@ -34,13 +35,30 @@ export const useStore = defineStore('storeId', {
     },
     makeQR() {
       const qr = new qrcode(0, 'L');
-      console.log("STORE ->" + JSON.stringify(this.Member))
-      const thisData = JSON.stringify(this.Member.createMembership.members[0])
-      this.addMember(btoa(thisData))
+      let tempMember = this.Member
+      if (!this.devMode) {
+        const thisData = JSON.stringify(this.Member.createMembership)
+        tempMember  = { data: (btoa(thisData)) }
+      }
+      else {
+        tempMember.createMembership.members[0] = {
+            fn: this.Member.createMembership.members[0].firstName,
+            ln: this.Member.createMembership.members[0].lastName,
+            em: this.Member.createMembership.members[0].eMail,
+            cy: this.Member.createMembership.members[0].country,
+            ct: this.Member.createMembership.members[0].city,
+            ad: this.Member.createMembership.members[0].adress,
+            pc: this.Member.createMembership.members[0].postalCode,
+            pn: this.Member.createMembership.members[0].phoneNumber,
+            nl: this.Member.createMembership.members[0].newsLetter,
+            ts: this.Member.createMembership.members[0].tos,
+        }
+      }
 
-      qr.addData(JSON.stringify(this.Member));
+      qr.addData(JSON.stringify(tempMember));
       qr.make();
-
+      
+      console.log("STORE ->" + JSON.stringify(tempMember))
       this.SvgTag = qr.createSvgTag({})
       console.log(this.SvgTag)
     }

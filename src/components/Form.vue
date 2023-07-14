@@ -71,9 +71,11 @@ export default {
           newsLetter: true,
           tos: true
         })
+        store.devMode = true
       } 
       this.info = store.Member.createMembership.members[0]
       this.tosLink = this.$route.query.tos
+
     }
   }
   
@@ -128,7 +130,7 @@ export default {
             <div class="sm:col-span-2">
               <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
               <div class="mt-0">
-                <country-select :country="info.country" :countryName="true" id="country" name="country" type="country" v-model="info.country" autocomplete="country" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <country-select :country="info.country" :countryName="true" id="country" name="country" type="country" v-model="info.country" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
               </div>
             </div>
 
