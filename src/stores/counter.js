@@ -29,11 +29,15 @@ export const useStore = defineStore('storeId', {
   actions: {
     addMember(member) {
       this.Member.createMembership.members[0] = (member)
-      console.log("this is a member " + JSON.stringify(this.Member))      
+      console.log("this is a member " + JSON.stringify(this.Member))  
+      return    
     },
     makeQR() {
-      const qr = new qrcode(0, 'H');
+      const qr = new qrcode(0, 'L');
       console.log("STORE ->" + JSON.stringify(this.Member))
+      const thisData = JSON.stringify(this.Member.createMembership.members[0])
+      this.addMember(btoa(thisData))
+
       qr.addData(JSON.stringify(this.Member));
       qr.make();
 
