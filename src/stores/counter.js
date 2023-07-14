@@ -1,24 +1,23 @@
 import { createPinia, defineStore } from 'pinia'
 import qrcode from 'qrcode-generator-es6'
 
-
 export const useStore = defineStore('storeId', {
   // arrow function recommended for full type inference
   state: () => {
     return {
       // all these properties will have their type inferred automatically
       Member: {
-        membership: {
+        createMembership: {
           itemNumber: 0,
-          memberDetails: [{
-            firstName: '1',
-            lastName:'2',
-            eMail: '3',
+          members: [{
+            firstName: '',
+            lastName:'',
+            eMail: '',
             country: '',
-            city: '5',
-            adress: '6',
-            postalCode: '7',
-            phoneNumber: '0',
+            city: '',
+            adress: '',
+            postalCode: '',
+            phoneNumber: '',
             newsLetter: true,
             tos: false
           }]
@@ -29,7 +28,7 @@ export const useStore = defineStore('storeId', {
   },
   actions: {
     addMember(member) {
-      this.Member.membership.memberDetails[0] = (member)
+      this.Member.createMembership.members[0] = (member)
       console.log("this is a member " + JSON.stringify(this.Member))      
     },
     makeQR() {

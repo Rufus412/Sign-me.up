@@ -18,7 +18,7 @@ export default {
     computed:{
       inData() {
         const store = useStore()
-        return store.Member.membership.memberDetails[0]
+        return store.Member.createMembership.members[0]
       }
     }
 }
@@ -37,29 +37,34 @@ export default {
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.firstName}} {{ inData.lastName }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Phone Number:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.phoneNumber }}</dd>
-        </div>
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.eMail }}</dd>
-        </div>
-        <div class="bg-white-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.country }}</dd>
-        </div>
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Adress:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.adress }}</dd>
+        </div>
+        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Postal code:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.postalCode }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">City:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.city }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Postal code:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.postalCode }}</dd>
+          <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.country }}</dd>
         </div>
+        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.eMail }}</dd>
+        </div>
+        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 text-gray-900">Phone Number:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.phoneNumber }}</dd>
+        </div>
+        
+        
+        
+        
+        
       </dl>
     </div>
     <div id="buttons" class="flex flex-col">

@@ -20,7 +20,8 @@ const globalOptions = {
     showDialCodeInSelection: {
         showDialCode: true,
         
-    }
+    },
+    inputClasses: Object,
 };
 
 const pinia = createPinia()
