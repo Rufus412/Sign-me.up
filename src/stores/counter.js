@@ -2,10 +2,8 @@ import { createPinia, defineStore } from 'pinia'
 import qrcode from 'qrcode-generator-es6'
 
 export const useStore = defineStore('storeId', {
-  // arrow function recommended for full type inference
   state: () => {
     return {
-      // all these properties will have their type inferred automatically
       Member: {
         createMembership: {
           itemNumber: 0,
@@ -13,8 +11,8 @@ export const useStore = defineStore('storeId', {
             firstName: '',
             lastName:'',
             eMail: '',
-            country: '',
             city: '',
+            countryCode: '',
             adress: '',
             postalCode: '',
             phoneNumber: '',
@@ -24,43 +22,55 @@ export const useStore = defineStore('storeId', {
         }
       },
       SvgTag: '',
-      devMode : false
+      devMode : false,
     }
   },
   actions: {
     addMember(member) {
-      this.Member.createMembership.members[0] = (member)
-      console.log("this is a member " + JSON.stringify(this.Member))  
+      this.Member.createMembership.members[0] = (member) 
       return    
     },
     makeQR() {
-      const qr = new qrcode(0, 'L');
-      let tempMember = this.Member
+      const qr = new qrcode(0, 'L')
       if (!this.devMode) {
         const thisData = JSON.stringify(this.Member.createMembership)
-        tempMember  = { data: (btoa(thisData)) }
+        const payLoad = {
+          createMembership: {
+            data: (btoa(thisData)) 
+          }
+        }  
+        qr.addData(JSON.stringify(payLoad));
+        qr.make();
+        
+        console.log("QRCode Payload ->" + JSON.stringify(payLoad))
+        this.SvgTag = qr.createSvgTag({})
+        console.log(this.SvgTag)
       }
       else {
-        tempMember.createMembership.members[0] = {
-            fn: this.Member.createMembership.members[0].firstName,
-            ln: this.Member.createMembership.members[0].lastName,
-            em: this.Member.createMembership.members[0].eMail,
-            cy: this.Member.createMembership.members[0].country,
-            ct: this.Member.createMembership.members[0].city,
-            ad: this.Member.createMembership.members[0].adress,
-            pc: this.Member.createMembership.members[0].postalCode,
-            pn: this.Member.createMembership.members[0].phoneNumber,
-            nl: this.Member.createMembership.members[0].newsLetter,
-            ts: this.Member.createMembership.members[0].tos,
+        const payLoad = {
+          createMembership: {
+            in: this.Member.createMembership.itemNumber,
+            m: [{
+              fn: this.Member.createMembership.members[0].firstName,
+              ln: this.Member.createMembership.members[0].lastName,
+              em: this.Member.createMembership.members[0].eMail,
+              cc: this.Member.createMembership.members[0].countryCode,
+              ct: this.Member.createMembership.members[0].city,
+              ad: this.Member.createMembership.members[0].adress,
+              pc: this.Member.createMembership.members[0].postalCode,
+              pn: this.Member.createMembership.members[0].phoneNumber,
+              nl: this.Member.createMembership.members[0].newsLetter,
+              ts: this.Member.createMembership.members[0].tos,
+            }]
+          }
         }
+        qr.addData(JSON.stringify(payLoad));
+        qr.make();
+        
+        console.log("QRCode Payload ->" + JSON.stringify(payLoad))
+        this.SvgTag = qr.createSvgTag({})
+        console.log(this.SvgTag)
       }
-
-      qr.addData(JSON.stringify(tempMember));
-      qr.make();
-      
-      console.log("STORE ->" + JSON.stringify(tempMember))
-      this.SvgTag = qr.createSvgTag({})
-      console.log(this.SvgTag)
     }
   }
 })

@@ -19,7 +19,14 @@ export default {
       inData() {
         const store = useStore()
         return store.Member.createMembership.members[0]
+      },
+      fullCountry() {
+        const store = useStore()
+        let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+        return regionNames.of(store.Member.createMembership.members[0].countryCode)
       }
+      
+
     }
 }
 </script>
@@ -49,7 +56,7 @@ export default {
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.country }}</dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ fullCountry }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
           <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
