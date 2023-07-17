@@ -23,29 +23,18 @@ export default {
           newsLetter: true,
           tos: false
       },
-      tosLink: ''
-
+      tosLink: '',
+      failedSubmit: false
 
     }
   },
   methods: {
-      onSubmit() {  
+      onSubmit() {   
         if (Object.values(this.info).some(x => x === null || x === '')) {
-          alert("Not every field has been filed in!")
+          this.failedSubmit = true
           return
         }
-        else if (this.info.phoneNumber.charAt(0) !== '+') {
-          alert("Make sure to have a + infront of your phone number")
-          return
-        }
-        else if( this.info.eMail.replace('@', '').length + 1 !== this.info.eMail.length) {
-          return
-        }
-        else if ( this.info.eMail.indexOf('.', this.info.eMail.indexOf('@')) === -1) {
-          alert("Invalid E-Mail adress")
-          return
-        }
-
+      
         const store = useStore()
         const Membership = this.info
         store.addMember(Membership)  
@@ -75,15 +64,15 @@ export default {
       } 
       this.info = store.Member.createMembership.members[0]
       this.tosLink = this.$route.query.tos
-    }
+    
   }
   
-    
+}   
 </script>
 
 <template>
   <div class="">
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" novalidate> 
       <div class="space-y-12">
 
         <div class="border-b border-gray-900/10 pb-12 ">
@@ -93,57 +82,81 @@ export default {
             <div class="sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name:</label>
               <div class="mt-0">
-                <input type="text" name="first-name" id="first-name" v-model="info.firstName" autocomplete="given-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input required pattern="\S+.*" type="text" name="first-name" id="first-name" placeholder="First Name" v-model="info.firstName" autocomplete="given-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"  />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
               <div class="mt-0">
-                <input type="text" name="last-name" v-model="info.lastName" id="last-name" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 " />
+                <input required pattern="\S+.*" type="text" name="last-name" v-model="info.lastName" id="last-name" placeholder="Last Name" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }" />
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
-            
             <div class="sm:col-span-4">
               <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
               <div class="mt-0">
-                <input type="text" name="street-address" v-model="info.adress" id="street-address" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input required pattern="\S+.*" type="text" name="street-address" v-model="info.adress" id="street-address" placeholder="Adress" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-3">
               <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Postal code</label>
               <div class="mt-0">
-                <input type="text" name="postal-code" id="postal-code" v-model="info.postalCode" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input required pattern="\S+.*" type="text" name="postal-code" id="postal-code" v-model="info.postalCode" placeholder="Post code" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/> 
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-3 sm:col-start-4">
               <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
               <div class="mt-0">
-                <input type="text" name="city" id="city" v-model="info.city" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input required pattern="\S+.*" type="text" name="city" id="city" v-model="info.city" placeholder="City" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer " :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-2">
               <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
               <div class="mt-0">
-                <country-select :country="info.country" id="country" name="country" type="country" v-model="info.countryCode" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <country-select :country="info.country" id="country" name="country" type="country" v-model="info.countryCode" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6  peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-5">
               <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
               <div class="mt-0">
-                <input id="email" name="email" type="email" v-model="info.eMail" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                <input id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" type="email" v-model="info.eMail" placeholder="Email" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                  Enter a valid value!
+              </span>
               </div>
             </div>
 
             <div class="sm:col-span-full">
               <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
               <div class="mt-0">
-                <input  id="country" name="country" v-model="info.phoneNumber" placeholder="+1 (555) 987-6543" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"/>
+                <input  id="country" pattern="\S+.*" required name="country" v-model="info.phoneNumber" placeholder="+1 (555) 987-6543" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
+                Enter a valid value!
+              </span>
+                
               </div>
             </div>
 
