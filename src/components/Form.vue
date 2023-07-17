@@ -144,7 +144,7 @@ export default {
               <div class="mt-0">
                 <input id="email" required pattern="[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}$" name="email" type="email" v-model="info.eMail" placeholder="Email" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
-                  Enter a valid value!
+                  Enter a valid Email!
               </span>
               </div>
             </div>
