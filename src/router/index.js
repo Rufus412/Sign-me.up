@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { useStore } from '../stores/counter'
 import FormCheckVue from '../components/FormCheck.vue'
+import SignInOptionsView from '../views/SignInOptionsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,12 +10,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: SignInOptionsView,
     },
     {
       path: '/DoubleCheck',
       name: 'formCheck',
       component: FormCheckVue
+    },
+    {
+      path: '/formview',
+      name: 'formView',
+      component: HomeView
     },
     {
       path: '/QR',

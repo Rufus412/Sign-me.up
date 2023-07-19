@@ -12,7 +12,7 @@ export default {
             this.$router.push( {name: 'QR' })
         },
         redoForm() {
-            this.$router.push( {name: 'home' })
+            this.$router.push( {name: 'formView' })
         }
     },
     computed:{
