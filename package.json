@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "pinia": "^2.1.4",
     "qr.js": "^0.0.0",
     "qrcode-generator-es6": "^1.1.4",

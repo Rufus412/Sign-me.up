@@ -2,26 +2,9 @@
 import { toValue } from 'vue';
 import  Form  from '../components/Form.vue'
 import FormCheck from '../components/FormCheck.vue'
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '{your-app-id}',
-      cookie     : true,
-      xfbml      : true,
-      version    : '{api-version}'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
+import { apiService } from '../Services/APIService'
+import  router from '../router/index.js'
+import { useStore } from '../stores/counter'
 </script>
 
 <script>
@@ -29,22 +12,30 @@ window.fbAsyncInit = function() {
 
 
 
-FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
-
-
-
-function statusChangeCallback(response) {
-
-}
-
-
-export default {
-    methods: {
-        
+window.checkLoginState = async res => {
+  FB.getLoginStatus(function(response) {
+    if (isConnected(response)) { 
+        getUserData()
+        router.push({ name: 'formCheck'})
+      
     }
+  })
 }
+
+
+function getUserData() {
+          apiService.getName(apiService.getLogginData())
+           
+        }
+
+
+
+function isConnected(response) {
+            if (response.status === 'connected') {
+              return true
+            }
+          }  
+
 
 </script>
 
@@ -55,7 +46,8 @@ export default {
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register as a member</h2>
     </div>
-
+    
+    
     <div class=" sm:mx-auto sm:w-full sm:max-w-[480px]">
       <div class="bg-gray-50 mt-10 px-6 py-12 shadow sm:rounded-lg rounded-lg sm:px-12">
           <div>
@@ -67,15 +59,22 @@ export default {
                 <button type="submit" @click="navigate" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in with Email</button>
             </router-link>
           </div>
-
         <div>
           <div class="relative mt-10">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-200" />
             </div>
             <div class="relative flex justify-center text-sm font-medium leading-6">
-              <span class="px-6 text-gray-900">Or continue with</span>
+              <div
+              class="rounded-md w-full"
+              className="fb-login-button"
+              data-size="large"
+              data-button-type="continue_with"
+              data-onlogin="checkLoginState();"
+              sm:data-width="384"
+              ></div>
             </div>
+            
           </div>
 
           
