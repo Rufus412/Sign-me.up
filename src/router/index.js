@@ -4,6 +4,7 @@ import { useStore } from '../stores/counter'
 import FormCheckVue from '../components/FormCheck.vue'
 import SignInOptionsView from '../views/SignInOptionsView.vue'
 import SelfieView from '../views/SelfieView.vue'
+import SubmissionConfirmationView from '../views/SubmissionConfirmationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/selfie',
       name: 'selfie',
       component: SelfieView
+    },
+    {
+      path: '/registered',
+      name: 'registered',
+      component: SubmissionConfirmationView
     },
     {
       path: '/QR',

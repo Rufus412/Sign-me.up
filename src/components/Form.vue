@@ -1,5 +1,6 @@
 <script setup>
 import { useStore } from '../stores/counter';
+import { onRenderTriggered } from 'vue'
 
 
 </script>
@@ -43,6 +44,9 @@ export default {
         
       }
     },
+    render() {
+      this.info = store.Member.createMembership.members[0]
+    },
     mounted() {
       const store = useStore()
       if (this.$route.query.dev) {
@@ -63,7 +67,8 @@ export default {
       this.info = store.Member.createMembership.members[0]
       this.tosLink = this.$route.query.tos
     
-  }
+  },
+  
   
 }   
 </script>

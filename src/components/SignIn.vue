@@ -42,10 +42,18 @@ export default {
                 newsLetter: true,
                 tos: true
             })
+            console.log(JSON.stringify(store.Member.createMembership.members[0]))
         } 
         if (this.$route.query.lvl3) {
-            store.lvl3 = true
-        } 
+          console.log("lvl3 active")
+          store.lvl3 = true
+        }
+        if (this.$route.query.PartitionKey) {
+          store.PartitionKey = this.$route.query.PartitionKey
+        }
+        if (this.$route.query.RowKey) {
+          store.RowKey = this.$route.query.RowKey
+        }
     }
 }
 

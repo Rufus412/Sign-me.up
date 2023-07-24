@@ -8,11 +8,15 @@ export default {
     methods: {
         formConfirmed() {         
             const store = useStore()
-            store.makeQR(this.inData)
-            if (store.lvl3) {
-              this.$router.push()
+            
+            console.log(store.lvl3)
+            if (store.lvl3 !== false) {
+              this.$router.push( {name: 'selfie'} )
             }
-            this.$router.push( {name: 'QR' })
+            else {
+              store.makeQR(this.inData)
+              this.$router.push( {name: 'QR' })
+            }
         },
         redoForm() {
             this.$router.push( {name: 'formView' })

@@ -25,14 +25,17 @@ export const useStore = defineStore('storeId', {
       devMode : false,
       logInMethod: '',
       memberID: 0,
-      lvl3: false
+      lvl3: false,
+      PartitionKey: '',
+      RowKey: '',
+      xml: '',
     }
   },
   actions: {
     addMember(member) {
-      if (! this.devMode)
-        this.Member.createMembership.members[0] = (member) 
-        return    
+      
+      this.Member.createMembership.members[0] = (member) 
+      return    
     },
     makeQR() {
       const qr = new qrcode(0, 'L')
@@ -79,6 +82,34 @@ export const useStore = defineStore('storeId', {
         this.SvgTag = qr.createSvgTag({})
         console.log(this.SvgTag)
       }
+    },
+    makeXML() {
+      let InnerXml = {
+        PartitionKey: this.PartitionKey,
+        RowKey: this.RowKey,
+        m: {
+          fn: this.Member.createMembership.members[0].firstName,
+          ln: this.Member.createMembership.members[0].lastName,
+          em: this.Member.createMembership.members[0].eMail,
+          cc: this.Member.createMembership.members[0].countryCode,
+          ct: this.Member.createMembership.members[0].city,
+          ad: this.Member.createMembership.members[0].adress,
+          pc: this.Member.createMembership.members[0].postalCode,
+          pn: this.Member.createMembership.members[0].phoneNumber,
+          nl: this.Member.createMembership.members[0].newsLetter,
+          ts: this.Member.createMembership.members[0].tos,
+          su: {
+            pv: this.logInMethod,
+            tn: this.memberID
+          }
+        }
+      }
+      console.log(JSON.stringify(InnerXml))
+      let base64XML = btoa(JSON.stringify(InnerXml))
+      return `<QueueMessage>  
+                <MessageText>${base64XML}</MessageText>  
+              </QueueMessage>`
+
     }
   }
 })

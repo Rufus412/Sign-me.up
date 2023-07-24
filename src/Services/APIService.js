@@ -30,18 +30,21 @@ async function getName(accessToken) {
             console.log('FB-api raw: ' + response)
             console.log(Object.values(response))
             let responseVals = Object.values(response)
-            store.addMember({
-                firstName: responseVals[0],
-                lastName: responseVals[1],
-                eMail: responseVals[2],
-                countryCode: '',
-                city: '',
-                adress:'',
-                postalCode: '',
-                phoneNumber: '',
-                newsLetter: '',
-                tos: '',
-            })
+            if (store.devMode !== true) {
+                console.log("Adding values from FB api call")
+                store.addMember({
+                    firstName: responseVals[0],
+                    lastName: responseVals[1],
+                    eMail: responseVals[2],
+                    countryCode: '',
+                    city: '',
+                    adress:'',
+                    postalCode: '',
+                    phoneNumber: '',
+                    newsLetter: '',
+                    tos: '',
+                })
+            }
             store.logInMethod = 'facebook'
         }
     );
