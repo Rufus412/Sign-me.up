@@ -37,10 +37,9 @@ export default {
         const store = useStore()
         const Membership = this.info
         store.addMember(Membership)  
-        console.log("emitted")
         store.Member.createMembership.itemNumber = (this.$route.query.itemNumber)
+        store.Member.createMembership.logInMethod = 'form'
         this.$router.push( {name: 'formCheck' })
-        
         
       }
     },

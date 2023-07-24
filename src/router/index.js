@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import { useStore } from '../stores/counter'
 import FormCheckVue from '../components/FormCheck.vue'
 import SignInOptionsView from '../views/SignInOptionsView.vue'
+import SelfieView from '../views/SelfieView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/formview',
       name: 'formView',
       component: HomeView
+    },
+    {
+      path: '/selfie',
+      name: 'selfie',
+      component: SelfieView
     },
     {
       path: '/QR',

@@ -13,15 +13,6 @@ export function initFacebookSdk() {
             });
             FB.AppEvents.logPageView();
             console.log("Init Passed")
-            /*
-            // auto authenticate with the api if already logged in with facebook
-            FB.getLoginStatus(({ authResponse }) => {
-                if (authResponse) {
-                    accountService.apiAuthenticate(authResponse.accessToken).then(resolve);
-                } else {
-                    resolve();
-                }
-            }); */
         };
 
         // load facebook sdk script

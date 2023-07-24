@@ -1,11 +1,12 @@
 <script setup>
-import SignIn from '../components/SignIn.vue'
+import selfie from '../components/selfie.vue'
 </script>
+
 
 
 
 <template>
 <div>
-  <SignIn />
+    <selfie />
 </div>
 </template>

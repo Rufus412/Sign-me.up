@@ -9,6 +9,9 @@ export default {
         formConfirmed() {         
             const store = useStore()
             store.makeQR(this.inData)
+            if (store.lvl3) {
+              this.$router.push()
+            }
             this.$router.push( {name: 'QR' })
         },
         redoForm() {

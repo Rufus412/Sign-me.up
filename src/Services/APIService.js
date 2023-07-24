@@ -11,17 +11,14 @@ function getLogginData() {
     });
 }
 function statusChangeCallback(response) {
+    const store = useStore()
     console.log(response.authResponse)
-
-    let x = {
-        firstName: response.first_name
-    }
-    console.log("First name from response: " + JSON.stringify(x))
+    store.userID = response.authResponse.userID
     return response.authResponse
 }
 
 async function getName(accessToken) {
-    let response = await FB.api(
+    FB.api(
         '/me',
         'GET',
         {"fields":"first_name,last_name,middle_name,email",
@@ -45,7 +42,7 @@ async function getName(accessToken) {
                 newsLetter: '',
                 tos: '',
             })
-            return response
+            store.logInMethod = 'facebook'
         }
     );
 
