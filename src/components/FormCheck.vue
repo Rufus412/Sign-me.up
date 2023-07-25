@@ -14,7 +14,7 @@ export default {
               this.$router.push( {name: 'selfie'} )
             }
             else {
-              store.makeQR(this.inData)
+              store.makeQR()
               this.$router.push( {name: 'QR' })
             }
         },

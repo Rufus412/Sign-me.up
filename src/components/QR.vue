@@ -1,7 +1,6 @@
 <script setup>
 
 import { useStore } from '../stores/counter.js'
-import qrcode from 'qrcode-generator-es6'
 
 </script>
 

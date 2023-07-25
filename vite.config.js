@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/npk/member/m3/',
+  //base: '/npk/member/m3/',
   plugins: [
     vue(),
   ],

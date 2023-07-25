@@ -11,10 +11,6 @@ export default {
     data() {
         const store = useStore()
         return {
-            xmlString: 
-                `<QueueMessage>  
-                    <MessageText>${store.xml}</MessageText>  
-                </QueueMessage>`,
             delayInMilliseconds: 1000,
             error: false
         }
@@ -29,18 +25,27 @@ export default {
                     this.$router.push( {name: 'registered'} )
             })
                 .catch(error => {
-                    console.log(error)
+                    console.log(error)  
                     setTimeout(function() {
+
+
                         axiosService.postToQueue(xmlPayload)
                             .then((response) => {
                                 this.$router.push( {name: 'registered'} )
                             })
                             .catch(error => {
                                 console.log("ERROORRRR")
+                                store.makeQR(xmlPayload)
                             })
+
+
                     }, this.delayInMilliseconds);
+                
             })
-            
+            this.swapView()
+        },
+    swapView() {
+        this.$router.push( {name: 'QR' })
         }
     }
 }

@@ -105,9 +105,7 @@ function isConnected(response) {
               data-size="large"
               data-button-type="continue_with"
               data-onlogin="checkLoginState();"
-              data-height="400"
-              data-width="100"
-              sm:data-width="200"
+              data-height="500"
               ></div>
             </div>
             
