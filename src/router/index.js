@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import FormView from '../views/FromView.vue'
 import { useStore } from '../stores/counter'
 import FormCheckVue from '../components/FormCheck.vue'
 import SignInOptionsView from '../views/SignInOptionsView.vue'
@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/formview',
       name: 'formView',
-      component: HomeView
+      component: FormView
     },
     {
       path: '/selfie',

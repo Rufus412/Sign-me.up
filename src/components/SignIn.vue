@@ -5,6 +5,10 @@ import FormCheck from '../components/FormCheck.vue'
 import { apiService } from '../Services/APIService'
 import  router from '../router/index.js'
 import { useStore } from '../stores/counter'
+//import { countryLookUp } from '../helpers/PhoneNumberLookup'
+import { findCountryCode } from '../helpers/PhonenumberCountryItentifier'
+
+
 </script>
 
 <script>
@@ -27,13 +31,16 @@ window.checkLoginState = async res => {
 export default {
     mounted() {
         const store = useStore()
-        if (this.$route.query.dev) {
+        
+        const params = (new URL(location)).searchParams;
+        console.log(params.get('dev'))
+        if (params.get('dev')) {
             console.log("Dev mode")
             store.devMode = true
             store.addMember({
                 firstName: 'John',
                 lastName:'Smith',
-                eMail: 'John.Smith@gmail.com  ',
+                eMail: 'John.Smith@gmail.com',
                 countryCode: 'US',
                 city: 'New York',
                 adress: '1 Fifth Avenue',
@@ -44,16 +51,41 @@ export default {
             })
             console.log(JSON.stringify(store.Member.createMembership.members[0]))
         } 
-        if (this.$route.query.lvl3) {
+        
+        if (params.get('PartitionKey')) {
+          store.PartitionKey = params.get('PartitionKey')
+        }
+        if (params.get('RowKey')) {
+          store.RowKey = params.get('RowKey')
+        }
+        store.tosLink = params.get('tos')
+
+
+        console.log(window.location.href)
+
+        console.log(params.get('SignUpFlow'))
+        if (params.get('SignUpFlow') === '0') {
+          this.$router.push( {name: 'formView'})
+        }
+        else {
           console.log("lvl3 active")
           store.lvl3 = true
         }
-        if (this.$route.query.PartitionKey) {
-          store.PartitionKey = this.$route.query.PartitionKey
+
+        if (params.get('phoneNumber')) {
+          let regionNames = new Intl.DisplayNames(['en'], {type: 'region'})
+          store.Member.createMembership.members[0].phoneNumber = params.get('phoneNumber')
+          console.log(params.get('phoneNumber'))
+          let ccIn = findCountryCode(params.get('phoneNumber'))
+          console.log(ccIn)
+          if (ccIn !== null) {
+            store.Member.createMembership.members[0].countryCode = ccIn 
+            store.phoneInQuery = true
+            store.fullCountryName = regionNames.of(ccIn)
+          }
         }
-        if (this.$route.query.RowKey) {
-          store.RowKey = this.$route.query.RowKey
-        }
+
+
     }
 }
 

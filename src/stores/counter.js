@@ -29,15 +29,20 @@ export const useStore = defineStore('storeId', {
       PartitionKey: '',
       RowKey: '',
       xmlPayload: '',
+      fullCountryName: '',
+      tosLink: '',
+      phoneInQuery: false, 
     }
   },
   actions: {
     addMember(member) {
+      let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
       
       this.Member.createMembership.members[0] = (member) 
+      this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode)
       return    
     },
-    makeQR(input) {
+    makeQR() {
       const qr = new qrcode(0, 'L')
       if (!this.lvl3) {
         console.log("notlvl3")
@@ -56,7 +61,7 @@ export const useStore = defineStore('storeId', {
               nl: this.Member.createMembership.members[0].newsLetter,
               ts: this.Member.createMembership.members[0].tos,
               su: {
-                pv: this.logInMethod,
+                pv: this.logInMethod || 'email',
                 tn: this.memberID
               }
             }]
@@ -130,7 +135,7 @@ export const useStore = defineStore('storeId', {
       let base64XML = btoa(JSON.stringify(InnerXml))
       return `<QueueMessage>  
                 <MessageText>${base64XML}</MessageText>  
-              </QueueMessage>>`
+              </QueueMessage>`
 
     }
   }
