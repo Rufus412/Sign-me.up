@@ -1,18 +1,24 @@
 <script setup>
 import { axiosService } from '../Services/AxiosService.js'
 import { useStore } from '../stores/counter';
+import { ref, onMounted } from 'vue'
 
+const player = ref(null)
+const canvas = ref(null)
+const capture = ref(null)
 
 </script>
 
 <script>
+
 
 export default {
     data() {
         const store = useStore()
         return {
             delayInMilliseconds: 1000,
-            error: false
+            error: false,
+            pictureTaken: false,
         }
     },
     methods: {
@@ -35,7 +41,7 @@ export default {
                             })
                             .catch(error => {
                                 console.log("ERROORRRR")
-                                store.makeQR(xmlPayload)
+                                store.makeQR()
                             })
 
 
@@ -46,7 +52,25 @@ export default {
         },
     swapView() {
         this.$router.push( {name: 'QR' })
-        }
+        },
+    draw() {
+        canvas.getContext('2d').drawImage(player, 0, 0, canvas.width, canvas.height)
+        player.srcObject.getVideoTracks().forEach(track => track.stop())
+        this.pictureTaken = true
+    }
+    },
+    mounted() {
+        const constraints = {
+            video: true,
+        };
+
+    
+
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+            player.srcObject = stream;
+        });
+
+
     }
 }
 
@@ -58,6 +82,15 @@ export default {
     <div v-if="!error">
         <div class="text-center">
             <p>Do you want to add a picture of your self?</p>
+            <input type="file" accept="image/*" capture="user" />
+        </div>
+
+        <div>
+
+            <video v-if="!pictureTaken" ref="player" id="player" controls autoplay></video>
+            <button ref="capture" id="capture" @click="draw">Capture</button>
+            <canvas ref="canvas" id="canvas" width="320" height="240"></canvas>
+
         </div>
 
         <div id="buttons" class="mt-12 flex flex-col">
