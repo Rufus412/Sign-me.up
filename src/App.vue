@@ -19,8 +19,9 @@ const Show = false
 #logo {
   margin-left: 50%;
   margin-top: 10px;
-  transform: translate(-29%);
   scale: 1.5;
+  transform: translate(-33.33333333333333%);
+  
 
 }
 </style>

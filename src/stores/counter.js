@@ -110,9 +110,8 @@ export const useStore = defineStore('storeId', {
       console.log(this.SvgTag)
     },
     makeXML() {
-      let InnerXml = {
-        PartitionKey: this.PartitionKey,
-        RowKey: this.RowKey,
+      
+      let membershipData = {
         m: {
           fn: this.Member.createMembership.members[0].firstName,
           ln: this.Member.createMembership.members[0].lastName,
@@ -130,11 +129,19 @@ export const useStore = defineStore('storeId', {
           }
         }
       }
+
+      let InnerXml = {
+        PartitionKey: this.PartitionKey,
+        RowKey: this.RowKey,
+        Data: btoa(JSON.stringify(membershipData)),
+        Image: ''
+      }
+
       this.xmlPayload = InnerXml
       console.log(JSON.stringify(InnerXml))
-      let base64XML = btoa(JSON.stringify(InnerXml))
+      let completeXmlContent = JSON.stringify(InnerXml)
       return `<QueueMessage>  
-                <MessageText>${base64XML}</MessageText>  
+                <MessageText>${completeXmlContent}</MessageText>  
               </QueueMessage>`
 
     }
