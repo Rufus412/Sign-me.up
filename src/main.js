@@ -24,13 +24,11 @@ const globalOptions = {
     },
     inputClasses: Object,
 };
-console.log("promise")
 initFacebookSdk().then(mountApp());
 
 
 function mountApp(){
 
-    console.log("mounting")
     const pinia = createPinia()
     const app = createApp(App)
     app.use(pinia)

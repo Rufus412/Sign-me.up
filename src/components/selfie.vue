@@ -1,15 +1,17 @@
 <script setup>
 import { axiosService } from '../Services/AxiosService.js'
 import { useStore } from '../stores/counter';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
-const player = ref(null)
-const canvas = ref(null)
-const capture = ref(null)
+
 
 </script>
 
 <script>
+
+
+
+
 
 
 export default {
@@ -19,10 +21,12 @@ export default {
             delayInMilliseconds: 1000,
             error: false,
             pictureTaken: false,
+            //picture,
             
         }
     },
     methods: {
+        
         azurePush() {
             const store = useStore()
             console.log(store.xml)
@@ -54,8 +58,19 @@ export default {
         swapView() {
             this.$router.push( {name: 'QR' })
         },
-    },
-    mounted() {
+        readFile() {
+            var input = document.getElementById("profilePic")
+            const reader = new FileReader()
+            const store = useStore()
+            console.log("changed")
+            const FR = new FileReader()
+            const data = reader.readAsBinaryString(input.files[0]);
+            reader.addEventListener('load', (e) => {
+                const data = e.target.result;
+                store.profilePicAsBase64 = btoa(data)
+                console.log(btoa(data))
+            })
+        }
     }
 }
 
@@ -67,12 +82,10 @@ export default {
     <div v-if="!error">
         <div class="text-center">
             <p>Do you want to add a picture of your self?</p>
-            <input id="profilePic" type="file" accept="image/*" capture="user" class="hidden" />
+            <input id="profilePic" type="file" @change="readFile" accept="image/*" ref="file" capture="user" class="" />
         </div>
 
         <div>
-
-           
 
         </div>
 

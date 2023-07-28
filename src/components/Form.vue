@@ -181,7 +181,7 @@ export default {
               <input type="checkbox" v-model="info.newsLetter" id="checkBoxNews">
               <label class="ml-2">I want to receive newsletters</label><br>
               <input type="checkbox" v-model="info.tos" id="checkBoxTos">
-              <a class="ml-2" id="checkBoxTos" :href="tosLink" >I agree to the terms of service</a><br>
+              <a class="ml-2" id="checkBoxTos" :href="tosLink" target="_blank" >I agree to the terms of service</a><br>
             </div> 
             <div class="flex flex-col sm:col-span-full">
               

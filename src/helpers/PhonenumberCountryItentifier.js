@@ -82,7 +82,7 @@ export function findCountryCode(phoneNumber) {
     if (phoneNumberDigits[0] !== "+") {
         return null
     }
-    let myVar = eval("phonenumberCountryCode"+"[phoneNumberDigits['1']]")
+    let myVar = phonenumberCountryCode[phoneNumberDigits['1']]
     console.log(myVar)
     if (typeof myVar === 'string' && myVar !== null) {
         console.log(myVar)
@@ -92,7 +92,7 @@ export function findCountryCode(phoneNumber) {
         let phoneNumberStart = phoneNumberDigits[1].concat(phoneNumberDigits[2])
         console.log(phoneNumberStart)
         console.log(typeof phoneNumberStart)
-        myVar = eval("phonenumberCountryCode"+"[phoneNumberDigits[1]][phoneNumberStart]")
+        myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart]
         console.log(myVar)
         if (typeof myVar === 'string' && myVar !== null) {
             console.log(myVar)
@@ -100,7 +100,7 @@ export function findCountryCode(phoneNumber) {
         }
         else {
             let phoneNumberStart2 = phoneNumberStart.concat(phoneNumberDigits[3])
-            myVar = eval("phonenumberCountryCode"+"[phoneNumberDigits[1]][phoneNumberStart][phoneNumberStart2]")
+            myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart][phoneNumberStart2]
             if (typeof myVar === 'string' && myVar !== null) {
                 console.log(myVar)
                 return myVar

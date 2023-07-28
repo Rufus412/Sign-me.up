@@ -32,6 +32,7 @@ export const useStore = defineStore('storeId', {
       fullCountryName: '',
       tosLink: '',
       phoneInQuery: false, 
+      profilePicAsBase64: '',
     }
   },
   actions: {
@@ -134,7 +135,8 @@ export const useStore = defineStore('storeId', {
         PartitionKey: this.PartitionKey,
         RowKey: this.RowKey,
         Data: btoa(JSON.stringify(membershipData)),
-        Image: ''
+        Image: '',
+        //Image: this.profilePicAsBase64
       }
 
       this.xmlPayload = InnerXml
