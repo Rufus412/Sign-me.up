@@ -18,7 +18,7 @@ function statusChangeCallback(response) {
     return response.authResponse
 }
 
-async function getName(accessToken) {
+function getName(accessToken) {
     FB.api(
         '/me',
         'GET',
@@ -26,6 +26,7 @@ async function getName(accessToken) {
         "access_token": accessToken },
         
         function(response) {
+            
             const store = useStore()
             console.log('FB-api:' + JSON.stringify(response))
             console.log('FB-api raw: ' + response)

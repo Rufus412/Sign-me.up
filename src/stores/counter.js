@@ -86,12 +86,32 @@ export const useStore = defineStore('storeId', {
       else {
         console.log("Lvl3")
         if (!this.devMode) {
-          let axiosFailQRCode = {
-            updateMembership: {
-              data: btoa(JSON.stringify(this.xmlPayload))
+          const axiosFailQRPayload = {
+            RowKey: this.RowKey,
+            m: {
+              fn: this.Member.createMembership.members[0].firstName,
+              ln: this.Member.createMembership.members[0].lastName,
+              em: this.Member.createMembership.members[0].eMail,
+              cc: this.Member.createMembership.members[0].countryCode,
+              ct: this.Member.createMembership.members[0].city,
+              ad: this.Member.createMembership.members[0].adress,
+              pc: this.Member.createMembership.members[0].postalCode,
+              pn: this.Member.createMembership.members[0].phoneNumber,
+              nl: this.Member.createMembership.members[0].newsLetter,
+              ts: this.Member.createMembership.members[0].tos,
+              su: {
+                pv: this.logInMethod ||  'email',
+                tn: this.memberID
+              }
             }
           }
-          qr.addData(axiosFailQRCode)
+          let axiosFailQRCode = {
+            updateMembership: {
+              data: btoa(JSON.stringify(axiosFailQRPayload))
+            }
+          }
+          console.log(JSON.stringify(axiosFailQRCode) + " QR code content")
+          qr.addData(JSON.stringify(axiosFailQRCode))
           qr.make();
         }
         else {
@@ -144,7 +164,7 @@ export const useStore = defineStore('storeId', {
       let completeXmlContent = JSON.stringify(InnerXml)
       return `<QueueMessage>  
                 <MessageText>${completeXmlContent}</MessageText>  
-              </QueueMessage>`
+              </QueueMessage>>`
 
     }
   }
