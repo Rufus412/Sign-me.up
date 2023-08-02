@@ -91,8 +91,8 @@ export default {
       </dl>
     </div>
     <div id="buttons" class="flex flex-col">
-        <button type="button" @click="formConfirmed" :disabled="!inData.tos"  :class="{ 'cursor-not-allowed': !inData.tos, 'bg-slate-300':!inData.tos, 'hover:bg-indigo-500': inData.tos }" class=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm border-0 sm:border-2 border-black border-solid">Continue</button>
-        <button type="button" @click="redoForm"  class="mt-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm border-0 sm:border-2 border-black border-solid hover:bg-gray-50">Edit</button>
+        <button type="button" @click="formConfirmed" :disabled="!inData.tos"  :class="{ 'cursor-not-allowed': !inData.tos, 'bg-slate-300':!inData.tos, 'hover:bg-indigo-500': inData.tos }" class=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm border-0 sm:border-2 border-black border-solid">{{ $t('form.continueButton') }}</button>
+        <button type="button" @click="redoForm"  class="mt-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm border-0 sm:border-2 border-black border-solid hover:bg-gray-50">{{ $t('form.editButton') }}</button>
     </div>
   </div>
 

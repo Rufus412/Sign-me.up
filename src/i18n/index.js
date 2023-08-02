@@ -24,6 +24,7 @@ const messages = {
       tosLabel: "I agree to the terms of service",
       continueButton: "Continue",
       fullNameLabel: "Full name",
+      editButton: "Edit"
       // ... add other translations as needed
     },
     selfie: {
@@ -43,13 +44,13 @@ const messages = {
   },
   sv: {
     frontPage: {
-      header: "Komplett medlemsregistrering",
+      header: "Slutför medlemsregistrering",
       emailButton: "Slutför med e-post",
       facebookButton: "Slutför med Facebook",
       tac: "Villkor och regler",
     },
     form: {
-      title: "Personal Information",
+      title: "Personlig Information",
       firstNameLabel: "Förnamn",
       lastNameLabel: "Efternamn",
       addressLabel: "Adress",
@@ -63,6 +64,7 @@ const messages = {
       tosLabel: "Jag godkänner användarvillkoren",
       continueButton: "Fortsätt",
       fullNameLabel: "Fullständigt namn",
+      editButton: "Redigera"
       // ... add other translations as needed
     },
     selfie: {
@@ -88,7 +90,7 @@ const messages = {
       tac: "Vilkår og betingelser",
     },
     form: {
-      title: "Personlig information",
+      title: "Personlige Oplysninger",
       firstNameLabel: "Fornavn",
       lastNameLabel: "Efternavn",
       addressLabel: "Adresse",
@@ -102,6 +104,7 @@ const messages = {
       tosLabel: "Jeg accepterer vilkår og betingelser",
       continueButton: "Fortsæt",
       fullNameLabel: "Fulde navn",
+      editButton: "Redigere"
       // ... add other translations as needed
     },
     selfie: {
