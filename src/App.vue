@@ -5,15 +5,25 @@ const Show = false
 </script>
 
 <template>
-  <header class="">
-      <img id="logo" src="./assets/Logo.png" class="ml-[50%] mt-2" >
-  </header>
+  <div class="h-full">
+    <header>
+      <img id="logo" src="./assets/Logo.png" alt="">
+    </header>
+  
+    <div class>
+      <RouterView class="h-full" />
 
-  <RouterView />
+    </div>
+  </div>
 </template>
 
 <style scoped>
 #logo {
-  transform: translate(-50%);
+  margin-left: 50%;
+  margin-top: 10px;
+  scale: 1.5;
+  transform: translate(-33.33333333333333%);
+  
+
 }
 </style>
