@@ -38,13 +38,6 @@ function getName(accessToken) {
                     firstName: responseVals[0],
                     lastName: responseVals[1],
                     eMail: responseVals[2],
-                    countryCode: '',
-                    city: '',
-                    adress:'',
-                    postalCode: '',
-                    phoneNumber: '',
-                    newsLetter: '',
-                    tos: '',
                 })
             }
             store.logInMethod = 'facebook'

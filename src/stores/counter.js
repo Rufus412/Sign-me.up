@@ -33,13 +33,29 @@ export const useStore = defineStore('storeId', {
       tosLink: '',
       phoneInQuery: false, 
       profilePicAsBase64: '',
+      createApiError: false
     }
   },
   actions: {
     addMember(member) {
       let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+
+
+
       
-      this.Member.createMembership.members[0] = (member) 
+      this.Member.createMembership.members[0] = {
+        firstName: member.firstName ?? this.Member.createMembership.members[0].firstName,
+        lastName: member.lastName ?? this.Member.createMembership.members[0].lastName,
+        eMail: member.eMail ?? this.Member.createMembership.members[0].eMail,
+        city: member.city ?? this.Member.createMembership.members[0].city,
+        countryCode: member.countryCode ?? this.Member.createMembership.members[0].countryCode,
+        adress: member.adress ?? this.Member.createMembership.members[0].adress,
+        postalCode: member.postalCode ?? this.Member.createMembership.members[0].postalCode,
+        phoneNumber: member.phoneNumber ?? this.Member.createMembership.members[0].phoneNumber,
+        newsLetter: member.newsLetter ?? this.Member.createMembership.members[0].newsLetter,
+        tos: member.tos ?? this.Member.createMembership.members[0].tos,
+      }
+      
       this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode)
       return    
     },
@@ -162,9 +178,14 @@ export const useStore = defineStore('storeId', {
       this.xmlPayload = InnerXml
       console.log(JSON.stringify(InnerXml))
       let completeXmlContent = JSON.stringify(InnerXml)
-      return `<QueueMessage>  
+      if ( this.createApiError ) {
+        return `<QueueMessage>  
                 <MessageText>${completeXmlContent}</MessageText>  
               </QueueMessage>>`
+      }
+      return `<QueueMessage>  
+                <MessageText>${completeXmlContent}</MessageText>  
+              </QueueMessage>`
 
     }
   }

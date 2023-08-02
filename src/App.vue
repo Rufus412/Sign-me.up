@@ -5,14 +5,15 @@ const Show = false
 </script>
 
 <template>
-  <div>
+  <div class="h-full">
     <header>
       <img id="logo" src="./assets/Logo.png" alt="">
     </header>
-  </div>
-  <div class>
-    <RouterView class="h-full" />
+  
+    <div class>
+      <RouterView class="h-full" />
 
+    </div>
   </div>
 </template>
 

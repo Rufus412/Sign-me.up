@@ -1,54 +1,14 @@
 <script setup>
-import { toValue } from 'vue';
-import  Form  from '../components/Form.vue'
-import FormCheck from '../components/FormCheck.vue'
 import { apiService } from '../Services/APIService'
-import  router from '../router/index.js'
 import { useStore } from '../stores/counter'
 //import { countryLookUp } from '../helpers/PhoneNumberLookup'
 import { findCountryCode } from '../helpers/PhonenumberCountryItentifier'
+import Compressor from 'compressorjs';
 
 
 </script>
 
 <script>
-
-/*
-window.checkLoginState = async res => {
-  FB.getLoginStatus(function(response) {
-    if (!response.authResponse) {return}
-    if (isConnected(response)) { 
-        getUserData()
-         
-        router.push({ name: 'formCheck'})  
-    }
-  })
-}
-*/
-
-
-window.fb_login = res => {
-            FB.login(function(response) {
-        
-                if (response.authResponse) {
-                    console.log('Welcome!  Fetching your information.... ');
-                    //console.log(response); // dump complete info
-                    console.log(response.authResponse)
-                    let access_token = response.authResponse.accessToken; //get access token
-                    let user_id = response.authResponse.userID; //get FB UID
-
-                    apiService.getName()
-                    router.push({ name: 'formCheck'})
-                } else {
-                    //user hit cancel button
-                    console.log('User cancelled login or did not fully authorize.');
-        
-                }
-            }, {
-                scope: 'public_profile,email'
-            });
-        }
-
 
 export default {
     data() {
@@ -64,32 +24,17 @@ export default {
             console.log('Welcome!  Fetching your information.... ');
             //console.log(response); // dump complete info
             console.log(response.authResponse)
-            let access_token = response.authResponse.accessToken; //get access token
-            let user_id = response.authResponse.userID; //get FB UID
 
             
             apiService.getName()
-            this.swapView()
+            this.$router.push( {name: 'formCheck' })
         } else {
             //user hit cancel button
-            console.log('User cancelled login or did not fully authorize.');
+            console.log('User cancelled login or dd not fully authorize.');
 
           }
         }, { scope: 'public_profile,email'});
       },
-      getUserData() {
-          apiService.getName(apiService.getLogginData())
-           
-      },
-      isConnected(response) {
-        if (response.status === 'connected') {
-            return true
-          }
-      },
-      swapView() {
-        console.log("swappingView")
-        this.$router.push( {name: 'formCheck' })
-      }
     },
     mounted() {
 
@@ -155,24 +100,8 @@ export default {
           console.log('lvl3 active')
           store.lvl3 = true
         }
-
-        
-
     }
-}
-
-function getUserData() {
-          apiService.getName(apiService.getLogginData())
-           
-        }
-
-
-
-function isConnected(response) {
-            if (response.status === 'connected') {
-              return true
-            }
-          }  
+} 
 </script>
 
 
@@ -180,7 +109,7 @@ function isConnected(response) {
 
   <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register as a member</h2>
+      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up to complete membership</h2>
     </div>
 
     
@@ -197,7 +126,7 @@ function isConnected(response) {
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
             </div>
             <div class="relative flex justify-center text-sm font-medium leading-6 w-full" >
-              <button type="button" @click="checkLoginState" class="flex border-0 w-full justify-center rounded-md bg-[#1877F2] bg-[url(../assets/FacebookF.png)]  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              <button type="button" @click="checkLoginState" class="flex border-0 w-full justify-center rounded-md bg-[#1877F2] bg-[url(../assets/FacebookF.png)]  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#458FEF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Register using facebook</button>
             </div>
             
@@ -209,7 +138,7 @@ function isConnected(response) {
 
 
     </div>
-    <a class="text-center mt-5" :href="this.tos">Terms and conditions</a>
+    <a class="text-center mt-5" :href="tos" target="_blank">Terms and conditions</a>
   </div>
 </template>
 
