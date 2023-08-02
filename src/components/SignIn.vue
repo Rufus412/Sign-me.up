@@ -24,6 +24,10 @@ export default {
             console.log('Welcome!  Fetching your information.... ');
             //console.log(response); // dump complete info
             console.log(response.authResponse)
+            const store = useStore()
+            
+            console.log("This is the UID " + response.authResponse.userID)
+            store.memberID = response.authResponse.userID
 
             
             apiService.getName()
@@ -35,6 +39,10 @@ export default {
           }
         }, { scope: 'public_profile,email'});
       },
+      swapLanguage(language) {
+        const store = useStore()
+        store.locale = language
+      }
     },
     mounted() {
 
@@ -109,7 +117,7 @@ export default {
 
   <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up to complete membership</h2>
+      <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('frontPage.header') }}</h2>
     </div>
 
     
@@ -118,7 +126,7 @@ export default {
       <div class="bg-gray-50 mt-10 px-6 py-12 shadow sm:rounded-lg rounded-lg sm:px-12">
           <div>
             <router-link to="/formview" custom v-slot="{ navigate }">
-                <button type="submit" @click="navigate" className="fb-login-button" class="flex border-0 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register with Email</button>
+                <button type="submit" @click="navigate" className="fb-login-button" class="flex border-0 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $t('frontPage.emailButton') }}</button>
             </router-link>
           </div>
         <div>
@@ -127,7 +135,8 @@ export default {
             </div>
             <div class="relative flex justify-center text-sm font-medium leading-6 w-full" >
               <button type="button" @click="checkLoginState" class="flex border-0 w-full justify-center rounded-md bg-[#1877F2] bg-[url(../assets/FacebookF.png)]  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#458FEF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Register using facebook</button>
+                {{ $t('frontPage.facebookButton') }}
+              </button>
             </div>
             
           </div>
@@ -138,7 +147,16 @@ export default {
 
 
     </div>
-    <a class="text-center mt-5" :href="tos" target="_blank">Terms and conditions</a>
+    <a class="text-center mt-5" :href="tos" target="_blank">{{ $t('frontPage.tac') }}</a>
+
+    <div class="flex justify-center mt-10">
+      <span class="isolate inline-flex rounded-md shadow-sm">
+        <button type="button" @click="$i18n.locale = 'en'" class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">English</button>
+        <button type="button" @click="$i18n.locale = 'sv'" class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Swedish</button>
+        <button type="button" @click="$i18n.locale = 'da'" class="relative -ml-px inline-flex items-center  rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Danish</button>
+      </span>
+
+    </div>
   </div>
 </template>
 

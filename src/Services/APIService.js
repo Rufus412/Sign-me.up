@@ -13,8 +13,6 @@ function getLogginData() {
 function statusChangeCallback(response) {
     const store = useStore()
     console.log(response.authResponse)
-    console.log("This is the UID " + response.authResponse.userID)
-    store.memberID = response.authResponse.userID
     return response.authResponse
 }
 

@@ -9,6 +9,7 @@ import vueCountryRegionSelect from 'vue3-country-region-select'
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import { initFacebookSdk } from './helpers/facebookInit'
+import i18n from "./i18n"
 
 
 
@@ -33,6 +34,7 @@ function mountApp(){
     const app = createApp(App)
     app.use(pinia)
     app.use(router)
+    app.use(i18n)
     app.use(vueCountryRegionSelect)
     app.use(VueTelInput, globalOptions)
     app.mount('#app')

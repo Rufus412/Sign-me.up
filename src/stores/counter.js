@@ -33,7 +33,8 @@ export const useStore = defineStore('storeId', {
       tosLink: '',
       phoneInQuery: false, 
       profilePicAsBase64: '',
-      createApiError: false
+      createApiError: false,
+      locale: '',
     }
   },
   actions: {
@@ -166,6 +167,7 @@ export const useStore = defineStore('storeId', {
           }
         }
       }
+      console.log(JSON.stringify(membershipData))
 
       let InnerXml = {
         PartitionKey: this.PartitionKey,

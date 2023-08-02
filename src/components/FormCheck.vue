@@ -54,35 +54,35 @@ export default {
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Full name:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.fullNameLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.firstName}} {{ inData.lastName }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Adress:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.addressLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.adress }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Postal code:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.postalCodeLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.postalCode }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">City:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.cityLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.city }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Country:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.countryLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ fullCountry }}</dd>
         </div>
         <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Email adress:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.emailLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.eMail }}</dd>
         </div>
         <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">Phone Number:</dt>
+          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.phoneNumberLabel")}}:</dt>
           <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.phoneNumber }}</dd>
         </div>
         <input v-if="getLoginMethod !== 'form'" type="checkbox" v-model="inData.tos" id="checkBoxTos" class="mt-4">
-        <a v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos" :href="getTos" target="_blank" >I agree to the terms of service</a><br>
+        <a v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos" :href="getTos" target="_blank" >{{ $t("form.tosLabel")}}</a><br>
         
         
         
