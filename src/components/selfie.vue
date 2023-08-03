@@ -49,7 +49,14 @@ export default {
             
         }
     },
-    methods: {
+    computed: {
+        isDev() {
+            const store = useStore()
+            let a = store.devMode
+            return a
+        }
+    },
+    methods: {  
         
         async azurePush() {
             const store = useStore()
@@ -137,11 +144,9 @@ export default {
 
 <template>
 
-    <div>
+    <div id="main" class="bg-white shadow-xl px-5 py-5 pb-10 mt-[20%] rounded-xl" :class="{ 'mt-[0%]': imageInPayload }">
         <div class="text-center">
-            <h2>{{ $t('selfie.header') }}</h2>
-            <input type="checkbox" v-model="createError" id="checkBoxTos">
-            <label class="ml-2" id="checkBoxTos">API error</label>
+            <h2 v-if="!imageInPayload">{{ $t('selfie.header') }}</h2>
             
         </div>
 

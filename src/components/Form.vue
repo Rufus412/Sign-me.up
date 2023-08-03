@@ -74,14 +74,14 @@ export default {
 </script>
 
 <template>
-  <div class="">
+  <div class="h-fit rounded-xl shadow-xl bg-white shadow-xl px-4">
     <form @submit.prevent="onSubmit" > 
       <div class="space-y-12">
 
-        <div class="border-b border-gray-900/10 pb-12 ">
+        <div class="border-b border-gray-900/10 pb-8 pt-3 ">
           <h2 class="text-base font-semibold leading-7 text-gray-900"> {{ $t("form.title") }}</h2>
 
-          <div class="mt-5 grid grid-cols-1 gap-x-5 gap-y-[3%] sm:grid-cols-6">
+          <div class="mt-5 grid grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-6">
             <div class="sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.firstNameLabel")}}</label>
               <div class="mt-0">
