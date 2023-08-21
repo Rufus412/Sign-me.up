@@ -9,6 +9,7 @@ import vueCountryRegionSelect from 'vue3-country-region-select'
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import { initFacebookSdk } from './helpers/facebookInit'
+import { initGoogleSdk } from './helpers/googleInit'
 import i18n from "./i18n"
 
 
@@ -25,7 +26,9 @@ const globalOptions = {
     },
     inputClasses: Object,
 };
-initFacebookSdk().then(mountApp());
+initFacebookSdk().then(initGoogleSdk().then(mountApp()));
+
+
 
 
 function mountApp(){

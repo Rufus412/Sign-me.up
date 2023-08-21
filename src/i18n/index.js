@@ -21,11 +21,12 @@ const messages = {
       emailLabel: "Email address",
       phoneNumberLabel: "Phone Number",
       newslettersLabel: "I want to receive newsletters",
-      tosLabel: "I agree to the terms of service",
+      tos1Label: "I agree to the ",
+      tos2Label: "terms of service",
       continueButton: "Continue",
       fullNameLabel: "Full name",
-      editButton: "Edit"
-      // ... add other translations as needed
+      editButton: "Edit",
+      contactInfo: "Contact information"
     },
     selfie: {
       header: "Do you want to add a photo of yourself?",
@@ -61,11 +62,12 @@ const messages = {
       emailLabel: "E-postadress",
       phoneNumberLabel: "Telefonnummer",
       newslettersLabel: "Jag vill få nyhetsbrev",
-      tosLabel: "Jag godkänner användarvillkoren",
+      tos1Label: "Jag godkänner ",
+      tos2Label: "användarvillkoren",
       continueButton: "Fortsätt",
       fullNameLabel: "Fullständigt namn",
-      editButton: "Redigera"
-      // ... add other translations as needed
+      editButton: "Redigera",
+      contactInfo: "Kontaktinformation"
     },
     selfie: {
       header: "Vill du lägga till ett foto av dig själv?",
@@ -75,7 +77,7 @@ const messages = {
       continueButton: "Fortsätt",
     },
     qrPage: {
-      showToTeller: "Visa QR-koden för att slutföra registreringen",
+      showToTeller: "Visa QR-koden för att slutföra registrationen",
       error: "Ett fel inträffade",
     },
     confirmationPage: {
@@ -101,11 +103,12 @@ const messages = {
       emailLabel: "E-mailadresse",
       phoneNumberLabel: "Telefonnummer",
       newslettersLabel: "Jeg ønsker at modtage nyhedsbreve",
-      tosLabel: "Jeg accepterer vilkår og betingelser",
+      tos1Label: "Jeg accepterer ",
+      tos2Label: "vilkår og betingelser",
       continueButton: "Fortsæt",
       fullNameLabel: "Fulde navn",
-      editButton: "Redigere"
-      // ... add other translations as needed
+      editButton: "Redigere",
+      contactInfo: "Kontaktinformation"
     },
     selfie: {
       header: "Ønsker du at tilføje et foto af dig selv?",
@@ -130,6 +133,6 @@ export default createI18n({
   locale: import.meta.env.VITE_DEFAULT_LOCALE,
   fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
   legacy: false,
-  globalInjection: true, // <--- add this
+  globalInjection: true,
   messages,
 });
