@@ -37,7 +37,7 @@ export default {
     <GoogleLogin :callback="callback">
         <button @click="login" class="loginBtn loginBtn--google flex border-0 bg-white w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm "><span class="text-black" >Complete with Google</span></button>
     </GoogleLogin>
-    
+
 </template>
 
 
@@ -74,31 +74,6 @@ export default {
   box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
 }
 
-
-/* Facebook */
-.loginBtn--facebook {
-  background-color: #1877F2;
-  background-image: linear-gradient(#4C69BA, #3B55A0);
-  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
-  text-shadow: 0 -1px 0 #354C8C;
-}
-.loginBtn--facebook:before {
-  border-right: #364e92 1px solid;
-  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
-}
-.loginBtn--facebook:hover,
-.loginBtn--facebook:focus {
-  background-color: #5B7BD5;
-  background-image: linear-gradient(#5B7BD5, #4864B1);
-}
-#fbText {
-  transform: translate(-10%);
-}
-
-
-.loginBtn--google {
-  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
-}
 .loginBtn--google:before {
   border-right: #D3D3D3 1px solid;
   background: url('../assets/Google_G.png') 6px 6px no-repeat;

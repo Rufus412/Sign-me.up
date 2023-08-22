@@ -53,15 +53,6 @@ export default {
 
 <style scoped>
 
-
-#navButton {
-    position: absolute;
-    top: 20%;
-    right: 50%;
-    transform: translate(50%);
-}
-
-
 .loginBtn {
   box-sizing: border-box;
   position: relative;
@@ -102,14 +93,4 @@ export default {
 #fbText {
   transform: translate(-10%);
 }
-
-
-.loginBtn--google {
-  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
-}
-.loginBtn--google:before {
-  border-right: #D3D3D3 1px solid;
-  background: url('../assets/Google_G.png') 6px 6px no-repeat;
-}
-
 </style>

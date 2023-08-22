@@ -94,7 +94,7 @@ export default {
 <template>
 
   <div class="flex min-h-full flex-1 flex-col sm:px-6 lg:px-8">
-    
+
     <div class="sm:mx-auto sm:w-full mt-10 sm:max-w-md">
       <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('frontPage.header') }}</h2>
     </div>
@@ -194,9 +194,6 @@ export default {
 }
 
 
-.loginBtn--google {
-  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
-}
 .loginBtn--google:before {
   border-right: #D3D3D3 1px solid;
   background: url('../assets/Google_G.png') 6px 6px no-repeat;
