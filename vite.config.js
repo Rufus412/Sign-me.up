@@ -6,7 +6,7 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { resolve, dirname } from 'node:path'
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/npk/member/m3/',
+  base: '/npk/member/m4/',
   plugins: [
     vue(),
     VueI18nPlugin({

@@ -1,9 +1,9 @@
 <script setup>
-import { apiService } from '../Services/APIService'
 import { useStore } from '../stores/counter'
 //import { countryLookUp } from '../helpers/PhoneNumberLookup'
 import { findCountryCode } from '../helpers/PhonenumberCountryItentifier'
-import Compressor from 'compressorjs';
+import GoogleSignIn from './GoogleSignIn.vue';
+import FacebookSignIn from './FacebookSignIn.vue';
 
 
 </script>
@@ -17,28 +17,6 @@ export default {
       }
     },
     methods: {
-      checkLoginState() {
-        FB.login((response) => {
-        
-        if (response.authResponse) {
-            console.log('Welcome!  Fetching your information.... ');
-            //console.log(response); // dump complete info
-            console.log(response.authResponse)
-            const store = useStore()
-            
-            console.log("This is the UID " + response.authResponse.userID)
-            store.memberID = response.authResponse.userID
-
-            
-            apiService.getName()
-            this.$router.push( {name: 'formCheck' })
-        } else {
-            //user hit cancel button
-            console.log('User cancelled login or dd not fully authorize.');
-
-          }
-        }, { scope: 'public_profile,email'});
-      },
       swapLanguage(language) {
         const store = useStore()
         store.locale = language
@@ -116,6 +94,7 @@ export default {
 <template>
 
   <div class="flex min-h-full flex-1 flex-col sm:px-6 lg:px-8">
+    
     <div class="sm:mx-auto sm:w-full mt-10 sm:max-w-md">
       <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('frontPage.header') }}</h2>
     </div>
@@ -124,40 +103,39 @@ export default {
     
     <div class=" sm:mx-auto sm:w-full sm:max-w-[480px]">
       <div class="bg-gray-50 mt-10 px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
-          <div>
-            <router-link to="/formview" custom v-slot="{ navigate }">
-                <button type="submit" @click="navigate" className="fb-login-button" class="flex border-0 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 ">{{ $t('frontPage.emailButton') }}</button>
-            </router-link>
-          </div>
         <div>
-          <div class="relative mt-10">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-            </div>
-            <div class="relative flex justify-center text-sm font-medium leading-6 w-full" >
-              <button type="button" @click="checkLoginState" class="loginBtn loginBtn--facebook flex border-0 w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#458FEF] ">
-                
-                <span id="fbText">{{ $t('frontPage.facebookButton') }}</span>
-              </button>
-            </div>
-            
+          <router-link to="/formview" custom v-slot="{ navigate }">
+              <button type="submit" @click="navigate" className="fb-login-button" class="flex border-0 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 ">{{ $t('frontPage.emailButton') }}</button>
+          </router-link>
+        </div>
+    
+        <div class="relative mt-10">
+          <div class="absolute inset-0 flex items-center" aria-hidden="true">
           </div>
+          <div class="flex justify-center text-sm font-medium leading-6 w-full" >
+            <FacebookSignIn>
 
+            </FacebookSignIn>
+          </div>
           
         </div>
+        <div class="mt-10 flex flex-col w-full justify-center">
+          <GoogleSignIn>
+
+          </GoogleSignIn>
+        </div>
       </div>
-
-
     </div>
-    <a class="text-center mt-5" :href="tos" target="_blank">{{ $t('frontPage.tac') }}</a>
 
     <div class="flex justify-center mt-10">
-      <span class="isolate inline-flex rounded-md shadow-sm">
-        <button type="button" @click="$i18n.locale = 'en'" class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">English</button>
-        <button type="button" @click="$i18n.locale = 'sv'" class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold focus:bg-gray-300 text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Swedish</button>
-        <button type="button" @click="$i18n.locale = 'da'" class="relative -ml-px inline-flex items-center  rounded-r-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10">Danish</button>
+      <span class="rounded-md shadow-sm">
+        <button type="button" @click="$i18n.locale = 'en'" class="border-y-0 border-l-0 relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">English</button>
+        <button type="button" @click="$i18n.locale = 'sv'" class="border-y-0 border-x-1 relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold focus:bg-gray-300 text-gray-900 hover:bg-gray-50 focus:z-10">Swedish</button>
+        <button type="button" @click="$i18n.locale = 'da'" class="border-y-0 border-r-0 relative -ml-px inline-flex items-center  rounded-r-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">Danish</button>
       </span>
-
     </div>
+
+
   </div>
 </template>
 
@@ -177,15 +155,6 @@ export default {
 .loginBtn {
   box-sizing: border-box;
   position: relative;
-  /* width: 13em;  - apply for fixed size */
-  margin: 0.2em;
-  padding: 0 15px 0 46px;
-  border: none;
-  text-align: left;
-  line-height: 34px;
-  white-space: nowrap;
-  border-radius: 0.2em;
-  color: #FFF;
 }
 .loginBtn:before {
   content: "";
@@ -222,6 +191,15 @@ export default {
 }
 #fbText {
   transform: translate(-10%);
+}
+
+
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+}
+.loginBtn--google:before {
+  border-right: #D3D3D3 1px solid;
+  background: url('../assets/Google_G.png') 6px 6px no-repeat;
 }
 
 </style>

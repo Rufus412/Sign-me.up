@@ -29,8 +29,13 @@ export default {
       },
       fullCountry() {
         const store = useStore()
-        let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
-        return regionNames.of(store.Member.createMembership.members[0].countryCode)
+        if (store.Member.createMembership.members[0].countryCode === "" ) {
+          return ""
+        }
+        else {
+          let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+          return regionNames.of(store.Member.createMembership.members[0].countryCode)
+        }
       },
       getTos() {
         const store = useStore() 
@@ -47,42 +52,31 @@ export default {
 </script>
 
 <template>
-  <div class="py-1 bg-white shadow-xl px-3 pb-5 rounded-xl">
+  <div class="py-1 bg-white shadow-xl px-3 pb-5 rounded-xl h-fit w-full sm:max-w-[480px]">
     <div class="px-4 sm:px-0">
-      <h3 class="text-base font-semibold leading-7 text-gray-900">Applicant Information</h3>
+      <h3 class="text-base font-semibold leading-7 text-gray-900">{{ $t('form.title')}}</h3>
     </div>
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.fullNameLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.firstName}} {{ inData.lastName }}</dd>
+        <div class="bg-gray-50 px-3 py-3 grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.fullNameLabel")}}:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-1 sm:col-span-2 sm:mt-0">{{ inData.firstName}} {{ inData.lastName }}</dd>
+          
         </div>
-        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.addressLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.adress }}</dd>
+        <div class="bg-white px-3 py-3 grid grid-cols-1 items-center sm:grid-cols-1 gap-2 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.addressLabel")}}:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.adress }}</dd>
+          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.postalCode }} {{ inData.city }}</dd>
+          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ fullCountry }}</dd>
         </div>
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.postalCodeLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.postalCode }}</dd>
+        <div class="bg-gray-50 px-3 py-3 grid sm:grid grid-cols-1 sm:grid-cols-1 gap-2 sm:gap-4 sm:px-3">
+          <dt class="text-sm font-medium leading-6 sm:col-span-3 text-gray-900">{{ $t("form.contactInfo")}}:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.eMail }}</dd>
+          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.phoneNumber }}</dd>
         </div>
-        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.cityLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.city }}</dd>
-        </div>
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.countryLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ fullCountry }}</dd>
-        </div>
-        <div class="bg-white px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.emailLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.eMail }}</dd>
-        </div>
-        <div class="bg-gray-50 px-3 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-          <dt class="text-sm font-medium leading-6 text-gray-900">{{ $t("form.phoneNumberLabel")}}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ inData.phoneNumber }}</dd>
-        </div>
-        <input v-if="getLoginMethod !== 'form'" type="checkbox" v-model="inData.tos" id="checkBoxTos" class="mt-4">
-        <a v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos" :href="getTos" target="_blank" >{{ $t("form.tosLabel")}}</a><br>
+        <input v-if="getLoginMethod !== 'form'" type="checkbox"  v-model="inData.tos" id="checkBoxTos" class="mt-4">
+        <label v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{  $t('form.tos1Label') }}</span><a :href="getTos" target="_blank" >{{  $t('form.tos2Label') }}</a></label>
+        
         
         
         

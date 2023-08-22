@@ -144,7 +144,7 @@ export default {
 
 <template>
 
-    <div id="main" class="bg-white shadow-xl px-5 py-5 pb-10 mt-[20%] rounded-xl" :class="{ 'mt-[0%]': imageInPayload }">
+    <div id="main" class="bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]" :class="{ 'mt-0': imageInPayload, 'mt-40': !imageInPayload  }">
         <div class="text-center">
             <h2 v-if="!imageInPayload">{{ $t('selfie.header') }}</h2>
             

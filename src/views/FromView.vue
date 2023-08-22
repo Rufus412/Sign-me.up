@@ -15,9 +15,6 @@ import  Form  from '../components/Form.vue'
 
 <style scoped>
 
-#maiawdawdn {
-  background: radial-gradient(circle at 10% 20%, rgb(101, 255, 253) 0%, rgb(36, 153, 238) 90%);
-  
-}
+
 
 </style>

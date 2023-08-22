@@ -74,7 +74,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-fit rounded-xl shadow-xl bg-white shadow-xl px-4">
+  <div class="h-fit rounded-xl bg-white shadow-xl px-4">
     <form @submit.prevent="onSubmit" > 
       <div class="space-y-12">
 
@@ -95,7 +95,7 @@ export default {
             <div class="sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.lastNameLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="last-name" v-model="data.lastName" id="last-name" :placeholder="$t('form.firstNameLabel')" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }" />
+                <input required pattern="\S+.*" type="text" name="last-name" v-model="data.lastName" id="last-name" :placeholder="$t('form.lastNameLabel')" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }" />
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -105,7 +105,7 @@ export default {
             <div class="sm:col-span-4">
               <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.addressLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="street-address" v-model="data.adress" id="street-address" :placeholder="$t('form.lastNameLabel')" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input required pattern="\S+.*" type="text" name="street-address" v-model="data.adress" id="street-address" :placeholder="$t('form.addressLabel')" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -125,7 +125,7 @@ export default {
             <div class="sm:col-span-3 sm:col-start-4">
               <label for="city" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.cityLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="city" id="city" v-model="data.city" :placeholder="$t('form.postalCodeLabel')" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer " :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input required pattern="\S+.*" type="text" name="city" id="city" v-model="data.city" :placeholder="$t('form.cityLabel')" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer " :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -168,7 +168,7 @@ export default {
               <input type="checkbox" v-model="data.newsLetter" id="checkBoxNews">
               <label class="ml-2">{{ $t("form.newslettersLabel")}}</label><br>
               <input type="checkbox" v-model="data.tos" id="checkBoxTos">
-              <a class="ml-2" id="checkBoxTos" :href="tosLink" target="_blank" >{{ $t('form.tosLabel') }}</a><br>
+              <label v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{  $t('form.tos1Label') }}</span><a :href="tosLink" target="_blank" >{{  $t('form.tos2Label') }}</a></label>
             </div> 
             <div class="flex flex-col sm:col-span-full">
               

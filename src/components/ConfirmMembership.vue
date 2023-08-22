@@ -8,7 +8,7 @@
 <template>
 
 <body>
-    <div class="flex items-center justify-center h-full mt-[35%]">
+    <div class="flex items-center justify-center h-full">
       <div>
         <div class="flex flex-col items-center space-y-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="text-green-600 w-30 h-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">

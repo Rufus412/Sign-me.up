@@ -3,6 +3,8 @@
 export function initGoogleSdk() {
     return new Promise(resolve => {
 
+        return
+
         const clientID = '886736602258-smn2otlk08g3bfo60c3930bufmqs7k9a.apps.googleusercontent.com';
 
         // Create a meta tag for the Google Sign-In client ID
