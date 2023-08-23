@@ -30,8 +30,9 @@ function getName(accessToken) {
             console.log('FB-api raw: ' + response)
             console.log(Object.values(response))
             let responseVals = Object.values(response)
-            if (store.devMode !== true) {
-                console.log("Adding values from FB api call")
+            if (store.devMode === false) {
+                console.log("Adding values from FB api call " +  responseVals[0])
+                console.log(store.Member.createMembership.members[0])
                 store.addMember({
                     firstName: responseVals[0],
                     lastName: responseVals[1],
