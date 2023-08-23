@@ -42,7 +42,7 @@ export default {
 
 <template>
 
-    <button type="button" @click="checkLoginState" class="loginBtn loginBtn--facebook flex border-0 w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-[#458FEF] ">
+    <button type="button" @click="checkLoginState" class="loginBtn loginBtn--facebook flex border-0 w-full justify-center cursor-pointer rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-[#458FEF] ">
         <span class="text-white" id="fbText">{{ $t('frontPage.facebookButton') }}</span>
     </button>
 
@@ -66,12 +66,6 @@ export default {
   width: 34px;
   height: 100%;
 }
-.loginBtn:focus {
-  outline: none;
-}
-.loginBtn:active {
-  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
-}
 
 
 /* Facebook */
@@ -85,12 +79,8 @@ export default {
   border-right: #364e92 1px solid;
   background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
 }
-.loginBtn--facebook:hover,
 .loginBtn--facebook:focus {
   background-color: #5B7BD5;
   background-image: linear-gradient(#5B7BD5, #4864B1);
-}
-#fbText {
-  transform: translate(-10%);
 }
 </style>

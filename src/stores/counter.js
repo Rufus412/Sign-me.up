@@ -33,6 +33,7 @@ export const useStore = defineStore('storeId', {
       tosLink: '',
       phoneInQuery: false, 
       profilePicAsBase64: '',
+      profilePicAsURL: '',
       createApiError: false,
       locale: '',
     }
@@ -41,9 +42,6 @@ export const useStore = defineStore('storeId', {
     addMember(member) {
       let regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
 
-
-
-      
       this.Member.createMembership.members[0] = {
         firstName: member.firstName ?? this.Member.createMembership.members[0].firstName,
         lastName: member.lastName ?? this.Member.createMembership.members[0].lastName,

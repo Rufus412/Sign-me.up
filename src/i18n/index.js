@@ -7,6 +7,7 @@ const messages = {
       header: "Complete membership registration",
       emailButton: "Complete With Email",
       facebookButton: "Complete With Facebook",
+      googleButton: "Complete with Google",
       tac: "Terms and Conditions",
     },
     form: {
@@ -48,6 +49,7 @@ const messages = {
       header: "Slutför medlemsregistrering",
       emailButton: "Slutför med e-post",
       facebookButton: "Slutför med Facebook",
+      googleButton: "Slutför med Google",
       tac: "Villkor och regler",
     },
     form: {
@@ -89,6 +91,7 @@ const messages = {
       header: "Fuldfør medlemsregistrering",
       emailButton: "Fuldfør med e-mail",
       facebookButton: "Fuldfør med Facebook",
+      googleButton: "Fuldfør med Google",
       tac: "Vilkår og betingelser",
     },
     form: {

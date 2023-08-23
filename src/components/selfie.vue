@@ -14,7 +14,6 @@ import Compressor from 'compressorjs';
 export default {
     async mounted() {
         const constraints = { video: true, audio: false }; // Request video access only
-
         console.log("in setup")
         navigator.mediaDevices.getUserMedia(constraints)
         .then((stream) => {
@@ -44,6 +43,7 @@ export default {
             continueButtonText: 'Skip',
             photoButtonText: 'Take Photo',
             createError: false,
+            store: useStore()
 
             //picture,
             
@@ -135,7 +135,14 @@ export default {
             this.continueButtonText = 'Continue'
             this.photoButtonText = 'New Photo'
             this.imageInPayload = true
-        }
+        },
+        IIP() {
+            const store = useStore()
+            if (this.imageInPayload === true || store.profilePicAsURL !== "") {
+                return true
+            }
+            else return false
+        },
     }
 }
 
@@ -144,19 +151,19 @@ export default {
 
 <template>
 
-    <div id="main" class="bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]" :class="{ 'mt-0': imageInPayload, 'mt-40': !imageInPayload  }">
+    <div id="main" class="bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]" :class="{ 'mt-0': IIP(), 'mt-40': !IIP()  }">
         <div class="text-center">
-            <h2 v-if="!imageInPayload">{{ $t('selfie.header') }}</h2>
+            <h2 v-if="!IIP()">{{ $t('selfie.header') }}</h2>
             
         </div>
 
         <div class="flex justify-center">
-            <img id="displayProfilePic" src="" class="max-w-[300px]" >
+            <img id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px]" >
         </div>
 
         <div id="buttons" class="flex flex-col mt-4 text-center">
             <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden" :class="{ disabled : !canUseCamera, 'peer': !canUseCamera}" />
-            <div v-if="!imageInPayload" class="flex flex-col">
+            <div v-if="!IIP()" class="flex flex-col">
                 <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera,}" ref="capture" for="profilePic" type="button" class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">{{ $t('selfie.photoButton') }}</label>
                 <p v-if="!canUseCamera" class="text-sm text-red-500 peer">Please allow your web browser to access your camera to use this feature</p>
                 <button type="button" @click="azurePush" class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 bg-gray-100 text-black border-0 sm:border-2 border-solid border-black" >{{ $t('selfie.skipButton') }}    </button>
