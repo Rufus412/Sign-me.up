@@ -1,7 +1,10 @@
 import { createI18n } from "vue-i18n";
-import { useStore } from "../stores/counter";
+//import { useStore } from "../stores/counter";
+//import { messages } from "../../locales/locales.js"
 
-const messages = {
+
+/*
+const messages2 = {
   en: {
     frontPage: {
       header: "Complete membership registration",
@@ -86,7 +89,7 @@ const messages = {
       ty: "Tack!",
     },
   },
-  da: { // Danish translations
+  da: {
     frontPage: {
       header: "Fuldfør medlemsregistrering",
       emailButton: "Fuldfør med e-mail",
@@ -130,6 +133,27 @@ const messages = {
   },
 };
 
+*/
+
+/*
+async function loadLanguageJson() {
+  console.log("fetching json  ")
+  const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/locales/en.json`);
+  const en = await response.json();
+  console.log("THis is the response: " + JSON.stringify(response))
+  console.log("THis is the JSON: " + JSON.stringify(en))
+
+  return en;
+}
+
+// Usage example in a component
+async function someComponentLogic() {
+  const en = await loadLanguageJson('en');
+
+  console.log(en);
+  return en
+}
+
 
 
 export default createI18n({
@@ -137,5 +161,35 @@ export default createI18n({
   fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
   legacy: false,
   globalInjection: true,
-  messages,
-});
+  messages: someComponentLogic(),
+  });
+*/
+
+
+export function initI18n() {
+  return new Promise(resolve => {
+    async function loadLanguageJson(locale) {
+      const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/locales/${locale}.json`);
+      const jsonData = await response.json();
+      return jsonData;
+    }
+
+    (async () => {
+      const en = await loadLanguageJson('en'); // Load English messages
+      const fr = await loadLanguageJson('fr'); // Load French messages
+
+      const i18n = createI18n({
+        locale: import.meta.env.VITE_DEFAULT_LOCALE,
+        fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
+        legacy: false,
+        globalInjection: true,
+        messages: {
+          en,
+          fr,
+          // Other languages and their messages can be added here
+        },
+      });
+    })();
+  })
+}
+

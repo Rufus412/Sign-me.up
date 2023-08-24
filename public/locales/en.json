@@ -1,0 +1,47 @@
+{
+    "frontPage": {
+      "header": "Complete membership registration",
+      "emailButton": "Complete With Email",
+      "facebookButton": "Complete With Facebook",
+      "googleButton": "Complete with Google",
+      "tac": "Terms and Conditions",
+      "languageButtons": {
+        "englishButton": "English",
+        "swedishButton": "Svenska",
+        "danishButton": "Dansk"
+      }
+    },
+    "form": {
+      "title": "Personal Information",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "addressLabel": "Address",
+      "postalCodeLabel": "Postal code",
+      "cityLabel": "City",
+      "countryLabel": "Country",
+      "selectCountryLabel": "Select country",
+      "emailLabel": "Email address",
+      "phoneNumberLabel": "Phone Number",
+      "newslettersLabel": "I want to receive newsletters",
+      "tos1Label": "I agree to the ",
+      "tos2Label": "terms of service",
+      "continueButton": "Continue",
+      "fullNameLabel": "Full name",
+      "editButton": "Edit",
+      "contactInfo": "Contact information"
+    },
+    "selfie": {
+      "header": "Do you want to add a photo of yourself?",
+      "photoButton": "Take Photo",
+      "skipButton": "Skip",
+      "newPhotoButton": "New Photo",
+      "continueButton": "Continue"
+    },
+    "qrPage": {
+      "showToTeller": "Show the QR code to the teller to complete registration",
+      "error": "An error occurred"
+    },
+    "confirmationPage": {
+      "ty": "Thank You!"
+    }
+  }

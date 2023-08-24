@@ -129,9 +129,9 @@ export default {
 
     <div class="flex justify-center mt-10">
       <span class="rounded-md shadow-sm">
-        <button type="button" @click="$i18n.locale = 'en'" class="border-y-0 border-l-0 relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">English</button>
-        <button type="button" @click="$i18n.locale = 'sv'" class="border-y-0 border-x-1 relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold focus:bg-gray-300 text-gray-900 hover:bg-gray-50 focus:z-10">Swedish</button>
-        <button type="button" @click="$i18n.locale = 'da'" class="border-y-0 border-r-0 relative -ml-px inline-flex items-center  rounded-r-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">Danish</button>
+        <button type="button" @click="$i18n.locale = 'en'" class="border-y-0 border-l-0 relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">{{ $t('frontPage.languageButtons.englishButton') }}</button>
+        <button type="button" @click="$i18n.locale = 'sv'" class="border-y-0 border-x-1 relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold focus:bg-gray-300 text-gray-900 hover:bg-gray-50 focus:z-10">{{ $t('frontPage.languageButtons.swedishButton') }}</button>
+        <button type="button" @click="$i18n.locale = 'da'" class="border-y-0 border-r-0 relative -ml-px inline-flex items-center  rounded-r-md bg-white px-3 py-2 text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10">{{ $t('frontPage.languageButtons.danishButton') }}</button>
       </span>
     </div>
 

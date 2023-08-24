@@ -27,11 +27,6 @@ const Show = false
 
 }
 
-#headdddd {
-  background: radial-gradient(circle at 10% 20%, rgb(101, 255, 253) 0%, rgb(36, 153, 238) 90%);
-  background-image: linear-gradient(to right top, #6d6d72, #77797f, #81868b, #8b9397, #95a0a3, #949fa2, #929ea2, #919da1, #848e95, #788088, #6d717b, #63636d);  
-}
-
 .box .row.header {
   flex: 0 1 auto;
   /* The above is shorthand for:

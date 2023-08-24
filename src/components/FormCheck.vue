@@ -8,7 +8,7 @@ export default {
   data() {
     const store = useStore()
     return {
-      inData: store.Member.createMembership.members[0]
+      inData1: store.Member.createMembership.members[0]
     }
   },
   methods: {
@@ -29,6 +29,10 @@ export default {
     }
   },
   computed: {
+    inData() {
+      const store = useStore()
+      return store.Member.createMembership.members[0]
+    },
     fullCountry() {
       const store = useStore()
       if (store.Member.createMembership.members[0].countryCode === "") {

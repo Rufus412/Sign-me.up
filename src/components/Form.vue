@@ -10,11 +10,13 @@ import { useStore } from '../stores/counter';
 
 export default {
   data() {
+    const store = useStore()
     return {
       tosLink: '',
       failedSubmit: false,
       fullCountry: '',
       phoneFromQuery: false,
+      store: store
 
     }
   },
@@ -168,7 +170,7 @@ export default {
               <input type="checkbox" v-model="data.newsLetter" id="checkBoxNews">
               <label class="ml-2">{{ $t("form.newslettersLabel")}}</label><br>
               <input type="checkbox" v-model="data.tos" id="checkBoxTos">
-              <label v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{  $t('form.tos1Label') }}</span><a :href="tosLink" target="_blank" >{{  $t('form.tos2Label') }}</a></label>
+              <label v-if="store.logInMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{  $t('form.tos1Label') }}</span><a :href="tosLink" target="_blank" >{{  $t('form.tos2Label') }}</a></label>
             </div> 
             <div class="flex flex-col sm:col-span-full">
               

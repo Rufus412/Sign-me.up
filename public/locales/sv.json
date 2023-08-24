@@ -1,0 +1,47 @@
+{
+    "frontPage": {
+      "header": "Slutför medlemsregistrering",
+      "emailButton": "Slutför med e-post",
+      "facebookButton": "Slutför med Facebook",
+      "googleButton": "Slutför med Google",
+      "tac": "Villkor och regler",
+      "languageButtons": {
+        "englishButton": "English",
+        "swedishButton": "Svenska",
+        "danishButton": "Dansk"
+      }
+    },
+    "form": {
+      "title": "Personlig Information",
+      "firstNameLabel": "Förnamn",
+      "lastNameLabel": "Efternamn",
+      "addressLabel": "Adress",
+      "postalCodeLabel": "Postnummer",
+      "cityLabel": "Stad",
+      "countryLabel": "Land",
+      "selectCountryLabel": "Välj land",
+      "emailLabel": "E-postadress",
+      "phoneNumberLabel": "Telefonnummer",
+      "newslettersLabel": "Jag vill få nyhetsbrev",
+      "tos1Label": "Jag godkänner ",
+      "tos2Label": "användarvillkoren",
+      "continueButton": "Fortsätt",
+      "fullNameLabel": "Fullständigt namn",
+      "editButton": "Redigera",
+      "contactInfo": "Kontaktinformation"
+    },
+    "selfie": {
+      "header": "Vill du lägga till ett foto av dig själv?",
+      "photoButton": "Ta foto",
+      "skipButton": "Hoppa över",
+      "newPhotoButton": "Nytt foto",
+      "continueButton": "Fortsätt"
+    },
+    "qrPage": {
+      "showToTeller": "Visa QR-koden för att slutföra registrationen",
+      "error": "Ett fel inträffade"
+    },
+    "confirmationPage": {
+      "ty": "Tack!"
+    }
+  }
