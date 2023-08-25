@@ -6,9 +6,9 @@
       "googleButton": "Slutför med Google",
       "tac": "Villkor och regler",
       "languageButtons": {
-        "englishButton": "English",
-        "swedishButton": "Svenska",
-        "danishButton": "Dansk"
+        "en": "English",
+        "sv": "Svenska",
+        "da": "Dansk"
       }
     },
     "form": {

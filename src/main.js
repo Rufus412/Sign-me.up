@@ -62,7 +62,13 @@ function mountApp() {
 */
 
 async function loadLocaleMessages(locale) {
-    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/locales/${locale}.json`);
+    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/locales/${locale}.json`);
+    return response.json();
+  }
+
+
+  async function loadConfigFiles(fileName) {
+    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/${fileName}.json`);
     return response.json();
   }
 
@@ -76,20 +82,22 @@ const i18n = createI18n({
 
 (async () => {
     initFacebookSdk()
-    const response = await loadLocaleMessages("config")
+    const response = await loadConfigFiles("config")
     const locales = (response.locales)
     for (const locale of locales) {
-      const messages = await loadLocaleMessages(locale);
-      i18n.global.setLocaleMessage(locale, messages);
+        try {
+            const messages = await loadLocaleMessages(locale);
+            i18n.global.setLocaleMessage(locale, messages);
+        }
+        catch(error) {
+            console.log(`Language file for ${locale} not found!`)
+        }
     }
 
     const app = createApp(App);
     const pinia = createPinia()
     app.use(pinia)
     app.use(router)
-    app.use(GoogleSignInPlugin, {
-        clientId: '886736602258-smn2otlk08g3bfo60c3930bufmqs7k9a.apps.googleusercontent.com',
-    });
 
     app.use(vue3GoogleLogin, {
         clientId: '886736602258-smn2otlk08g3bfo60c3930bufmqs7k9a.apps.googleusercontent.com'
@@ -97,8 +105,8 @@ const i18n = createI18n({
     app.use(vueCountryRegionSelect)
     app.use(VueTelInput, globalOptions)
     app.use(i18n);
-    app.mount('#app');
-})();
+    app.mount('#app')
+})()
 
 
 

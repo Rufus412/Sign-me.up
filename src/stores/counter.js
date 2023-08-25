@@ -36,6 +36,7 @@ export const useStore = defineStore('storeId', {
       profilePicAsURL: '',
       createApiError: false,
       locale: '',
+      logoID: 'https://www.navipartner.dk/wp-content/uploads/2022/11/NaviPartner_rgb-1.svg'
     }
   },
   actions: {
@@ -178,11 +179,7 @@ export const useStore = defineStore('storeId', {
       this.xmlPayload = InnerXml
       console.log(JSON.stringify(InnerXml))
       let completeXmlContent = JSON.stringify(InnerXml)
-      if ( this.createApiError ) {
-        return `<QueueMessage>  
-                <MessageText>${completeXmlContent}</MessageText>  
-              </QueueMessage>>`
-      }
+      
       return `<QueueMessage>  
                 <MessageText>${completeXmlContent}</MessageText>  
               </QueueMessage>`

@@ -6,9 +6,9 @@
       "googleButton": "Fuldfør med Google",
       "tac": "Vilkår og betingelser",
       "languageButtons": {
-        "englishButton": "English",
-        "swedishButton": "Svenska",
-        "danishButton": "Dansk"
+        "en": "English",
+        "sv": "Svenska",
+        "da": "Dansk"
       }
     },
     "form": {
