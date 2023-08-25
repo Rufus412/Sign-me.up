@@ -1,13 +1,31 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Form from './components/Form.vue'
+import { useStore } from './stores/counter';
 const Show = false
+</script>
+
+<script>
+
+export default {
+  data() {
+    const store = useStore
+    return {
+      store: store
+    }
+  },
+  mounted() {
+    const store = useStore()
+    document.getElementById("logo").src = store.logoID
+  }
+}
+
 </script>
 
 <template>
   <div class="h-full flex flex-col box bg-slate-300">
       <header class="row header bg-slate-300 round min-h-fit" >
-        <img id="logo" src="./assets/Logo.png" alt="">
+        <img id="logo" src="" alt="">
       </header>
   
     <div id="head" class="row content rounded-t-3xl bg-gray-200" >
@@ -20,9 +38,9 @@ const Show = false
 <style scoped>
 #logo {
   margin-left: 50%;
-  margin-top: 40px;
-  scale: 1.5;
-  transform: translate(-33.3333333333333%, -50%);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  transform: translate(-50%, 0);
   
 
 }
