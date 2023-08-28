@@ -1,10 +1,10 @@
 <script setup>
 import { useStore } from '../stores/counter'
-//import { countryLookUp } from '../helpers/PhoneNumberLookup'
-import { findCountryCode } from '../helpers/PhonenumberCountryItentifier'
+import { findCountryCode } from '../Services/PhonenumberCountryItentifier'
 import GoogleSignIn from './GoogleSignIn.vue';
 import FacebookSignIn from './FacebookSignIn.vue';
 import EmailSigninButton from './EmailSigninButton.vue';
+import { loadConfigFiles } from '../Services/Translations.js'
 
 
 </script>
@@ -16,7 +16,7 @@ export default {
     return {
       tos: '',
       languages: [],
-      loggingMethods: []
+      loggingMethods: [],
     }
   },
   methods: {
@@ -24,23 +24,52 @@ export default {
       const store = useStore()
       store.locale = language
     },
+    getClassNames(index) {
+      const classNames = [];
+
+      if (index === 0) {
+        classNames.push('border-r-0.5', 'border-l-0', 'rounded-l-md');
+      }
+
+      if (index === this.languages.length - 1) {
+        classNames.push('border-r-0', 'border-l-0.5', 'rounded-r-md');
+      }
+
+      if (this.languages.length === 2) {
+        classNames.push('max-w-[50%]')
+        classNames.push('min-w-[73px]')
+      }
+      if (this.languages.length === 3) {
+        classNames.push('max-w-[33%]')
+        classNames.push('min-w-[73px]')
+      }
+      if (this.languages.length === 4) {
+        classNames.push('max-w-[25%]')
+        classNames.push('min-w-[56px]')
+        classNames.push('languageButtons')
+      }
+      if (this.languages.length === 5) {
+        classNames.push('max-w-[20%]')
+        classNames.push('min-w-[56px]')
+        classNames.push('languageButtons')
+      }
+      if (this.languages.length === 6) {
+        classNames.push('max-w-[16.6666666%]')
+        classNames.push('min-w-[56px]')
+        classNames.push('languageButtons')
+      }
+      return classNames;
+    }
   },
   computed: {
   },
   async created() {
     try {
-
-      async function loadConfigFiles (fileName) {
-        const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/${fileName}.json`);
-        const a = await response.json()
-        console.log(a.locales)
-        return  a;
-      }
-
       const config = await loadConfigFiles('config'); // Fetch the config
-      console.log("THis is the config: " + config)
+      console.log("THis is the config: " + JSON.stringify(config))
       this.languages = config.locales;
       this.loggingMethods = config.loggingMethods
+      this.maxWidth = `max-w-[${100/this.languages.length}%]`
 
     } catch (error) {
       console.error('Error loading config:', error);
@@ -111,7 +140,6 @@ export default {
     }
 
 
-    console.log(window.location.href)
 
     console.log(params.get('SignUpFlow'))
     if (params.get('SignUpFlow') === '0') {
@@ -158,8 +186,8 @@ export default {
 
     <div class="flex justify-center mt-5 sm:mt-10">
       <span class="rounded-md shadow-sm text-center justify-center item-center">
-        <button v-for="(language, index) in languages" :key="index" @click="$i18n.locale = `${language}`"
-          class=" border-y-0 relative inline-flex items-center justify-center bg-white w-[100px] max-w-[33%] py-2 text-center text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10" :class="{ 'border-r-0.5 border-l-0 rounded-l-md': index === 0, 'border-r-0.5 border-l-0.5': index === 1, 'border-r-0 border-l-0.5 rounded-r-md': index === languages.length - 1}">
+        <button v-if="languages.length > 1" v-for="(language, index) in languages" :key="index" @click="$i18n.locale = `${language}`"
+          class="border-y-0 relative inline-flex shadow-md items-center w-[100px] justify-center bg-white border-r-0.5 border-l-0.5 py-2 text-center text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10" :class="getClassNames(index)" >
           {{ $t(`frontPage.languageButtons.${language}`) }}</button>
       </span>
     </div>
@@ -167,3 +195,15 @@ export default {
 
   </div>
 </template>
+
+
+
+<style scoped>
+
+@media (max-width: 295px) {
+  .languageButtons {
+    font-size: 12px;
+  }
+}
+
+</style>

@@ -1,7 +1,6 @@
 <script setup>
 import { axiosService } from '../Services/AxiosService.js'
 import { useStore } from '../stores/counter';
-import { ref, onMounted } from 'vue'
 import Compressor from 'compressorjs';
 
 

@@ -1,6 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Form from './components/Form.vue'
+import { RouterView } from 'vue-router'
 import { useStore } from './stores/counter';
 const Show = false
 </script>

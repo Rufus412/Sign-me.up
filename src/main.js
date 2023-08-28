@@ -2,17 +2,15 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createI18n } from "vue-i18n";
 import App from './App.vue'
 import router from './router'
 import vueCountryRegionSelect from 'vue3-country-region-select'
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import { initFacebookSdk } from './helpers/facebookInit'
-import { initGoogleSdk } from './helpers/googleInit'
-//import i18n from "./i18n"
-import GoogleSignInPlugin from "vue3-google-signin"
 import vue3GoogleLogin from 'vue3-google-login'
+import { translations, loadLocaleMessages, loadConfigFiles } from './Services/Translations';
+import { i18n } from './helpers/I18nInit';
 
 
 
@@ -29,24 +27,7 @@ const globalOptions = {
     inputClasses: Object,
 };
 
-async function loadLocaleMessages(locale) {
-    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/locales/${locale}.json`);
-    return response.json();
-  }
 
-
-  async function loadConfigFiles(fileName) {
-    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/${fileName}.json`);
-    return response.json();
-  }
-
-
-const i18n = createI18n({
-    locale: import.meta.env.VITE_DEFAULT_LOCALE,
-    fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
-    legacy: false,
-    globalInjection: true,
-  });
 
 (async () => {
     initFacebookSdk()
@@ -62,6 +43,7 @@ const i18n = createI18n({
         }
     }
 
+    i18n.global.locale.value = await translations(locales)
     const app = createApp(App);
     const pinia = createPinia()
     app.use(pinia)

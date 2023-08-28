@@ -1,7 +1,6 @@
 <script setup>
 
 import { googleTokenLogin } from "vue3-google-login"
-import { decodeCredential } from 'vue3-google-login'
 import { useStore } from "../stores/counter";
 import { axiosService } from "../Services/AxiosService"
 
