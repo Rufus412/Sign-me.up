@@ -158,7 +158,7 @@ export default {
         </div>
 
         <div class="flex justify-center">
-            <img id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px]" >
+            <img id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px] QR" >
         </div>
 
         <div id="buttons" class="flex flex-col mt-4 text-center">
@@ -191,4 +191,11 @@ export default {
     margin-left: 50%;
     transform: translate(-50%);
 }
+
+@media (max-width: 450px) {
+    .QR {
+        max-width: 100%;
+    }
+}
+
 </style>
