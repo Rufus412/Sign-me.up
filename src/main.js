@@ -9,8 +9,7 @@ import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/vue-tel-input.css';
 import { initFacebookSdk } from './helpers/facebookInit'
 import vue3GoogleLogin from 'vue3-google-login'
-import { translations, loadLocaleMessages, loadConfigFiles } from './Services/Translations';
-import { i18n } from './helpers/I18nInit';
+import { i18n, initI18n } from './helpers/I18nInit';
 
 
 
@@ -31,19 +30,7 @@ const globalOptions = {
 
 (async () => {
     initFacebookSdk()
-    const response = await loadConfigFiles("config")
-    const locales = (response.locales)
-    for (const locale of locales) {
-        try {
-            const messages = await loadLocaleMessages(locale);
-            i18n.global.setLocaleMessage(locale, messages);
-        }
-        catch(error) {
-            console.log(`Language file for ${locale} not found!`)
-        }
-    }
-
-    i18n.global.locale.value = await translations(locales)
+    initI18n()
     const app = createApp(App);
     const pinia = createPinia()
     app.use(pinia)
