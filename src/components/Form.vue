@@ -10,11 +10,13 @@ import { useStore } from '../stores/counter';
 
 export default {
   data() {
+    const store = useStore()
     return {
       tosLink: '',
       failedSubmit: false,
       fullCountry: '',
       phoneFromQuery: false,
+      store: store
 
     }
   },
@@ -74,18 +76,18 @@ export default {
 </script>
 
 <template>
-  <div class="">
+  <div class="h-fit rounded-xl bg-white shadow-xl px-4">
     <form @submit.prevent="onSubmit" > 
       <div class="space-y-12">
 
-        <div class="border-b border-gray-900/10 pb-12 ">
-          <h2 class="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
+        <div class="border-b border-gray-900/10 pb-8 pt-3 ">
+          <h2 class="text-base font-semibold leading-7 text-gray-900"> {{ $t("form.title") }}</h2>
 
-          <div class="mt-5 grid grid-cols-1 gap-x-5 gap-y-[3%] sm:grid-cols-6">
+          <div class="mt-5 grid grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-6">
             <div class="sm:col-span-3">
-              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name:</label>
+              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.firstNameLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="first-name" id="first-name" placeholder="First Name" v-model="data.firstName" autocomplete="given-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"  />
+                <input required pattern="\S+.*" type="text" name="first-name" id="first-name" :placeholder="$t('form.firstNameLabel')" v-model="data.firstName" autocomplete="given-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"  />
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -93,9 +95,9 @@ export default {
             </div>
 
             <div class="sm:col-span-3">
-              <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+              <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.lastNameLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="last-name" v-model="data.lastName" id="last-name" placeholder="Last Name" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }" />
+                <input required pattern="\S+.*" type="text" name="last-name" v-model="data.lastName" id="last-name" :placeholder="$t('form.lastNameLabel')" autocomplete="family-name" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }" />
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -103,9 +105,9 @@ export default {
             </div>
 
             <div class="sm:col-span-4">
-              <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
+              <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.addressLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="street-address" v-model="data.adress" id="street-address" placeholder="Adress" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input required pattern="\S+.*" type="text" name="street-address" v-model="data.adress" id="street-address" :placeholder="$t('form.addressLabel')" autocomplete="street-address" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -113,9 +115,9 @@ export default {
             </div>
 
             <div class="sm:col-span-3">
-              <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Postal code</label>
+              <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.postalCodeLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="postal-code" id="postal-code" v-model="data.postalCode" placeholder="Post code" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/> 
+                <input required pattern="\S+.*" type="text" name="postal-code" id="postal-code" v-model="data.postalCode" :placeholder="$t('form.postalCodeLabel')" autocomplete="postal-code" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/> 
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -123,9 +125,9 @@ export default {
             </div>
 
             <div class="sm:col-span-3 sm:col-start-4">
-              <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+              <label for="city" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.cityLabel")}}</label>
               <div class="mt-0">
-                <input required pattern="\S+.*" type="text" name="city" id="city" v-model="data.city" placeholder="City" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer " :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input required pattern="\S+.*" type="text" name="city" id="city" v-model="data.city" :placeholder="$t('form.cityLabel')" autocomplete="address-level2" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer " :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid value!
               </span>
@@ -133,9 +135,9 @@ export default {
             </div>
 
             <div class="sm:col-span-2">
-              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.countryLabel")}}</label>
               <div class="mt-0">
-                <country-select pattern="\S+.*" :autocomplete="true" :country="data.country" id="country" name="country" :placeholder="(fullCountry || 'Select Country')" v-model="data.countryCode" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" :class="{ 'invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer': failedSubmit }"/>
+                <country-select pattern="\S+.*" :autocomplete="true" :country="data.country" id="country" name="country" :placeholder="(fullCountry || $t('form.selectCountryLabel'))" v-model="data.countryCode" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" :class="{ 'invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                 Enter a valid value!
               </span>
@@ -143,9 +145,9 @@ export default {
             </div>
 
             <div class="sm:col-span-5">
-              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.emailLabel")}}</label>
               <div class="mt-0">
-                <input id="email" required name="email" type="email" v-model="data.eMail" placeholder="Email" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input id="email" required name="email" type="email" v-model="data.eMail" :placeholder="$t('form.emailLabel')" autocomplete="email" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                   Enter a valid Email!
               </span>
@@ -153,9 +155,9 @@ export default {
             </div>
 
             <div class="sm:col-span-full">
-              <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
+              <label for="country" class="block text-sm font-medium leading-6 text-gray-900">{{ $t("form.phoneNumberLabel")}}</label>
               <div class="mt-0">
-                <input  id="country" pattern="\+[0-9 ]{5,}$" required name="country" v-model="data.phoneNumber" :disabled="phoneFromQuery" placeholder="+1 (555) 987-6543" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
+                <input  id="country" pattern="\+[0-9 ]{5,}$" required name="country" v-model="data.phoneNumber" :disabled="phoneFromQuery" autocomplete="tel" placeholder="+1 (555) 987-6543" class="block w-[99%] rounded-md border py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 peer" :class="{ 'invalid:[&:not(:focus):invalid]:border-red-500': failedSubmit }"/>
                 <span class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block" :class="{ 'peer-[&:not(:focus):invalid]:block': failedSubmit }"  >
                 Enter a valid internationall phone number (starting with +)
               </span>
@@ -166,13 +168,13 @@ export default {
 
             <div class="sm:col-span-3 mt-0">
               <input type="checkbox" v-model="data.newsLetter" id="checkBoxNews">
-              <label class="ml-2">I want to receive newsletters</label><br>
+              <label class="ml-2">{{ $t("form.newslettersLabel")}}</label><br>
               <input type="checkbox" v-model="data.tos" id="checkBoxTos">
-              <a class="ml-2" id="checkBoxTos" :href="tosLink" target="_blank" >I agree to the terms of service</a><br>
+              <label v-if="store.logInMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{  $t('form.tos1Label') }}</span><a :href="tosLink" target="_blank" >{{  $t('form.tos2Label') }}</a></label>
             </div> 
             <div class="flex flex-col sm:col-span-full">
               
-              <button type="submit" :disabled="!data.tos"  :class="{ 'cursor-not-allowed': !data.tos, 'bg-slate-300':!data.tos, 'hover:bg-indigo-500': data.tos }" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm  border-0 sm:border-2 border-black border-solid">Continue</button>
+              <button type="submit" :disabled="!data.tos"  :class="{ 'cursor-not-allowed': !data.tos, 'bg-slate-300':!data.tos, 'hover:bg-indigo-500': data.tos }" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm  border-0 sm:border-2 border-black border-solid">{{ $t('form.continueButton') }}</button>
             </div>
           </div>
           

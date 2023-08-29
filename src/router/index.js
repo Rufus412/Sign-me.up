@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import FormView from '../views/FromView.vue'
 import { useStore } from '../stores/counter'
-import FormCheckVue from '../components/FormCheck.vue'
+import FormCheckVue from '../views/FormCheckView.vue'
 import SignInOptionsView from '../views/SignInOptionsView.vue'
 import SelfieView from '../views/SelfieView.vue'
+import CouponQR from '../components/CouponQR.vue'
 import SubmissionConfirmationView from '../views/SubmissionConfirmationView.vue'
 
 const router = createRouter({
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/registered',
       name: 'registered',
       component: SubmissionConfirmationView
+    },
+    {
+      path: '/coupon',
+      name: 'coupon',
+      component: CouponQR
     },
     {
       path: '/QR',
