@@ -189,7 +189,7 @@ export const useStore = defineStore('storeId', {
 
       return `<QueueMessage>  
                 <MessageText>${completeXmlContent}</MessageText>  
-              </QueueMessage>>`
+              </QueueMessage>`
 
     }
   }
