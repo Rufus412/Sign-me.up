@@ -16,14 +16,12 @@ export default {
     computed: {
         makeIMG() {
             let svg = this.qrSVG
-            let blob = new Blob([svg], {type: 'image/svg+xml'});
+            let blob = new Blob([svg], {type: 'image/svg+xml'})
             let url = URL.createObjectURL(blob);
             let img = document.getElementById('qrCode')
             
-            //img.src = url;
             setTimeout(() => {
-                
-            URL.revokeObjectURL(url)
+                URL.revokeObjectURL(url)
             }, 100)
             return url
         }
