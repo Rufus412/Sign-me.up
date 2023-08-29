@@ -59,9 +59,26 @@ export default {
         classNames.push('languageButtons')
       }
       return classNames;
+    },
+    getButtonSize() {
+      const emailButton = document.getElementById("emailSignin").offsetWidth
+      return emailButton.offsetWidth
+    },
+    doSMTH() {
+      document.getElementById("emailSignin").addEventListener("click", (e) => {
+        console.log(e + "dcawdeaw")
+      
+        document.getElementById('appleButton').offsetWidth = document.getElementById("emailSignin").offsetWidth
+      })
+      console.log("dcawdeaw")
     }
   },
   computed: {
+    getWidth() {
+      emailWidth = document.getElementById("emailSignin").offsetWidth
+      return emailWidth
+    }
+
   },
   async created() {
     try {
@@ -76,6 +93,11 @@ export default {
 
   },
   mounted() {
+
+
+  
+
+
     const store = useStore()
     const params = (new URL(location)).searchParams;
 
@@ -145,6 +167,10 @@ export default {
     else {
       store.lvl3 = true
     }
+
+    return function gettWidth() {
+      return document.getElementById("emailSignin").offsetWidth
+    }
   }
 }
 } 
@@ -164,7 +190,7 @@ export default {
     <div class=" sm:mx-auto sm:w-full mt-5 sm:mt-10 sm:max-w-[480px]">
       <div class="bg-gray-50 px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
         <div v-if="loggingMethods.email === true">
-          <EmailSigninButton/>
+          <EmailSigninButton id="emailSignin"/>
         </div>
         <div class="relative mt-10">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
@@ -177,8 +203,21 @@ export default {
         <div v-if="loggingMethods.google === true" class="mt-10 flex flex-col w-full justify-center">
           <GoogleSignIn/>
         </div>
+        <div>
+          
+          <vue-apple-login v-if="!signedIn"
+        color="blue"
+        :border="false"
+        type="sign in"
+        :width="gettWidth()"
+        height="50"
+        :onSuccess="onSuccess"
+        :onFailure="onFailure"
+    ></vue-apple-login>
+        </div>
       </div>
     </div>
+    <button @click="doSMTH">JKIDJFKIW</button>
 
     <div class="flex justify-center mt-5 sm:mt-10">
       <span class="rounded-md shadow-sm text-center justify-center item-center">
@@ -201,5 +240,6 @@ export default {
     font-size: 12px;
   }
 }
+
 
 </style>
