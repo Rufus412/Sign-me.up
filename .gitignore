@@ -26,3 +26,9 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+
+# dotenv environment variables file
+process.env
+.env
+.env.test
