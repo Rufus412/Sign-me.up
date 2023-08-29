@@ -4,7 +4,7 @@ import { findCountryCode } from '../Services/PhonenumberCountryItentifier'
 import GoogleSignIn from './GoogleSignIn.vue';
 import FacebookSignIn from './FacebookSignIn.vue';
 import EmailSigninButton from './EmailSigninButton.vue';
-import { loadConfigFiles } from '../Services/Translations.js'
+import { loadConfigFiles, setPersistedLocale } from '../Services/Translations.js'
 
 
 </script>
@@ -66,7 +66,6 @@ export default {
   async created() {
     try {
       const config = await loadConfigFiles('config'); // Fetch the config
-      console.log("THis is the config: " + JSON.stringify(config))
       this.languages = config.locales;
       this.loggingMethods = config.loggingMethods
       this.maxWidth = `max-w-[${100/this.languages.length}%]`
@@ -110,7 +109,6 @@ export default {
 
     }
 
-    console.log(params.get('dev'))
     if (params.get('dev')) {
       console.log("Dev mode")
       store.devMode = true
@@ -126,7 +124,7 @@ export default {
         newsLetter: true,
         tos: true
       })
-      console.log(JSON.stringify(store.Member.createMembership.members[0]))
+      
     }
 
     if (params.get('PartitionKey')) {
@@ -141,12 +139,10 @@ export default {
 
 
 
-    console.log(params.get('SignUpFlow'))
     if (params.get('SignUpFlow') === '0') {
       this.$router.push({ name: 'formView' })
     }
     else {
-      console.log('lvl3 active')
       store.lvl3 = true
     }
   }
@@ -186,7 +182,7 @@ export default {
 
     <div class="flex justify-center mt-5 sm:mt-10">
       <span class="rounded-md shadow-sm text-center justify-center item-center">
-        <button v-if="languages.length > 1" v-for="(language, index) in languages" :key="index" @click="$i18n.locale = `${language}`"
+        <button v-if="languages.length > 1" v-for="(language, index) in languages" :key="index" @click="$i18n.locale = `${language}`, setPersistedLocale(language)"
           class="border-y-0 relative inline-flex shadow-md items-center w-[100px] justify-center bg-white border-r-0.5 border-l-0.5 py-2 text-center text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10" :class="getClassNames(index)" >
           {{ $t(`frontPage.languageButtons.${language}`) }}</button>
       </span>

@@ -15,7 +15,6 @@ export default {
     formConfirmed() {
       const store = useStore()
 
-      console.log(store.lvl3)
       if (store.lvl3 !== false) {
         this.$router.push({ name: 'selfie' })
       }
