@@ -1,0 +1,9 @@
+{
+    "locales": ["en","sv","da"],
+    "comment": "Order of the array above is the order that the language buttons apear in the SPA",
+    "loggingMethods": {
+        "email": true,
+        "facebook": true,
+        "google": true
+    }
+}

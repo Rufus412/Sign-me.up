@@ -1,7 +1,5 @@
 <script setup>
-import { toValue } from 'vue';
 import  Form  from '../components/Form.vue'
-import FormCheck from '../components/FormCheck.vue'
 
 </script>
 
@@ -10,11 +8,13 @@ import FormCheck from '../components/FormCheck.vue'
 </script>
 
 <template>
-  <div class="Form">
+  <div id="main" class="px-6 py-6 box-border h-fit min-h-full">
     <Form> </Form>
   </div>
 </template>
 
 <style scoped>
+
+
 
 </style>

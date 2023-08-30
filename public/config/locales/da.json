@@ -1,0 +1,47 @@
+{
+    "frontPage": {
+      "header": "Fuldfør medlemsregistrering",
+      "emailButton": "Fuldfør med e-mail",
+      "facebookButton": "Fuldfør med Facebook",
+      "googleButton": "Fuldfør med Google",
+      "tac": "Vilkår og betingelser",
+      "languageButtons": {
+        "en": "English",
+        "sv": "Svenska",
+        "da": "Dansk"
+      }
+    },
+    "form": {
+      "title": "Personlige Oplysninger",
+      "firstNameLabel": "Fornavn",
+      "lastNameLabel": "Efternavn",
+      "addressLabel": "Adresse",
+      "postalCodeLabel": "Postnummer",
+      "cityLabel": "By",
+      "countryLabel": "Land",
+      "selectCountryLabel": "Vælg land",
+      "emailLabel": "E-mailadresse",
+      "phoneNumberLabel": "Telefonnummer",
+      "newslettersLabel": "Jeg ønsker at modtage nyhedsbreve",
+      "tos1Label": "Jeg accepterer ",
+      "tos2Label": "vilkår og betingelser",
+      "continueButton": "Fortsæt",
+      "fullNameLabel": "Fulde navn",
+      "editButton": "Redigere",
+      "contactInfo": "Kontaktinformation"
+    },
+    "selfie": {
+      "header": "Ønsker du at tilføje et foto af dig selv?",
+      "photoButton": "Tag foto",
+      "skipButton": "Spring over",
+      "newPhotoButton": "Nyt foto",
+      "continueButton": "Fortsæt"
+    },
+    "qrPage": {
+      "showToTeller": "Vis QR-koden til kassen for at fuldføre registreringen",
+      "error": "Der opstod en fejl"
+    },
+    "confirmationPage": {
+      "ty": "Tak!"
+    }
+  }

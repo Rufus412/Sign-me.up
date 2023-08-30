@@ -9,7 +9,7 @@ import QR from '../components/QR.vue'
 </script>
 
 <template >
-    <div>
+    <div class="px-5">
         <QR/>       
     </div>
 </template>
