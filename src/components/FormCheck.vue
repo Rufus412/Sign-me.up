@@ -56,10 +56,8 @@ export default {
     <div class="mt-6 border-t border-gray-100">
       <dl class="divide-y divide-gray-100">
         <div class="bg-gray-50 px-3 py-3 grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-3 sm:px-3">
-          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.fullNameLabel") }}:
-          </dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-1 sm:col-span-2 sm:mt-0">{{ inData.firstName }} {{
-            inData.lastName }}</dd>
+          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.fullNameLabel") }}:</dt>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-1 sm:col-span-2 sm:mt-0">{{ inData.firstName }} {{ inData.lastName }}</dd>
 
         </div>
         <div class="bg-white px-3 py-3 grid grid-cols-1 items-center sm:grid-cols-1 gap-1.5 sm:gap-3 sm:px-3">

@@ -6,9 +6,7 @@ export const i18n = createI18n({
     fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
     legacy: false,
     globalInjection: true,
-  });
-
-
+});
 
 export async function initI18n() {
   const response = await loadConfigFiles("config")

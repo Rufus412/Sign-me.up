@@ -13,11 +13,11 @@ import Compressor from 'compressorjs';
 export default {
     async mounted() {
         const constraints = { video: true, audio: false }; // Request video access only
-        
+
         navigator.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 this.canUseCamera = true
-                
+
                 const mediaStream = stream
                 const tracks = mediaStream.getTracks()
                 tracks.forEach((track) => {
@@ -26,7 +26,7 @@ export default {
             })
             .catch((error) => {
                 this.canUseCamera = false
-                
+
             });
     },
     data() {
@@ -49,32 +49,33 @@ export default {
 
         async azurePush() {
             const store = useStore()
-            store.createApiError = this.createError
             if (this.imageInPayload) {
-                await axiosService.postImageToQueue(store.profilePicAsBase64, store.RowKey).then((response) => {
+                try {
+                    await axiosService.postImageToQueue(store.profilePicAsBase64, store.RowKey)
                     this.imagePushed = true
-                })
-                    .catch(error => {
-                    })
+                }
+                catch (error) {
+                    console.log(`Failed to transfer image. Error: ${error}`)
+                }
             }
-            let xmlPayload = store.makeXML()
-            await axiosService.postToQueue(xmlPayload)
-                .then((response) => {
-                    console.log("Success")
-                    this.$router.push({ name: 'registered' })
-                })
-                .catch(error => {
-                    setTimeout(() => {
-                        axiosService.postToQueue(xmlPayload)
-                            .then((response) => {
-                                this.$router.push({ name: 'registered' })
-                            })
-                            .catch(error => {
-                                store.makeQR()
-                                this.$router.push({ name: 'QR' })
-                            })
-                    }, this.delayInMilliseconds);
-                })
+            const xmlPayload = store.makeXML()
+            try {
+                await axiosService.postToQueue(xmlPayload)
+                console.log("Success")
+                this.$router.push({ name: 'registered' })
+            }
+            catch (error) {
+                setTimeout(async () => {
+                    try {
+                        await axiosService.postToQueue(xmlPayload)
+                        this.$router.push({ name: 'registered' })
+                    }
+                    catch (error) {
+                        store.makeQR()
+                        this.$router.push({ name: 'QR' })
+                    }
+                }, this.delayInMilliseconds);
+            }
         },
         readFile() {
             var input = document.getElementById("profilePic").files[0]
@@ -86,17 +87,17 @@ export default {
 
                     const reader = new FileReader()
                     const store = useStore()
-                    
+
                     const data = reader.readAsDataURL(compressedFile);
                     reader.addEventListener('load', (e) => {
                         const data = e.target.result;
                         store.profilePicAsBase64 = data
-                        
+
                         document.getElementById("displayProfilePic").src = data
                     })
                 },
                 error(err) {
-                    
+                    console.log(`Failed to compress. Error: ${err}`)
                     return
                 },
             })
@@ -104,7 +105,7 @@ export default {
             this.continueButtonText = 'Continue'
             this.photoButtonText = 'New Photo'
             this.imageInPayload = true
-            
+
         },
         IIP() {
             const store = useStore()
@@ -137,7 +138,7 @@ export default {
         </div>
 
         <div class="flex justify-center">
-            <img v-if="IIP()" id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px] QR">
+            <img v-if="IIP()" id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px] img">
         </div>
 
         <div id="buttons" class="flex flex-col mt-4 text-center">
@@ -182,7 +183,8 @@ export default {
 }
 
 @media (max-width: 450px) {
-    .QR {
+    .img {
         max-width: 100%;
     }
-}</style>
+}
+</style>

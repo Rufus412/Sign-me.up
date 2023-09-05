@@ -19,9 +19,12 @@ export default {
                 console.log("Api response " + userData.data.id)
 
                 const store = useStore()
-                store.Member.createMembership.members[0].firstName = userData.data.given_name || ""
-                store.Member.createMembership.members[0].lastName = userData.data.family_name || ""
-                store.Member.createMembership.members[0].eMail = userData.data.email || ""
+                store.modifyMember({
+                    firstName: userData.data.given_name,
+                    lastName: userData.data.family_name,
+                    eMail: userData.data.email,
+                })
+                
                 store.memberID = userData.data.id || ""
                 store.profilePicAsURL = userData.data.picture || ""
                 store.logInMethod = "google"
