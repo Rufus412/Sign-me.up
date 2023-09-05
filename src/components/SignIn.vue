@@ -169,13 +169,11 @@ export default {
         $t('frontPage.header') }}
       </h2>
     </div>
-
-
-
+    
     <div class=" sm:mx-auto sm:w-full mt-5 sm:mt-10 sm:max-w-[480px]">
       <div class="bg-white px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
         <div v-if="signinMethods.email === true">
-          <EmailSigninButton id="emailSignin" />
+          <EmailSigninButton />
         </div>
         <div class="relative mt-10">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
