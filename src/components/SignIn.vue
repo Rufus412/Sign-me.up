@@ -118,7 +118,7 @@ export default {
           phoneNumber: inData.phoneNumber
         })
         store.tosLink = inData.tos ?? ''
-        this.tos = inData.tos
+        this.tos = inData.tos ?? ''
         console.log(inData.phoneNumber)
         let ccIn = findCountryCode(inData.phoneNumber)
         console.log(ccIn)

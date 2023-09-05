@@ -50,7 +50,7 @@ const router = createRouter({
       component: () => import('../views/QRview.vue')
     }
   ],
-  
+
 })
 
 router.beforeEach((to) => {

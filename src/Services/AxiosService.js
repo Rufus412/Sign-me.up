@@ -25,7 +25,7 @@ function postImageToQueue(b64, RowKey) {
 }
 
 async function getGoogleProfileInfo(access_token) {
-  const googleHeader = {  
+  const googleHeader = {
     headers: {
       Authorization: "Bearer" + access_token
     }

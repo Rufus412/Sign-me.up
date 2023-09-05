@@ -129,12 +129,10 @@ export default {
         :class="{ 'mt-0': IIP(), 'mt-40': !IIP() }">
         <div class="text-center">
             <h2 v-if="!IIP()">{{ $t('selfie.header') }}</h2>
-
         </div>
 
         <div>
-            <button v-if="IIP()" @click="clearImage"
-                class="absolute top-1 py-1 px-1.5 right-1 rounded-full bg-red-500">X</button>
+            <button v-if="IIP()" @click="clearImage" class="absolute top-1 py-1 px-1.5 right-1 rounded-full bg-red-500">X</button>
         </div>
 
         <div class="flex justify-center">
@@ -143,29 +141,35 @@ export default {
 
         <div id="buttons" class="flex flex-col mt-4 text-center">
             <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden"
-                :class="{ disabled: !canUseCamera, 'peer': !canUseCamera }" />
+                :class="{ disabled: !canUseCamera, 'peer': !canUseCamera }">
             <div v-if="!IIP()" class="flex flex-col">
                 <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera, }" ref="capture" for="profilePic"
                     type="button"
-                    class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">{{
-                        $t('selfie.photoButton') }}</label>
-                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">Please allow your web browser to access your
-                    camera to use this feature</p>
+                    class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">
+                    {{ $t('selfie.photoButton') }}
+                </label>
+                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this feature
+                </p>
                 <button type="button" @click="azurePush"
-                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 bg-gray-100 text-black border-0 sm:border-2 border-solid border-black">{{
-                        $t('selfie.skipButton') }} </button>
+                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 bg-gray-100 text-black border-0 sm:border-2 border-solid border-black">
+                    {{ $t('selfie.skipButton') }}
+                </button>
             </div>
 
             <div v-else class="flex flex-col mt-4 text-center">
                 <button type="button" @click="azurePush"
-                    class="mb-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold text shadow-sm hover:bg-indigo-500 bg-indigo-600 text-white border-0 sm:border-2 border-solid border-black">{{
-                        $t('selfie.continueButton') }} </button>
+                    class="mb-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold text shadow-sm hover:bg-indigo-500 bg-indigo-600 text-white border-0 sm:border-2 border-solid border-black">
+                    {{ $t('selfie.continueButton') }}
+                </button>
                 <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera, }" ref="capture" for="profilePic"
                     type="button"
-                    class=" text-center mb-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm text-black hover:bg-gray-50 font-semibold shadow-sm border-0 sm:border-2 border-black border-solid">{{
-                        $t('selfie.newPhotoButton') }}</label>
-                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">Please allow your web browser to access your
-                    camera to use this feature</p>
+                    class=" text-center mb-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm text-black hover:bg-gray-50 font-semibold shadow-sm border-0 sm:border-2 border-black border-solid">
+                    {{ $t('selfie.newPhotoButton') }}
+                </label>
+                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this feature
+                </p>
             </div>
         </div>
     </div>

@@ -22,7 +22,6 @@ const globalOptions = {
     },
     showDialCodeInSelection: {
         showDialCode: true,
-
     },
     inputClasses: Object,
 };

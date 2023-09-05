@@ -8,5 +8,5 @@ export function initAppleSdk() {
         usePopup: true,
     });
     console.log("apple initiated")
-        
+
 }

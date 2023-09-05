@@ -34,7 +34,6 @@ export default {
 
 <div class="flex flex-col justify-center">
     <img :src="makeIMG" id="qrCode" class="mt-5 h-[75%] w-[75%] ml-[12.5%] lg:h-[50%] lg:w-[50%] lg:ml-[25%] 2xl:h-[30%] 2xl:w-[30%] 2xl:ml-[35%] m-0 p-0 border-0">
-
     <div class="translate mt-5 bg-white w-[300px] rounded-xl ml-[50%] flex justify-center">
         <h1 class="flex justify-center py-3">{{ Description }}</h1>
     </div>

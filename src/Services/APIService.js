@@ -5,9 +5,9 @@ export const apiService = {
     getName
 }
 
-function getLogginData() {  
-    return FB.getLoginStatus(function(response) {
-       return statusChangeCallback(response);
+function getLogginData() {
+    return FB.getLoginStatus(function (response) {
+        return statusChangeCallback(response);
     });
 }
 function statusChangeCallback(response) {
@@ -19,11 +19,13 @@ function getName(accessToken) {
     FB.api(
         '/me',
         'GET',
-        {"fields":"first_name,last_name,middle_name,email",
-        "access_token": accessToken },
-        
-        function(response) {
-            
+        {
+            "fields": "first_name,last_name,middle_name,email",
+            "access_token": accessToken
+        },
+
+        function (response) {
+
             const store = useStore()
             let responseVals = Object.values(response)
             if (!store.devMode) {
