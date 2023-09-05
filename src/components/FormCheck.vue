@@ -28,12 +28,12 @@ export default {
     },
     fullCountry() {
       const store = useStore()
-      if (store.Member.createMembership.members[0].countryCode === "") {
+      if (this.inData.countryCode === "") {
         return ""
       }
       else {
         let regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
-        return regionNames.of(store.Member.createMembership.members[0].countryCode)
+        return regionNames.of(this.inData.countryCode)
       }
     },
     getTos() {

@@ -20,18 +20,23 @@ export default {
                 if (appleResponse && appleResponse.user && token.iss === "https://appleid.apple.com" && token.aud === import.meta.env.VITE_APPLE_IDENTIFIER) {
                     const userData = appleResponse.user;
                     console.log('User data:', userData);
-                    store.Member.createMembership.members[0].eMail = userData.email
-                    store.Member.createMembership.members[0].firstName = userData.name.firstName
-                    store.Member.createMembership.members[0].lastName = userData.name.lastName
+                    store.modifyMember({
+                        eMail: userData.email,
+                        firstName: userData.name.firstName,
+                        lastName: userData.name.lastName,
+                    
+                    })
                     
                     store.logInMethod = 'apple'
                     store.memberID = token.sub
                     
 
-                    this.$router.push({ name: 'formCheck' }); // Redirect as needed
+                    this.$router.push({ name: 'formCheck' });
                 } else if (appleResponse && JWT) {
                     console.log(token.email)
-                    store.Member.createMembership.members[0].eMail = token.email
+                    store.modifyMember({
+                        eMail: token.email
+                    })
                     store.logInMethod = 'apple'
                     store.memberID = token.sub
                     this.$router.push({ name: 'formView'})
@@ -40,7 +45,6 @@ export default {
                     console.log("user closed window")
                 }
             } catch (error) {
-                // Handle any errors that may occur during the sign-in process
                 console.error('Apple Sign-In error:', error);
             }
         },

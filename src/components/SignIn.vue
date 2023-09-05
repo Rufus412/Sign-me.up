@@ -113,8 +113,10 @@ export default {
       if (params.get('data')) {
         var inData = JSON.parse(atob(params.get('data')))
         console.log(inData + ' This is indata from query')
-        store.Member.createMembership.members[0].firstName = inData.firstName ?? ''
-        store.Member.createMembership.members[0].phoneNumber = inData.phoneNumber ?? ''
+        store.modifyMember({
+          firstName: inData.firstName,
+          phoneNumber: inData.phoneNumber
+        })
         store.tosLink = inData.tos ?? ''
         this.tos = inData.tos
         console.log(inData.phoneNumber)
@@ -122,7 +124,9 @@ export default {
         console.log(ccIn)
         if (ccIn !== null) {
           let regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-          store.Member.createMembership.members[0].countryCode = ccIn
+          store.modifyMember({
+            countryCode: ccIn
+          })
           store.phoneInQuery = true
           store.fullCountryName = regionNames.of(ccIn)
         }
@@ -169,7 +173,7 @@ export default {
         $t('frontPage.header') }}
       </h2>
     </div>
-    
+
     <div class=" sm:mx-auto sm:w-full mt-5 sm:mt-10 sm:max-w-[480px]">
       <div class="bg-white px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
         <div v-if="signinMethods.email === true">

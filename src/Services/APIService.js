@@ -27,7 +27,7 @@ function getName(accessToken) {
             const store = useStore()
             let responseVals = Object.values(response)
             if (!store.devMode) {
-                store.addMember({
+                store.modifyMember({
                     firstName: responseVals[0],
                     lastName: responseVals[1],
                     eMail: responseVals[2],
