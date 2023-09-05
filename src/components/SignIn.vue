@@ -101,9 +101,6 @@ export default {
   mounted() {
     const store = useStore()
     const params = (new URL(location)).searchParams;
-
-    console.log(window.location.hash + " hash Location")
-
     if (params.get('coupon')) {
       const couponCode = JSON.parse(atob(params.get('coupon')))
       store.makeQR("coupon", couponCode.id)
@@ -147,7 +144,7 @@ export default {
           tos: true
         })
       }
-      
+
       store.PartitionKey = params.get('PartitionKey') ?? ''
       store.RowKey = params.get('RowKey') ?? ''
       store.logoID = params.get('logoID') ?? ''
@@ -191,7 +188,7 @@ export default {
         <div v-if="signinMethods.google === true" class="mt-10 flex flex-col w-full justify-center">
           <GoogleSignIn />
         </div>
-        <div class="flex flex-col mt-10 w-full justify-center">
+        <div v-if="signinMethods.apple === true" class="flex flex-col mt-10 w-full justify-center">
           <appleSigninButton />
         </div>
       </div>

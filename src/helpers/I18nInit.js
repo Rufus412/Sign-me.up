@@ -27,9 +27,7 @@ export async function initI18n() {
 }
 
 function getUserLocale() {
-    const locale = window.navigator.language ||
-      window.navigator.userLanguage ||
-      Trans.defaultLocale
+    const locale = window.navigator.language || window.navigator.userLanguage || import.meta.env.VITE_DEFAULT_LOCALE || import.meta.env.VITE_FALLBACK_LOCALE
     return {
       locale: locale,
       localeNoRegion: locale.split('-')[0]

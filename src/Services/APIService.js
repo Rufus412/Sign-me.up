@@ -12,7 +12,6 @@ function getLogginData() {
 }
 function statusChangeCallback(response) {
     const store = useStore()
-    console.log(response.authResponse)
     return response.authResponse
 }
 
@@ -26,13 +25,8 @@ function getName(accessToken) {
         function(response) {
             
             const store = useStore()
-            console.log('FB-api:' + JSON.stringify(response))
-            console.log('FB-api raw: ' + response)
-            console.log(Object.values(response))
             let responseVals = Object.values(response)
-            if (store.devMode === false) {
-                console.log("Adding values from FB api call " +  responseVals[0])
-                console.log(store.Member.createMembership.members[0])
+            if (!store.devMode) {
                 store.addMember({
                     firstName: responseVals[0],
                     lastName: responseVals[1],

@@ -83,26 +83,19 @@ export function findCountryCode(phoneNumber) {
         return null
     }
     let myVar = phonenumberCountryCode[phoneNumberDigits['1']]
-    console.log(myVar)
     if (typeof myVar === 'string' && myVar !== null) {
-        console.log(myVar)
         return myVar
     }
     else {
         let phoneNumberStart = phoneNumberDigits[1].concat(phoneNumberDigits[2])
-        console.log(phoneNumberStart)
-        console.log(typeof phoneNumberStart)
         myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart]
-        console.log(myVar)
         if (typeof myVar === 'string' && myVar !== null) {
-            console.log(myVar)
             return myVar
         }
         else {
             let phoneNumberStart2 = phoneNumberStart.concat(phoneNumberDigits[3])
             myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart][phoneNumberStart2]
             if (typeof myVar === 'string' && myVar !== null) {
-                console.log(myVar)
                 return myVar
             }
             return null
