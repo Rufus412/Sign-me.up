@@ -23,13 +23,17 @@ export default {
                     store.Member.createMembership.members[0].eMail = userData.email
                     store.Member.createMembership.members[0].firstName = userData.name.firstName
                     store.Member.createMembership.members[0].lastName = userData.name.lastName
-                    store.memberID = appleResponse.authorization.id_token.sub
+                    
                     store.logInMethod = 'apple'
+                    store.memberID = token.sub
+                    
 
                     this.$router.push({ name: 'formCheck' }); // Redirect as needed
                 } else if (appleResponse && JWT) {
                     console.log(token.email)
                     store.Member.createMembership.members[0].eMail = token.email
+                    store.logInMethod = 'apple'
+                    store.memberID = token.sub
                     this.$router.push({ name: 'formView'})
                 }
                 else {
