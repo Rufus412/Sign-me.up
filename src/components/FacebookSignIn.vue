@@ -14,15 +14,8 @@ export default {
       FB.login((response) => {
 
         if (response.authResponse) {
-          console.log('Welcome!  Fetching your information.... ');
-          //console.log(response); // dump complete info
-          console.log(response.authResponse)
           const store = useStore()
-
-          console.log("This is the UID " + response.authResponse.userID)
           store.memberID = response.authResponse.userID
-
-
           apiService.getName()
           this.$router.push({ name: 'formCheck' })
         } else {

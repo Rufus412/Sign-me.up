@@ -169,8 +169,8 @@ export default {
   <div class="flex min-h-full flex-1 flex-col sm:px-6 lg:px-8">
 
     <div class="sm:mx-auto sm:w-full mt-3 sm:mt-10 sm:max-w-md">
-      <h2 class="my-0 sm:my-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{
-        $t('frontPage.header') }}
+      <h2 class="my-0 sm:my-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        {{ $t('frontPage.header') }}
       </h2>
     </div>
 
@@ -179,13 +179,8 @@ export default {
         <div v-if="signinMethods.email === true">
           <EmailSigninButton />
         </div>
-        <div class="relative mt-10">
-          <div class="absolute inset-0 flex items-center" aria-hidden="true">
-          </div>
-          <div v-if="signinMethods.facebook === true" class="flex justify-center text-sm font-medium leading-6 w-full">
-            <FacebookSignIn />
-          </div>
-
+        <div v-if="signinMethods.facebook === true" class="flex mt-10 justify-center text-sm font-medium leading-6 w-full">
+          <FacebookSignIn />
         </div>
         <div v-if="signinMethods.google === true" class="mt-10 flex flex-col w-full justify-center">
           <GoogleSignIn />
