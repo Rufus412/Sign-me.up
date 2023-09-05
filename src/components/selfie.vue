@@ -55,34 +55,24 @@ export default {
                     this.imagePushed = true
                 })
                     .catch(error => {
-                        
                     })
             }
-
-
             let xmlPayload = store.makeXML()
             await axiosService.postToQueue(xmlPayload)
                 .then((response) => {
                     console.log("Success")
                     this.$router.push({ name: 'registered' })
-
                 })
                 .catch(error => {
-                    
                     setTimeout(() => {
-
-
                         axiosService.postToQueue(xmlPayload)
                             .then((response) => {
                                 this.$router.push({ name: 'registered' })
                             })
                             .catch(error => {
-                                
                                 store.makeQR()
                                 this.$router.push({ name: 'QR' })
                             })
-
-
                     }, this.delayInMilliseconds);
                 })
         },
@@ -91,14 +81,8 @@ export default {
 
             new Compressor(input, {
                 quality: 0,
-
-                // The compression process is asynchronous,
-                // which means you have to access the `result` in the `success` hook function.
                 success(compressedFile) {
                     const formData = new FormData();
-
-                    // The third parameter is required for server
-
 
                     const reader = new FileReader()
                     const store = useStore()

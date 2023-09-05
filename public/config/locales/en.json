@@ -4,6 +4,7 @@
       "emailButton": "Complete With Email",
       "facebookButton": "Complete With Facebook",
       "googleButton": "Complete with Google",
+      "appleButton": "Complete with Apple",
       "tac": "Terms and Conditions",
       "languageButtons": {
         "en": "English",

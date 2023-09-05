@@ -1,4 +1,5 @@
 import { createI18n } from "vue-i18n";
+import { loadConfigFiles } from "../Services/Translations";
 
 export const i18n = createI18n({
     locale: import.meta.env.VITE_DEFAULT_LOCALE,
@@ -54,12 +55,6 @@ async function translations(locales) {
 }
 
 async function loadLocaleMessages(locale) {
-    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/locales/${locale}.json`);
-    return response.json();
-  }
-
-
-export async function loadConfigFiles(fileName) {
-    const response = await fetch(`${import.meta.env.VITE_DEFAULT_URL}/config/${fileName}.json`);
+    const response = await fetch(`${import.meta.env.VITE_IMPORT_URL}${import.meta.env.BASE_URL}config/locales/${locale}.json`);
     return response.json();
   }

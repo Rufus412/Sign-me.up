@@ -31,3 +31,4 @@ coverage
 process.env
 .env
 .env.test
+.env.production

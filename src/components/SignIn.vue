@@ -5,6 +5,7 @@ import GoogleSignIn from './GoogleSignIn.vue';
 import FacebookSignIn from './FacebookSignIn.vue';
 import EmailSigninButton from './EmailSigninButton.vue';
 import { loadConfigFiles, setPersistedLocale } from '../Services/Translations.js'
+import appleSigninButton from '../components/appleSigninButton.vue'
 
 
 </script>
@@ -16,15 +17,11 @@ export default {
     return {
       tos: '',
       languages: [],
-      loggingMethods: [],
+      signinMethods: [],
     }
   },
   methods: {
-    swapLanguage(language) {
-      const store = useStore()
-      store.locale = language
-    },
-    getClassNames(index) {
+    getLanguageButtonsTailwindClasses(index) {
       const classNames = [];
 
       if (index === 0) {
@@ -39,53 +36,62 @@ export default {
         classNames.push('max-w-[50%]')
         classNames.push('min-w-[73px]')
       }
-      if (this.languages.length === 3) {
+      else if (this.languages.length === 3) {
         classNames.push('max-w-[33%]')
         classNames.push('min-w-[73px]')
       }
-      if (this.languages.length === 4) {
+      else if (this.languages.length === 4) {
         classNames.push('max-w-[25%]')
         classNames.push('min-w-[56px]')
         classNames.push('languageButtons')
       }
-      if (this.languages.length === 5) {
+      else if (this.languages.length === 5) {
         classNames.push('max-w-[20%]')
         classNames.push('min-w-[56px]')
         classNames.push('languageButtons')
       }
-      if (this.languages.length === 6) {
+      else if (this.languages.length === 6) {
         classNames.push('max-w-[16.6666666%]')
         classNames.push('min-w-[56px]')
         classNames.push('languageButtons')
       }
+
+
+      const AmountOfLanguages = this.languages.length
+
+      switch (AmountOfLanguages) {
+        case 2:
+          classNames.push('max-w-[50%]')
+          classNames.push('min-w-[73px]')
+        case 3:
+          classNames.push('max-w-[33%]')
+          classNames.push('min-w-[73px]')
+        case 4:
+          classNames.push('max-w-[25%]')
+          classNames.push('min-w-[56px]')
+          classNames.push('languageButtons')
+        case 5:
+          classNames.push('max-w-[20%]')
+          classNames.push('min-w-[56px]')
+          classNames.push('languageButtons')
+        case 6:
+          classNames.push('max-w-[16.6666666%]')
+          classNames.push('min-w-[56px]')
+          classNames.push('languageButtons')
+      }
+
+
       return classNames;
     },
-    getButtonSize() {
-      const emailButton = document.getElementById("emailSignin").offsetWidth
-      return emailButton.offsetWidth
-    },
-    doSMTH() {
-      document.getElementById("emailSignin").addEventListener("click", (e) => {
-        console.log(e + "dcawdeaw")
-      
-        document.getElementById('appleButton').offsetWidth = document.getElementById("emailSignin").offsetWidth
-      })
-      console.log("dcawdeaw")
-    }
   },
   computed: {
-    getWidth() {
-      emailWidth = document.getElementById("emailSignin").offsetWidth
-      return emailWidth
-    }
 
   },
   async created() {
     try {
-      const config = await loadConfigFiles('config'); // Fetch the config
+      const config = await loadConfigFiles('config');
       this.languages = config.locales;
-      this.loggingMethods = config.loggingMethods
-      this.maxWidth = `max-w-[${100/this.languages.length}%]`
+      this.signinMethods = config.signinMethods
 
     } catch (error) {
       console.error('Error loading config:', error);
@@ -93,13 +99,10 @@ export default {
 
   },
   mounted() {
-
-
-  
-
-
     const store = useStore()
     const params = (new URL(location)).searchParams;
+
+    console.log(window.location.hash + " hash Location")
 
     if (params.get('coupon')) {
       const couponCode = JSON.parse(atob(params.get('coupon')))
@@ -107,72 +110,56 @@ export default {
       if (couponCode.description) {
         store.couponDescription = couponCode.description
       }
-      this.$router.push( {name: 'coupon'} )
+      this.$router.push({ name: 'coupon' })
     }
     else {
-    if (params.get('data')) {
-      var inData = JSON.parse(atob(params.get('data')))
-      console.log(inData + ' This is indata from query')
-      store.Member.createMembership.members[0].firstName = inData.firstName ?? ''
-      store.Member.createMembership.members[0].phoneNumber = inData.phoneNumber ?? ''
-
-      store.tosLink = inData.tos ?? ''
-      this.tos = inData.tos
-
-      let regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-      console.log(inData.phoneNumber)
-      let ccIn = findCountryCode(inData.phoneNumber)
-      console.log(ccIn)
-      if (ccIn !== null) {
-        store.Member.createMembership.members[0].countryCode = ccIn
-        store.phoneInQuery = true
-        store.fullCountryName = regionNames.of(ccIn)
+      if (params.get('data')) {
+        var inData = JSON.parse(atob(params.get('data')))
+        console.log(inData + ' This is indata from query')
+        store.Member.createMembership.members[0].firstName = inData.firstName ?? ''
+        store.Member.createMembership.members[0].phoneNumber = inData.phoneNumber ?? ''
+        store.tosLink = inData.tos ?? ''
+        this.tos = inData.tos
+        console.log(inData.phoneNumber)
+        let ccIn = findCountryCode(inData.phoneNumber)
+        console.log(ccIn)
+        if (ccIn !== null) {
+          let regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
+          store.Member.createMembership.members[0].countryCode = ccIn
+          store.phoneInQuery = true
+          store.fullCountryName = regionNames.of(ccIn)
+        }
       }
 
-    }
-
-    if (params.get('dev')) {
-      console.log("Dev mode")
-      store.devMode = true
-      store.addMember({
-        firstName: 'John',
-        lastName: 'Smith',
-        eMail: 'John.Smith@gmail.com',
-        countryCode: 'US',
-        city: 'New York',
-        adress: '1 Fifth Avenue',
-        postalCode: '10003',
-        phoneNumber: '+46734321852',
-        newsLetter: true,
-        tos: true
-      })
+      if (params.get('dev')) {
+        console.log("Dev mode")
+        store.devMode = true
+        store.addMember({
+          firstName: 'John',
+          lastName: 'Smith',
+          eMail: 'John.Smith@gmail.com',
+          countryCode: 'US',
+          city: 'New York',
+          adress: '1 Fifth Avenue',
+          postalCode: '10003',
+          phoneNumber: '+46734321852',
+          newsLetter: true,
+          tos: true
+        })
+      }
       
-    }
-
-    if (params.get('PartitionKey')) {
-      store.PartitionKey = params.get('PartitionKey')
-    }
-    if (params.get('RowKey')) {
-      store.RowKey = params.get('RowKey')
-    }
-    if (params.get('logoID')) {
-      store.logoID = params.get('logoID')
-    }
-
-
-
-    if (params.get('SignUpFlow') === '0') {
-      this.$router.push({ name: 'formView' })
-    }
-    else {
-      store.lvl3 = true
-    }
-
-    return function gettWidth() {
-      return document.getElementById("emailSignin").offsetWidth
+      store.PartitionKey = params.get('PartitionKey') ?? ''
+      store.RowKey = params.get('RowKey') ?? ''
+      store.logoID = params.get('logoID') ?? ''
+      
+      if (params.get('SignUpFlow') === '0') {
+        this.$router.push({ name: 'formView' })
+      }
+      else {
+        store.lvl3 = true
+      }
     }
   }
-}
 } 
 </script>
 
@@ -181,51 +168,45 @@ export default {
   <div class="flex min-h-full flex-1 flex-col sm:px-6 lg:px-8">
 
     <div class="sm:mx-auto sm:w-full mt-3 sm:mt-10 sm:max-w-md">
-      <h2 class="my-0 sm:my-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ $t('frontPage.header') }}
+      <h2 class="my-0 sm:my-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{
+        $t('frontPage.header') }}
       </h2>
     </div>
 
 
 
     <div class=" sm:mx-auto sm:w-full mt-5 sm:mt-10 sm:max-w-[480px]">
-      <div class="bg-gray-50 px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
-        <div v-if="loggingMethods.email === true">
-          <EmailSigninButton id="emailSignin"/>
+      <div class="bg-white px-6 py-12 shadow-md sm:rounded-lg rounded-lg sm:px-12">
+        <div v-if="signinMethods.email === true">
+          <EmailSigninButton id="emailSignin" />
         </div>
         <div class="relative mt-10">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
           </div>
-          <div v-if="loggingMethods.facebook === true" class="flex justify-center text-sm font-medium leading-6 w-full">
-            <FacebookSignIn/>
+          <div v-if="signinMethods.facebook === true" class="flex justify-center text-sm font-medium leading-6 w-full">
+            <FacebookSignIn />
           </div>
 
         </div>
-        <div v-if="loggingMethods.google === true" class="mt-10 flex flex-col w-full justify-center">
-          <GoogleSignIn/>
+        <div v-if="signinMethods.google === true" class="mt-10 flex flex-col w-full justify-center">
+          <GoogleSignIn />
         </div>
-        <div>
-          
-          <vue-apple-login v-if="!signedIn"
-        color="blue"
-        :border="false"
-        type="sign in"
-        :width="gettWidth()"
-        height="50"
-        :onSuccess="onSuccess"
-        :onFailure="onFailure"
-    ></vue-apple-login>
+        <div class="flex flex-col mt-10 w-full justify-center">
+          <appleSigninButton />
         </div>
       </div>
     </div>
-    <button @click="doSMTH">JKIDJFKIW</button>
 
     <div class="flex justify-center mt-5 sm:mt-10">
       <span class="rounded-md shadow-sm text-center justify-center item-center">
-        <button v-if="languages.length > 1" v-for="(language, index) in languages" :key="index" @click="$i18n.locale = `${language}`, setPersistedLocale(language)"
-          class="border-y-0 relative inline-flex shadow-md items-center w-[100px] justify-center bg-white border-r-0.5 border-l-0.5 py-2 text-center text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10" :class="getClassNames(index)" >
+        <button v-if="languages.length > 1" v-for="(language, index) in languages" :key="index"
+          @click="$i18n.locale = `${language}`, setPersistedLocale(language)"
+          class="border-y-0 relative inline-flex shadow-md items-center w-[100px] justify-center bg-white border-r-0.5 border-l-0.5 py-2 text-center text-sm focus:bg-gray-300 font-semibold text-gray-900 hover:bg-gray-50 focus:z-10"
+          :class="getLanguageButtonsTailwindClasses(index)">
           {{ $t(`frontPage.languageButtons.${language}`) }}</button>
       </span>
     </div>
+    <vue-apple-login></vue-apple-login>
 
 
   </div>
@@ -234,12 +215,10 @@ export default {
 
 
 <style scoped>
-
-@media (max-width: 295px) {
-  .languageButtons {
-    font-size: 12px;
+@media (max-width: 310px) {
+  .spanInButton {
+    margin-left: 25px;
+    margin-right: 25px;
   }
 }
-
-
 </style>

@@ -5,12 +5,6 @@ import { useStore } from '../stores/counter.js';
 <script>
 
 export default {
-  data() {
-    const store = useStore()
-    return {
-      inData1: store.Member.createMembership.members[0]
-    }
-  },
   methods: {
     formConfirmed() {
       const store = useStore()
@@ -75,22 +69,19 @@ export default {
           <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.postalCode }} {{ inData.city }}</dd>
           <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ fullCountry }}</dd>
         </div>
-        <div class="bg-gray-50 px-3 py-3 grid sm:grid grid-cols-1 sm:grid-cols-1 gap-1.5 sm:gap-3 sm:px-3">
-          <dt class="text-sm font-medium leading-6 sm:col-span-3 text-gray-900">{{ $t("form.contactInfo") }}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.eMail }}</dd>
+        <div class="bg-gray-50 flex px-3 py-3 grid sm:grid grid-cols-1 sm:grid-cols-1 gap-1.5 sm:gap-3 sm:px-3">
+          <dt class="text-sm font-medium leading-6 sm:col-span-3 col-span-1 text-gray-900">{{ $t("form.contactInfo") }}:
+          </dt>
+          <dd class="block flex-col mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.eMail }}</dd>
           <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.phoneNumber }}</dd>
         </div>
         <input v-if="getLoginMethod !== 'form'" type="checkbox" v-model="inData.tos" id="checkBoxTos" class="mt-4">
         <label v-if="getLoginMethod !== 'form'" class="ml-2" id="checkBoxTos"><span>{{ $t('form.tos1Label') }}</span><a
             :href="getTos" target="_blank">{{ $t('form.tos2Label') }}</a></label>
-
-
-
-
-
-
       </dl>
     </div>
+
+
     <div id="buttons" class="flex flex-col">
       <button type="button" @click="formConfirmed" :disabled="!inData.tos"
         :class="{ 'cursor-not-allowed': !inData.tos, 'bg-slate-300': !inData.tos, 'hover:bg-indigo-500': inData.tos }"
@@ -98,8 +89,9 @@ export default {
           $t('form.continueButton') }}</button>
       <button type="button" @click="redoForm"
         class="mt-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm border-0 sm:border-2 border-black border-solid hover:bg-gray-50">{{
-        $t('form.editButton') }}</button>
+          $t('form.editButton') }}</button>
+    </div>
   </div>
-</div></template>
+</template>
 
 <style scoped></style>

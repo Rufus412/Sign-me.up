@@ -37,7 +37,7 @@ export const useStore = defineStore('storeId', {
       createApiError: false,
       locale: '',
       logoID: 'https://www.navipartner.dk/wp-content/uploads/2022/11/NaviPartner_rgb-1.svg',
-      couponDescription: 'Coupon code'
+      couponDescription: 'Coupon code',
 
     }
   },
@@ -180,7 +180,6 @@ export const useStore = defineStore('storeId', {
         RowKey: this.RowKey,
         Data: btoa(JSON.stringify(membershipData)),
         Image: '',
-        //Image: this.profilePicAsBase64
       }
 
       this.xmlPayload = InnerXml
