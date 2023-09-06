@@ -17,7 +17,7 @@ const store = useStore()
     <div class="">
         <div class="mt-10">
             <div class="bg-white rounded-xl py-2 box-border flex flex-col">
-                <h2 v-if="store.lvl3" class="text-center text-red-500">{{ $t("qrPage.error")}}</h2>
+                <h2 v-if="store.SignUpFlow === 1" class="text-center text-red-500">{{ $t("qrPage.error")}}</h2>
                 <h2 class="text-center">{{ $t("qrPage.showToTeller")}}</h2>
             </div>
         </div>

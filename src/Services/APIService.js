@@ -16,7 +16,7 @@ function statusChangeCallback(response) {
 }
 
 function getName(accessToken) {
-    FB.api(
+    return FB.api(
         '/me',
         'GET',
         {

@@ -9,7 +9,7 @@ export default {
     formConfirmed() {
       const store = useStore()
 
-      if (store.lvl3 !== false) {
+      if (store.SignUpFlow === 1) {
         this.$router.push({ name: 'selfie' })
       }
       else {

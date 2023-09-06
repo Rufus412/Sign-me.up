@@ -11,19 +11,21 @@ import { useStore } from '../stores/counter';
 export default {
   methods: {
     checkLoginState() {
-      FB.login((response) => {
-
-        if (response.authResponse) {
-          const store = useStore()
-          store.memberID = response.authResponse.userID
-          apiService.getName()
-          this.$router.push({ name: 'formCheck' })
-        } else {
-          //user hit cancel button
-          console.log('User cancelled login or dd not fully authorize.');
-
-        }
-      }, { scope: 'public_profile,email' });
+      try {
+        FB.login((response) => {
+          if (response.authResponse) {
+            const store = useStore()
+            store.memberID = response.authResponse.userID
+            apiService.getName()
+            this.$router.push({ name: 'formCheck' })
+          } else {
+            console.log('User cancelled login or did not fully authorize.');
+          }
+        }, { scope: 'public_profile,email' });
+      }
+      catch(error) {
+        console.log(`Failed to log in with facebook. Error: ${error}`)
+      }
     },
   }
 }

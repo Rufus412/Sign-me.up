@@ -25,7 +25,7 @@ export const useStore = defineStore('storeId', {
       devMode: false,
       logInMethod: '',
       memberID: 0,
-      lvl3: false,
+      SignUpFlow: 1,
       PartitionKey: '',
       RowKey: '',
       xmlPayload: '',
@@ -69,8 +69,7 @@ export const useStore = defineStore('storeId', {
         qr.make()
       }
       else {
-        if (!this.lvl3) {
-          console.log("notlvl3")
+        if (this.SignUpFlow === 0) {
           const payLoad = {
             createMembership: {
               in: this.Member.createMembership.itemNumber,
@@ -108,7 +107,6 @@ export const useStore = defineStore('storeId', {
           }
         }
         else {
-          console.log("Lvl3")
           if (!this.devMode) {
             const axiosFailQRPayload = {
               RowKey: this.RowKey,

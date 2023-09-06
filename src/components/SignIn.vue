@@ -157,7 +157,7 @@ export default {
         this.$router.push({ name: 'formView' })
       }
       else {
-        store.lvl3 = true
+        store.SignUpFlowUpFlow = 1
       }
     }
   }
@@ -200,7 +200,6 @@ export default {
           {{ $t(`frontPage.languageButtons.${language}`) }}</button>
       </span>
     </div>
-    <vue-apple-login></vue-apple-login>
 
 
   </div>
