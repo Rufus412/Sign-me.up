@@ -109,19 +109,17 @@ export default {
       }
       this.$router.push({ name: 'coupon' })
     }
+
     else {
       if (params.get('data')) {
         var inData = JSON.parse(atob(params.get('data')))
-        console.log(inData + ' This is indata from query')
         store.modifyMember({
           firstName: inData.firstName,
           phoneNumber: inData.phoneNumber
         })
         store.tosLink = inData.tos ?? ''
         this.tos = inData.tos ?? ''
-        console.log(inData.phoneNumber)
         let ccIn = findCountryCode(inData.phoneNumber)
-        console.log(ccIn)
         if (ccIn !== null) {
           let regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
           store.modifyMember({
@@ -130,33 +128,19 @@ export default {
           store.phoneInQuery = true
           store.fullCountryName = regionNames.of(ccIn)
         }
+        store.Member.createMembership.itemNumber = inData.itemNumber ?? ''
+        store.PartitionKey = inData.PartitionKey ?? ''
+        store.RowKey = inData.RowKey ?? ''
+        store.logoID = inData.logoID ?? ''
+
       }
 
-      if (params.get('dev')) {
-        console.log("Dev mode")
-        store.devMode = true
-        store.addMember({
-          firstName: 'John',
-          lastName: 'Smith',
-          eMail: 'John.Smith@gmail.com',
-          countryCode: 'US',
-          city: 'New York',
-          adress: '1 Fifth Avenue',
-          postalCode: '10003',
-          phoneNumber: '+46734321852',
-          newsLetter: true,
-          tos: true
-        })
-      }
-
-      store.PartitionKey = params.get('PartitionKey') ?? ''
-      store.RowKey = params.get('RowKey') ?? ''
-      store.logoID = params.get('logoID') ?? ''
       
-      if (params.get('SignUpFlow') === '0') {
+      if (params.get('SignUpFlow') === 'Qr') {
+        store.SignUpFlowUpFlow = 0
         this.$router.push({ name: 'formView' })
       }
-      else {
+      else if (params.get('SignUpFlow') === 'Full'){
         store.SignUpFlowUpFlow = 1
       }
     }

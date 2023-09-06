@@ -87,14 +87,14 @@ export function findCountryCode(phoneNumber) {
     return myVar
   }
   else {
-    let phoneNumberStart = phoneNumberDigits[1].concat(phoneNumberDigits[2])
-    myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart]
+    let first2 = phoneNumberDigits[1].concat(phoneNumberDigits[2])
+    myVar = phonenumberCountryCode[phoneNumberDigits['1']][first2]
     if (typeof myVar === 'string' && myVar !== null) {
       return myVar
     }
     else {
-      let phoneNumberStart2 = phoneNumberStart.concat(phoneNumberDigits[3])
-      myVar = phonenumberCountryCode[phoneNumberDigits['1']][phoneNumberStart][phoneNumberStart2]
+      let first3 = first2.concat(phoneNumberDigits[3])
+      myVar = phonenumberCountryCode[phoneNumberDigits['1']][first2][first3]
       if (typeof myVar === 'string' && myVar !== null) {
         return myVar
       }

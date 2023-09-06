@@ -9,15 +9,12 @@ import Compressor from 'compressorjs';
 
 <script>
 
-
 export default {
     async mounted() {
         const constraints = { video: true, audio: false }; // Request video access only
-
         navigator.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 this.canUseCamera = true
-
                 const mediaStream = stream
                 const tracks = mediaStream.getTracks()
                 tracks.forEach((track) => {
@@ -26,7 +23,6 @@ export default {
             })
             .catch((error) => {
                 this.canUseCamera = false
-
             });
     },
     data() {
@@ -46,7 +42,6 @@ export default {
         }
     },
     methods: {
-
         async azurePush() {
             const store = useStore()
             if (this.imageInPayload) {
@@ -84,15 +79,12 @@ export default {
                 quality: 0,
                 success(compressedFile) {
                     const formData = new FormData();
-
                     const reader = new FileReader()
                     const store = useStore()
-
                     const data = reader.readAsDataURL(compressedFile);
                     reader.addEventListener('load', (e) => {
                         const data = e.target.result;
                         store.profilePicAsBase64 = data
-
                         document.getElementById("displayProfilePic").src = data
                     })
                 },

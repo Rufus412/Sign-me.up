@@ -11,29 +11,22 @@ export default {
         async appleSignIn() {
             try {
                 const appleResponse = await AppleID.auth.signIn();
-                console.log("In apple flow ")
-                console.log(appleResponse)
-                console.log(appleResponse.authorization.id_token)
                 const JWT = appleResponse.authorization.id_token
                 const token = this.parseJwt(JWT)
                 const store = useStore()
                 if (appleResponse && appleResponse.user && token.iss === "https://appleid.apple.com" && token.aud === import.meta.env.VITE_APPLE_IDENTIFIER) {
                     const userData = appleResponse.user;
-                    console.log('User data:', userData);
                     store.modifyMember({
                         eMail: userData.email,
                         firstName: userData.name.firstName,
                         lastName: userData.name.lastName,
-                    
                     })
                     
                     store.logInMethod = 'apple'
                     store.memberID = token.sub
                     
-
                     this.$router.push({ name: 'formCheck' });
                 } else if (appleResponse && JWT) {
-                    console.log(token.email)
                     store.modifyMember({
                         eMail: token.email
                     })
@@ -42,7 +35,7 @@ export default {
                     this.$router.push({ name: 'formView'})
                 }
                 else {
-                    console.log("user closed window")
+                    console.log("User closed window")
                 }
             } catch (error) {
                 console.error('Apple Sign-In error:', error);

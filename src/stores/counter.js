@@ -6,7 +6,7 @@ export const useStore = defineStore('storeId', {
     return {
       Member: {
         createMembership: {
-          itemNumber: 0,
+          itemNumber: '',
           members: [{
             firstName: '',
             lastName: '',
@@ -22,7 +22,6 @@ export const useStore = defineStore('storeId', {
         }
       },
       SvgTag: '',
-      devMode: false,
       logInMethod: '',
       memberID: 0,
       SignUpFlow: 1,
@@ -57,9 +56,7 @@ export const useStore = defineStore('storeId', {
         newsLetter: member.newsLetter ?? this.Member.createMembership.members[0].newsLetter,
         tos: member.tos ?? this.Member.createMembership.members[0].tos,
       }
-
       this.Member.createMembership.members[0] = newMember
-
       this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode)
     },
     makeQR(type, data) {
@@ -91,69 +88,49 @@ export const useStore = defineStore('storeId', {
               }]
             }
           }
-          if (!this.devMode) {
-            const thisData = JSON.stringify(payLoad.createMembership)
-            const QRpayLoad = {
-              createMembership: {
-                data: (btoa(thisData))
-              }
+          const thisData = JSON.stringify(payLoad.createMembership)
+          const QRpayLoad = {
+            createMembership: {
+              data: (btoa(thisData))
             }
-            qr.addData(JSON.stringify(QRpayLoad));
-            qr.make();
           }
-          else {
-            qr.addData(JSON.stringify(payLoad));
-            qr.make();
-          }
+          qr.addData(JSON.stringify(QRpayLoad));
+          qr.make();
+          
         }
         else {
-          if (!this.devMode) {
-            const axiosFailQRPayload = {
-              RowKey: this.RowKey,
-              m: {
-                fn: this.Member.createMembership.members[0].firstName,
-                ln: this.Member.createMembership.members[0].lastName,
-                em: this.Member.createMembership.members[0].eMail,
-                cc: this.Member.createMembership.members[0].countryCode,
-                ct: this.Member.createMembership.members[0].city,
-                ad: this.Member.createMembership.members[0].adress,
-                pc: this.Member.createMembership.members[0].postalCode,
-                pn: this.Member.createMembership.members[0].phoneNumber,
-                nl: this.Member.createMembership.members[0].newsLetter,
-                ts: this.Member.createMembership.members[0].tos,
-                su: {
-                  pv: this.logInMethod || 'email',
-                  tn: this.memberID
-                }
+          const axiosFailQRPayload = {
+            RowKey: this.RowKey,
+            m: {
+              fn: this.Member.createMembership.members[0].firstName,
+              ln: this.Member.createMembership.members[0].lastName,
+              em: this.Member.createMembership.members[0].eMail,
+              cc: this.Member.createMembership.members[0].countryCode,
+              ct: this.Member.createMembership.members[0].city,
+              ad: this.Member.createMembership.members[0].adress,
+              pc: this.Member.createMembership.members[0].postalCode,
+              pn: this.Member.createMembership.members[0].phoneNumber,
+              nl: this.Member.createMembership.members[0].newsLetter,
+              ts: this.Member.createMembership.members[0].tos,
+              su: {
+                pv: this.logInMethod || 'email',
+                tn: this.memberID
               }
             }
-            let axiosFailQRCode = {
-              updateMembership: {
-                data: btoa(JSON.stringify(axiosFailQRPayload))
-              }
-            }
-            console.log(JSON.stringify(axiosFailQRCode) + " QR code content")
-            qr.addData(JSON.stringify(axiosFailQRCode))
-            qr.make();
           }
-          else {
-            let axiosFailQRCode = {
-              updateMembership: this.xmlPayload
+          let axiosFailQRCode = {
+            updateMembership: {
+              data: btoa(JSON.stringify(axiosFailQRPayload))
             }
-            console.log(JSON.stringify(axiosFailQRCode) + "This is the QR payload")
-            qr.addData(JSON.stringify(axiosFailQRCode))
-            qr.make();
-
           }
+          console.log(JSON.stringify(axiosFailQRCode) + " QR code content")
+          qr.addData(JSON.stringify(axiosFailQRCode))
+          qr.make();
         }
       }
-
       this.SvgTag = qr.createSvgTag({})
-
-      console.log(this.SvgTag)
     },
     makeXML() {
-
       let membershipData = {
         m: {
           fn: this.Member.createMembership.members[0].firstName,

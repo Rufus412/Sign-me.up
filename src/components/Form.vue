@@ -33,30 +33,14 @@ export default {
         store.logInMethod = store.logInMethod || 'form'
         console.log(store.logInMethod)
         this.$router.push( {name: 'formCheck' })
-        
       }
     },
-    mounted() {
-      const store = useStore()
-      if (this.$route.query.dev) {
-        store.modifyMember({
-          firstName: 'John',
-          lastName:'Smith',
-          eMail: 'John.Smith@gmail.com  ',
-          countryCode: 'US',
-          city: 'New York',
-          adress: '1 Fifth Avenue',
-          postalCode: '10003',
-          phoneNumber: '+46734321852',
-          newsLetter: true,
-          tos: true
-        })
-        store.devMode = true
-      } 
-      this.fullCountry = store.fullCountryName
-      this.tosLink = store.tosLink
-      this.phoneFromQuery = store.phoneInQuery
-    
+  mounted() {
+    const store = useStore()
+    this.fullCountry = store.fullCountryName
+    this.tosLink = store.tosLink
+    this.phoneFromQuery = store.phoneInQuery
+  
   },
   computed: {
     fullCountrName() {

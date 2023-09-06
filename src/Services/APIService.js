@@ -16,7 +16,7 @@ function statusChangeCallback(response) {
 }
 
 function getName(accessToken) {
-    return FB.api(
+    FB.api(
         '/me',
         'GET',
         {
@@ -28,13 +28,11 @@ function getName(accessToken) {
 
             const store = useStore()
             let responseVals = Object.values(response)
-            if (!store.devMode) {
-                store.modifyMember({
-                    firstName: responseVals[0],
-                    lastName: responseVals[1],
-                    eMail: responseVals[2],
-                })
-            }
+            store.modifyMember({
+                firstName: responseVals[0],
+                lastName: responseVals[1],
+                eMail: responseVals[2],
+            })
             store.logInMethod = 'facebook'
         }
     );

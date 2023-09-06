@@ -12,24 +12,35 @@ import { axiosService } from "../Services/AxiosService"
 
 export default {
     methods: {
-        login() {
-            googleTokenLogin().then(async (response) => {
-                console.log("Handle the response", response)
-                const userData = await axiosService.getGoogleProfileInfo(response.access_token)
-                console.log("Api response " + userData.data.id)
-
-                const store = useStore()
-                store.modifyMember({
-                    firstName: userData.data.given_name,
-                    lastName: userData.data.family_name,
-                    eMail: userData.data.email,
-                })
-                
-                store.memberID = userData.data.id || ""
-                store.profilePicAsURL = userData.data.picture || ""
-                store.logInMethod = "google"
-                this.$router.push({ name: "formCheck" })
-            })
+        async login() {
+            try {
+                const response = await googleTokenLogin()
+                console.log(response)
+                if(response && response.access_token && response.expires_in > 0) {
+                    try {
+                        const userData = await axiosService.getGoogleProfileInfo(response.access_token)
+                        const store = useStore()
+                        store.modifyMember({
+                            firstName: userData.data.given_name,
+                            lastName: userData.data.family_name,
+                            eMail: userData.data.email,
+                        })
+                        store.memberID = userData.data.id || ""
+                        store.profilePicAsURL = userData.data.picture || ""
+                        store.logInMethod = "google"
+                        this.$router.push({ name: "formCheck" })
+                    }
+                    catch(error) {
+                        console.log(`Failed to login with google. Error: ${error}`)
+                    }
+                }
+                else {
+                    console.log("Failed to authenticate with google")
+                }
+            }
+            catch(error) {
+                console.log(`Failed to login with google. Error: ${error}`)
+            }
         }
     }
 }
