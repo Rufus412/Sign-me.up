@@ -51,7 +51,7 @@ export default {
 <template>
     <GoogleLogin>
         <button @click="login"
-            class="loginBtn loginBtn--google buttons flex border-0 bg-white w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 cursor-pointer ">
+            class="loginBtn loginBtn--google buttons flex border-0 bg-white w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-md hover:bg-gray-100 cursor-pointer ">
             <span class="spanInButton text-black">{{ $t('frontPage.googleButton') }}</span>
         </button>
     </GoogleLogin>

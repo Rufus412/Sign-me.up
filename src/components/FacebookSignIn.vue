@@ -37,7 +37,7 @@ export default {
 
 <template>
   <button type="button" @click="checkLoginState"
-    class="loginBtn loginBtn--facebook flex border-0 w-full justify-center cursor-pointer rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-[#458FEF] ">
+    class="loginBtn loginBtn--facebook flex border-0 w-full justify-center cursor-pointer rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-md hover:bg-[#458FEF] ">
     <span class="spanInButton text-white" id="fbText">{{ $t('frontPage.facebookButton') }}</span>
   </button>
 </template>

@@ -150,20 +150,45 @@ export const useStore = defineStore('storeId', {
         }
       }
       console.log(JSON.stringify(membershipData))
+      console.log((document.characterSet))
 
-      let InnerXml = {
+      function bytesToBase64(bytes) {
+        const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
+        return btoa(binString);
+      }
+
+
+      console.log((btoa(JSON.stringify(membershipData))).length + " length of btoa")
+      console.log((btoa(JSON.stringify(membershipData))))
+      console.log((bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData)))))
+      console.log((bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData)))).length)
+
+      const InnerXml = {
         PartitionKey: this.PartitionKey,
         RowKey: this.RowKey,
-        Data: btoa(JSON.stringify(membershipData)),
+        Data: bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData))),
         Image: '',
       }
 
+      console.log(InnerXml.Data.length)
+      console.log(JSON.stringify(InnerXml) + " <- Innerxml")
+
       this.xmlPayload = InnerXml
       console.log(JSON.stringify(InnerXml))
-      let completeXmlContent = JSON.stringify(InnerXml)
+      const completeXmlContent = bytesToBase64(new TextEncoder().encode(JSON.stringify(InnerXml)))
+      console.log((document.characterSet))
+      const XML = `<QueueMessage>
+                    <MessageText>
+                      ${completeXmlContent}
+                    </MessageText>
+                  </QueueMessage>`
 
-      return `<QueueMessage>  
-                <MessageText>${completeXmlContent}</MessageText>  
+      console.log(XML)
+
+      return `<QueueMessage>
+                <MessageText>
+                  ${completeXmlContent}
+                </MessageText>
               </QueueMessage>`
 
     }

@@ -11,7 +11,7 @@ const queueURL = 'https://nprtestmpn01membersignup.queue.core.windows.net/update
 const imageHeader = {
   headers: {
     'x-ms-blob-type': 'BlockBlob',
-    'Content-Type': 'text/plain'
+    'Content-Type': 'text/plain; charset=utf-8'
   }
 };
 
@@ -33,6 +33,7 @@ async function getGoogleProfileInfo(access_token) {
   let googleApiUri = 'https://www.googleapis.com/oauth2/v2/userinfo'
   return axios.get(googleApiUri, googleHeader)
 }
+
 
 
 export const axiosService = {

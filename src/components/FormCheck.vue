@@ -8,13 +8,14 @@ export default {
   methods: {
     formConfirmed() {
       const store = useStore()
-
-      if (store.SignUpFlow === 1) {
-        this.$router.push({ name: 'selfie' })
+      console.log(store.SignUpFlow)
+      if (store.SignUpFlow === 0) {
+        store.makeQR()
+        this.$router.push({ name: 'QR' })
       }
       else {
         store.makeQR()
-        this.$router.push({ name: 'QR' })
+        this.$router.push({ name: 'selfie' })
       }
     },
     redoForm() {
@@ -58,21 +59,20 @@ export default {
       <dl class="divide-y divide-gray-100">
         <div class="bg-gray-50 px-3 py-3 grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-3 sm:px-3">
           <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.fullNameLabel") }}:</dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-1 sm:col-span-2 sm:mt-0">{{ inData.firstName }} {{ inData.lastName }}</dd>
+          <p class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:col-span-2 sm:mt-0 listedInfo">{{ inData.firstName }} {{ inData.lastName }}</p>
         </div>
 
         <div class="bg-white px-3 py-3 grid grid-cols-1 items-center sm:grid-cols-1 gap-1.5 sm:gap-3 sm:px-3">
-          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.addressLabel") }}:
-          </dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.adress }}</dd>
-          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.postalCode }} {{ inData.city }}</dd>
-          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ fullCountry }}</dd>
+          <dt class="text-sm font-medium leading-6 col-span-3 sm:col-span-3 text-gray-900">{{ $t("form.addressLabel") }}:</dt>
+          <p class="mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0 listedInfo">{{ inData.adress }}</p>
+          <p class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0 listedInfo">{{ inData.postalCode }} {{ inData.city }}</p>
+          <p class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0 listedInfo">{{ fullCountry }}</p>
         </div>
 
         <div class="bg-gray-50 px-3 py-3 grid sm:grid grid-cols-1 sm:grid-cols-1 gap-1.5 sm:gap-3 sm:px-3">
           <dt class="text-sm font-medium leading-6 sm:col-span-3 col-span-1 text-gray-900">{{ $t("form.contactInfo") }}:</dt>
-          <dd class="block flex-col mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.eMail }}</dd>
-          <dd class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0">{{ inData.phoneNumber }}</dd>
+          <p class="ml-5 block flex-col mt-1 text-sm leading-6 text-gray-700 col-span-4 sm:mt-0 listedInfo">{{ inData.eMail }}</p>
+          <p class="text-sm leading-6 text-gray-700 col-span-4 sm:mt-0 listedInfo">{{ inData.phoneNumber }}</p>
         </div>
 
         <input v-if="getLoginMethod !== 'form'" type="checkbox" v-model="inData.tos" id="checkBoxTos" class="mt-4">
@@ -99,4 +99,15 @@ export default {
 </template>
 
 <style scoped>
+
+@media (max-width: 340px) {
+  .listedInfo {
+    margin-left: auto;
+  }
+}
+@media (min-width: 340px) {
+  .listedInfo {
+    margin-left: 40px;
+  }
+}
 </style>

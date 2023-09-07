@@ -32,52 +32,37 @@ export default {
         classNames.push('border-r-0', 'border-l-0.5', 'rounded-r-md');
       }
 
-      if (this.languages.length === 2) {
-        classNames.push('max-w-[50%]')
-        classNames.push('min-w-[73px]')
-      }
-      else if (this.languages.length === 3) {
-        classNames.push('max-w-[33%]')
-        classNames.push('min-w-[73px]')
-      }
-      else if (this.languages.length === 4) {
-        classNames.push('max-w-[25%]')
-        classNames.push('min-w-[56px]')
-        classNames.push('languageButtons')
-      }
-      else if (this.languages.length === 5) {
-        classNames.push('max-w-[20%]')
-        classNames.push('min-w-[56px]')
-        classNames.push('languageButtons')
-      }
-      else if (this.languages.length === 6) {
-        classNames.push('max-w-[16.6666666%]')
-        classNames.push('min-w-[56px]')
-        classNames.push('languageButtons')
-      }
-
-
       const AmountOfLanguages = this.languages.length
 
       switch (AmountOfLanguages) {
         case 2:
           classNames.push('max-w-[50%]')
           classNames.push('min-w-[73px]')
+          break
         case 3:
           classNames.push('max-w-[33%]')
           classNames.push('min-w-[73px]')
+          break
         case 4:
           classNames.push('max-w-[25%]')
           classNames.push('min-w-[56px]')
           classNames.push('languageButtons')
+          break
         case 5:
           classNames.push('max-w-[20%]')
           classNames.push('min-w-[56px]')
           classNames.push('languageButtons')
+          break
         case 6:
           classNames.push('max-w-[16.6666666%]')
           classNames.push('min-w-[56px]')
           classNames.push('languageButtons')
+          break
+        default:
+          classNames.push('max-w-[16.6666666%]')
+          classNames.push('min-w-[56px]')
+          classNames.push('languageButtons')
+          break
       }
 
 
@@ -129,19 +114,25 @@ export default {
           store.fullCountryName = regionNames.of(ccIn)
         }
         store.Member.createMembership.itemNumber = inData.itemNumber ?? ''
-        store.PartitionKey = inData.PartitionKey ?? ''
-        store.RowKey = inData.RowKey ?? ''
         store.logoID = inData.logoID ?? ''
 
       }
 
-      
+      console.log(typeof (params.get('SignUpFlow')))
       if (params.get('SignUpFlow') === 'Qr') {
-        store.SignUpFlowUpFlow = 0
+        store.SignUpFlow = 0
+        console.log(store.SignUpFlow)
         this.$router.push({ name: 'formView' })
       }
-      else if (params.get('SignUpFlow') === 'Full'){
-        store.SignUpFlowUpFlow = 1
+      else {
+        store.SignUpFlow = 1
+
+        store.PartitionKey = params.get('PartitionKey')
+        store.RowKey = params.get('RowKey')
+        console.log(`${store.PartitionKey}: ${store.RowKey}`)
+        if ((store.PartitionKey ? false : true) || (store.RowKey ? false : true)) {
+          console.log('Unable to fetch necessary resources from URL')
+        }
       }
     }
   }
@@ -193,7 +184,7 @@ export default {
 
 <style scoped>
 @media (max-width: 310px) {
-  .spanInButton {
+  .languageButtons {
     margin-left: 25px;
     margin-right: 25px;
   }

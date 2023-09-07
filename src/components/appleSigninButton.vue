@@ -59,7 +59,7 @@ export default {
 
 <template>
     <button @click="appleSignIn"
-        class="loginBtn loginBtn--apple buttons flex border-0 bg-black w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-800 cursor-pointer ">
+        class="loginBtn loginBtn--apple buttons flex border-0 bg-black w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 shadow-md hover:bg-gray-800 cursor-pointer ">
         <span class="spanInButton text-white">{{ $t('frontPage.appleButton') }}</span>
     </button>
 </template>
