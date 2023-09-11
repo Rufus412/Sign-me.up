@@ -121,7 +121,6 @@ export default {
         }
     }
 }
-
 </script>
 
 
@@ -133,7 +132,7 @@ export default {
         </div>
 
         <div v-if="IIP()" class="absolute top-1 right-1 cursor-pointer">
-            <img @click="clearImage" src="../assets/delete.svg" alt="" class="rot">
+            <img @click="clearImage" src="/images/deleteButton.svg" alt="" class="rot">
         </div>
 
         <div class="flex justify-center">
