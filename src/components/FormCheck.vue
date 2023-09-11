@@ -110,4 +110,7 @@ export default {
     margin-left: 40px;
   }
 }
+@viewport {
+    zoom: 1;
+}
 </style>

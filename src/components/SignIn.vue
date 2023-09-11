@@ -14,10 +14,13 @@ import appleSigninButton from '../components/appleSigninButton.vue'
 
 export default {
   data() {
+    const store = useStore()
     return {
       tos: '',
       languages: [],
       signinMethods: [],
+      store: store,
+      size: 0
     }
   },
   methods: {
@@ -83,41 +86,47 @@ export default {
     }
 
   },
-  mounted() {
+  async mounted() {
     const store = useStore()
     const params = (new URL(location)).searchParams;
+    this.size = params.size
     if (params.get('coupon')) {
       const couponCode = JSON.parse(atob(params.get('coupon')))
-      store.makeQR("coupon", couponCode.id)
-      if (couponCode.description) {
-        store.couponDescription = couponCode.description
-      }
+      store.makeQR("coupon", couponCode1.id)
+      store.couponDescription = couponCode.description ?? store.couponDescription
       this.$router.push({ name: 'coupon' })
     }
 
     else {
+      store.PartitionKey = params.get('PartitionKey')
+      store.RowKey = params.get('RowKey')
       if (params.get('data')) {
-        var inData = JSON.parse(atob(params.get('data')))
+        const inData = JSON.parse(atob(params.get('data')))
         store.modifyMember({
           firstName: inData.firstName,
           phoneNumber: inData.phoneNumber
         })
         store.tosLink = inData.tos ?? ''
         this.tos = inData.tos ?? ''
-        let ccIn = findCountryCode(inData.phoneNumber)
+        store.Member.createMembership.itemNumber = inData.itemNumber ?? ''
+        store.logoID = inData.logoID ?? ''
+        
+        console.log(`${store.PartitionKey}: ${store.RowKey}`)
+        if ((store.PartitionKey ? false : true) || (store.RowKey ? false : true)) {
+          console.log('Unable to fetch necessary resources from URL')
+        }
+
+        const ccIn = findCountryCode(inData.phoneNumber)
         if (ccIn !== null) {
-          let regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
+          const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
           store.modifyMember({
             countryCode: ccIn
           })
           store.phoneInQuery = true
-          store.fullCountryName = regionNames.of(ccIn)
+          store.fullCountryName ? regionNames.of(ccIn) : {}
         }
-        store.Member.createMembership.itemNumber = inData.itemNumber ?? ''
-        store.logoID = inData.logoID ?? ''
-
+       
       }
-
       console.log(typeof (params.get('SignUpFlow')))
       if (params.get('SignUpFlow') === 'Qr') {
         store.SignUpFlow = 0
@@ -126,13 +135,6 @@ export default {
       }
       else {
         store.SignUpFlow = 1
-
-        store.PartitionKey = params.get('PartitionKey')
-        store.RowKey = params.get('RowKey')
-        console.log(`${store.PartitionKey}: ${store.RowKey}`)
-        if ((store.PartitionKey ? false : true) || (store.RowKey ? false : true)) {
-          console.log('Unable to fetch necessary resources from URL')
-        }
       }
     }
   }

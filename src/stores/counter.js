@@ -42,8 +42,8 @@ export const useStore = defineStore('storeId', {
   },
   actions: {
     modifyMember(member) {
-      let regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
-
+      const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+     
       const newMember = {
         firstName: member.firstName ?? this.Member.createMembership.members[0].firstName,
         lastName: member.lastName ?? this.Member.createMembership.members[0].lastName,
@@ -57,7 +57,11 @@ export const useStore = defineStore('storeId', {
         tos: member.tos ?? this.Member.createMembership.members[0].tos,
       }
       this.Member.createMembership.members[0] = newMember
-      this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode)
+
+
+      newMember.countryCode ? this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode) : {}
+    
+      
     },
     makeQR(type, data) {
       const qr = new qrcode(0, 'L')
