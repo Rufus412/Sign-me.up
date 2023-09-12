@@ -31,7 +31,6 @@ export default {
         const Membership = this.info
         store.modifyMember(Membership)  
         store.logInMethod = store.logInMethod || 'form'
-        console.log(store.logInMethod)
         this.$router.push( {name: 'formCheck' })
       }
     },
