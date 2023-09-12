@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const queueURL = 'https://nprtestmpn01membersignup.queue.core.windows.net/updatemembermessage/messages?visibilitytimeout=1&messagettl=3600&sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-08-31T15:09:57Z&st=2023-07-24T07:09:57Z&spr=https&sig=3BJZPBBEmvqHOnavxar8jbD4oQ4FdW%2FZA1DptUOH73Y%3D',
+const queueURL = 'https://nprtestmpn01membersignup.queue.core.windows.net/updatemembermessage/messages?visibilitytimeout=1&messagettl=3600&sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2023-11-30T15:36:56Z&st=2023-09-05T06:36:56Z&spr=https&sig=rv7Tn8u0IFm7qklhcY0ng2v5TpgGVqKi90ufIx4wodA%3D',
 
   queueHeader = {
     headers: {
@@ -11,7 +11,7 @@ const queueURL = 'https://nprtestmpn01membersignup.queue.core.windows.net/update
 const imageHeader = {
   headers: {
     'x-ms-blob-type': 'BlockBlob',
-    'Content-Type': 'text/plain'
+    'Content-Type': 'text/plain; charset=utf-8'
   }
 };
 
@@ -25,7 +25,7 @@ function postImageToQueue(b64, RowKey) {
 }
 
 async function getGoogleProfileInfo(access_token) {
-  const googleHeader = {  
+  const googleHeader = {
     headers: {
       Authorization: "Bearer" + access_token
     }
@@ -33,6 +33,8 @@ async function getGoogleProfileInfo(access_token) {
   let googleApiUri = 'https://www.googleapis.com/oauth2/v2/userinfo'
   return axios.get(googleApiUri, googleHeader)
 }
+
+
 
 export const axiosService = {
   postToQueue,

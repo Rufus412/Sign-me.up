@@ -37,3 +37,4 @@ process.env
 process.env
 .env
 .env.test
+.env.production

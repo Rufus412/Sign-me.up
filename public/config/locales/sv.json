@@ -4,6 +4,7 @@
       "emailButton": "Slutför med e-post",
       "facebookButton": "Slutför med Facebook",
       "googleButton": "Slutför med Google",
+      "appleButton": "Slutför med Apple",
       "tac": "Villkor och regler",
       "languageButtons": {
         "en": "English",
@@ -32,6 +33,7 @@
     },
     "selfie": {
       "header": "Vill du lägga till ett foto av dig själv?",
+      "headerRequired": "Vänligen lägg till ett foto av dig själv",
       "photoButton": "Ta foto",
       "skipButton": "Hoppa över",
       "newPhotoButton": "Nytt foto",

@@ -5,7 +5,7 @@ import SignIn from '../components/SignIn.vue'
 
 
 <template>
-<div class="h-full px-6">
-  <SignIn />
-</div>
+  <div class="h-full px-6">
+    <SignIn />
+  </div>
 </template>

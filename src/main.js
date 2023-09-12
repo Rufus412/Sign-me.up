@@ -10,7 +10,8 @@ import 'vue-tel-input/vue-tel-input.css';
 import { initFacebookSdk } from './helpers/facebookInit'
 import vue3GoogleLogin from 'vue3-google-login'
 import { i18n, initI18n } from './helpers/I18nInit';
-
+import VueAppleLogin from 'vue-apple-login';
+import { initAppleSdk } from './helpers/appleInit.js'
 
 
 const globalOptions = {
@@ -21,7 +22,6 @@ const globalOptions = {
     },
     showDialCodeInSelection: {
         showDialCode: true,
-
     },
     inputClasses: Object,
 };
@@ -29,6 +29,8 @@ const globalOptions = {
 
 
 (async () => {
+    
+    initAppleSdk()
     initFacebookSdk()
     initI18n()
     const app = createApp(App);
@@ -39,6 +41,7 @@ const globalOptions = {
     app.use(vue3GoogleLogin, {
         clientId: '886736602258-smn2otlk08g3bfo60c3930bufmqs7k9a.apps.googleusercontent.com'
     })
+
     app.use(vueCountryRegionSelect)
     app.use(VueTelInput, globalOptions)
     app.use(i18n);

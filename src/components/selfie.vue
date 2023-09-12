@@ -9,110 +9,71 @@ import Compressor from 'compressorjs';
 
 <script>
 
-
 export default {
-    async mounted() {
-        const constraints = { video: true, audio: false }; // Request video access only
-        
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-                this.canUseCamera = true
-                
-                const mediaStream = stream
-                const tracks = mediaStream.getTracks()
-                tracks.forEach((track) => {
-                    track.stop();
-                });
-            })
-            .catch((error) => {
-                this.canUseCamera = false
-                
-            });
+    async mounted() {   
+        this.checkCamera()
     },
     data() {
         return {
-            delayInMilliseconds: 1000,
-            error: false,
-            pictureTaken: false,
-            canUseCamera: false,
-            imagePushed: false,
-            memberPushed: false,
+            apiTimeout: 1000,
+            canUseCamera: true,
             imageInPayload: false,
-            continueButtonText: 'Skip',
-            photoButtonText: 'Take Photo',
-            createError: false,
-            store: useStore()
+            store: useStore(),
+            page: true
 
         }
     },
     methods: {
-
         async azurePush() {
             const store = useStore()
-            store.createApiError = this.createError
-            if (this.imageInPayload) {
-                await axiosService.postImageToQueue(store.profilePicAsBase64, store.RowKey).then((response) => {
-                    this.imagePushed = true
-                })
-                    .catch(error => {
-                        
-                    })
+            if (!this.imageInPayload) {
+                this.checkCamera()
+                return
             }
-
-
-            let xmlPayload = store.makeXML()
-            await axiosService.postToQueue(xmlPayload)
-                .then((response) => {
-                    console.log("Success")
-                    this.$router.push({ name: 'registered' })
-
-                })
-                .catch(error => {
-                    
-                    setTimeout(() => {
-
-
-                        axiosService.postToQueue(xmlPayload)
-                            .then((response) => {
-                                this.$router.push({ name: 'registered' })
-                            })
-                            .catch(error => {
-                                
-                                store.makeQR()
-                                this.$router.push({ name: 'QR' })
-                            })
-
-
-                    }, this.delayInMilliseconds);
-                })
+            if (this.imageInPayload) {
+                try {
+                    await axiosService.postImageToQueue(store.profilePicAsBase64, store.RowKey)
+                }
+                catch (error) {
+                    console.log(`Failed to transfer image. Error: ${error}`)
+                }
+            }
+            const xmlPayload = store.makeXML()
+            try {
+                await axiosService.postToQueue(xmlPayload)
+                this.$router.push({ name: 'registered' })
+            }
+            catch (error) {
+                setTimeout(async () => {
+                    try {
+                        await axiosService.postToQueue(xmlPayload)
+                        this.$router.push({ name: 'registered' })
+                    }
+                    catch (error) {
+                        store.makeQR()
+                        this.$router.push({ name: 'QR' })
+                    }
+                }, this.apiTimeout);
+            }
         },
         readFile() {
             var input = document.getElementById("profilePic").files[0]
 
             new Compressor(input, {
                 quality: 0,
-
-                // The compression process is asynchronous,
-                // which means you have to access the `result` in the `success` hook function.
                 success(compressedFile) {
                     const formData = new FormData();
-
-                    // The third parameter is required for server
-
-
                     const reader = new FileReader()
                     const store = useStore()
-                    
                     const data = reader.readAsDataURL(compressedFile);
                     reader.addEventListener('load', (e) => {
                         const data = e.target.result;
                         store.profilePicAsBase64 = data
-                        
                         document.getElementById("displayProfilePic").src = data
                     })
                 },
                 error(err) {
-                    
+                    console.log(`Failed to compress. Error: ${err}`)
                     return
                 },
             })
@@ -120,7 +81,7 @@ export default {
             this.continueButtonText = 'Continue'
             this.photoButtonText = 'New Photo'
             this.imageInPayload = true
-            
+
         },
         IIP() {
             const store = useStore()
@@ -132,73 +93,107 @@ export default {
         clearImage() {
             document.getElementById("displayProfilePic").src = null
             this.imageInPayload = false
-        }
+        },
+        async reDraw() {
+            this.page = false
+            setTimeout(() => {
+                this.page = true
+            }, 10)
+        },
+        async checkCamera() {
+            const constraints = { video: true, audio: false };
+            navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                this.canUseCamera = true
+                this.reDraw()
+                const mediaStream = stream
+                const tracks = mediaStream.getTracks()
+                tracks.forEach((track) => {
+                    track.stop();
+                });
+            })
+            .catch((error) => {
+                this.canUseCamera = false
+            });
+        },
     }
 }
-
 </script>
 
 
 <template>
-    <div id="main" class="relative bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]"
+    <div v-if="page" id="main" class="relative bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]"
         :class="{ 'mt-0': IIP(), 'mt-40': !IIP() }">
-        <div class="text-center">
+        <div v-if="store.imageRequired" class="text-center">
+            <h2 v-if="!IIP()">{{ $t('selfie.headerRequired') }}</h2>
+        </div>
+        <div v-else class="text-center">
             <h2 v-if="!IIP()">{{ $t('selfie.header') }}</h2>
-
         </div>
 
-        <div>
-            <button v-if="IIP()" @click="clearImage"
-                class="absolute top-1 py-1 px-1.5 right-1 rounded-full bg-red-500">X</button>
+        <div v-if="IIP() && !store.imageRequired" class="absolute top-1 right-1 cursor-pointer">
+            <img @click="clearImage" src="/images/deleteButton.svg" alt="" class="rot">
         </div>
 
         <div class="flex justify-center">
-            <img v-if="IIP()" id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px] QR">
+            <img v-if="IIP()" id="displayProfilePic" :src="store.profilePicAsURL" class="max-w-[300px] img">
         </div>
 
-        <div id="buttons" class="flex flex-col mt-4 text-center">
-            <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden"
-                :class="{ disabled: !canUseCamera, 'peer': !canUseCamera }" />
+        <div id="buttons" class="flex flex-col mt-4">
+            <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden" :class="{'disabled': !canUseCamera}">
             <div v-if="!IIP()" class="flex flex-col">
-                <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera, }" ref="capture" for="profilePic"
-                    type="button"
-                    class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">{{
-                        $t('selfie.photoButton') }}</label>
-                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">Please allow your web browser to access your
-                    camera to use this feature</p>
-                <button type="button" @click="azurePush"
-                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 bg-gray-100 text-black border-0 sm:border-2 border-solid border-black">{{
-                        $t('selfie.skipButton') }} </button>
+                <div class="flex flex-col">
+                    <label v-if="canUseCamera" ref="capture" for="profilePic"
+                        type="button"
+                        class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">
+                        {{ $t('selfie.photoButton') }}
+                    </label>
+                    <button v-else @click="checkCamera"
+                        class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-red-500 font-semibold shadow-sm bg-red-500 border-0 sm:border-2 border-black border-solid">
+                        {{ $t('selfie.photoButton') }}
+                    </button>
+                </div>
+                <p v-if="!canUseCamera && !store.imageRequired" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this feature
+                </p>
+                <p v-else-if="!canUseCamera && store.imageRequired" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this required feature
+                </p>
+                <button v-if="!store.imageRequired" type="button" @click="azurePush"
+                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 text-black border-0 sm:border-2 border-solid border-black">
+                    {{ $t('selfie.skipButton') }}
+                </button>
             </div>
 
-            <div v-else class="flex flex-col mt-4 text-center">
+            <div v-else class="flex flex-col mt-4">
                 <button type="button" @click="azurePush"
-                    class="mb-2 rounded-md  px-3.5 py-2.5 text-sm font-semibold text shadow-sm hover:bg-indigo-500 bg-indigo-600 text-white border-0 sm:border-2 border-solid border-black">{{
-                        $t('selfie.continueButton') }} </button>
+                    class="mb-2 text-center rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-indigo-500 bg-indigo-600 text-white border-0 sm:border-2 border-solid border-black">
+                    {{ $t('selfie.continueButton') }}
+                </button>
                 <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera, }" ref="capture" for="profilePic"
                     type="button"
-                    class=" text-center mb-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm text-black hover:bg-gray-50 font-semibold shadow-sm border-0 sm:border-2 border-black border-solid">{{
-                        $t('selfie.newPhotoButton') }}</label>
-                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">Please allow your web browser to access your
-                    camera to use this feature</p>
+                    class=" text-center mb-2 rounded-md bg-gray-100 px-3.5 py-2.5 text-sm text-black hover:bg-gray-50 font-semibold shadow-sm border-0 sm:border-2 border-black border-solid">
+                    {{ $t('selfie.newPhotoButton') }}
+                </label>
+                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this feature
+                </p>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-#player {
-    margin-left: 50%;
-    transform: translate(-50%);
-}
-
-#canvas {
-    margin-left: 50%;
-    transform: translate(-50%);
-}
 
 @media (max-width: 450px) {
-    .QR {
+    .img {
         max-width: 100%;
     }
-}</style>
+}
+
+.rot {
+    transform: rotate(45deg);
+    scale: 0.8;
+}
+
+</style>

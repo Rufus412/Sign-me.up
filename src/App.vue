@@ -23,13 +23,12 @@ export default {
 
 <template>
   <div class="h-full flex flex-col box bg-slate-300">
-      <header class="row header bg-slate-300 round min-h-fit" >
-        <img id="logo" src="" alt="" class="flex max-w-[90%]">
-      </header>
+    <header class="row header bg-slate-300 round min-h-fit" >
+      <img id="logo" src="" alt="" class="flex max-w-[90%]">
+    </header>
   
     <div id="head" class="row content rounded-t-3xl bg-gray-200" >
       <RouterView class=""/>
-
     </div>
   </div>
 </template>

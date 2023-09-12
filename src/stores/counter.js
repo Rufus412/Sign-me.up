@@ -6,7 +6,7 @@ export const useStore = defineStore('storeId', {
     return {
       Member: {
         createMembership: {
-          itemNumber: 0,
+          itemNumber: '',
           members: [{
             firstName: '',
             lastName: '',
@@ -22,10 +22,9 @@ export const useStore = defineStore('storeId', {
         }
       },
       SvgTag: '',
-      devMode: false,
       logInMethod: '',
       memberID: 0,
-      lvl3: false,
+      SignUpFlow: 1,
       PartitionKey: '',
       RowKey: '',
       xmlPayload: '',
@@ -37,15 +36,16 @@ export const useStore = defineStore('storeId', {
       createApiError: false,
       locale: '',
       logoID: 'https://www.navipartner.dk/wp-content/uploads/2022/11/NaviPartner_rgb-1.svg',
-      couponDescription: 'Coupon code'
+      couponDescription: 'Coupon code',
+      imageRequired: false,
 
     }
   },
   actions: {
-    addMember(member) {
-      let regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
-
-      this.Member.createMembership.members[0] = {
+    modifyMember(member) {
+      const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+     
+      const newMember = {
         firstName: member.firstName ?? this.Member.createMembership.members[0].firstName,
         lastName: member.lastName ?? this.Member.createMembership.members[0].lastName,
         eMail: member.eMail ?? this.Member.createMembership.members[0].eMail,
@@ -57,9 +57,12 @@ export const useStore = defineStore('storeId', {
         newsLetter: member.newsLetter ?? this.Member.createMembership.members[0].newsLetter,
         tos: member.tos ?? this.Member.createMembership.members[0].tos,
       }
+      this.Member.createMembership.members[0] = newMember
 
-      this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode)
-      return
+
+      newMember.countryCode ? this.fullCountryName = regionNames.of(this.Member.createMembership.members[0].countryCode) : {}
+    
+      
     },
     makeQR(type, data) {
       const qr = new qrcode(0, 'L')
@@ -68,8 +71,7 @@ export const useStore = defineStore('storeId', {
         qr.make()
       }
       else {
-        if (!this.lvl3) {
-          console.log("notlvl3")
+        if (this.SignUpFlow === 0) {
           const payLoad = {
             createMembership: {
               in: this.Member.createMembership.itemNumber,
@@ -91,70 +93,48 @@ export const useStore = defineStore('storeId', {
               }]
             }
           }
-          if (!this.devMode) {
-            const thisData = JSON.stringify(payLoad.createMembership)
-            const QRpayLoad = {
-              createMembership: {
-                data: (btoa(thisData))
-              }
+          const thisData = JSON.stringify(payLoad.createMembership)
+          const QRpayLoad = {
+            createMembership: {
+              data: (btoa(thisData))
             }
-            qr.addData(JSON.stringify(QRpayLoad));
-            qr.make();
           }
-          else {
-            qr.addData(JSON.stringify(payLoad));
-            qr.make();
-          }
+          qr.addData(JSON.stringify(QRpayLoad));
+          qr.make();
+          
         }
         else {
-          console.log("Lvl3")
-          if (!this.devMode) {
-            const axiosFailQRPayload = {
-              RowKey: this.RowKey,
-              m: {
-                fn: this.Member.createMembership.members[0].firstName,
-                ln: this.Member.createMembership.members[0].lastName,
-                em: this.Member.createMembership.members[0].eMail,
-                cc: this.Member.createMembership.members[0].countryCode,
-                ct: this.Member.createMembership.members[0].city,
-                ad: this.Member.createMembership.members[0].adress,
-                pc: this.Member.createMembership.members[0].postalCode,
-                pn: this.Member.createMembership.members[0].phoneNumber,
-                nl: this.Member.createMembership.members[0].newsLetter,
-                ts: this.Member.createMembership.members[0].tos,
-                su: {
-                  pv: this.logInMethod || 'email',
-                  tn: this.memberID
-                }
+          const axiosFailQRPayload = {
+            RowKey: this.RowKey,
+            m: {
+              fn: this.Member.createMembership.members[0].firstName,
+              ln: this.Member.createMembership.members[0].lastName,
+              em: this.Member.createMembership.members[0].eMail,
+              cc: this.Member.createMembership.members[0].countryCode,
+              ct: this.Member.createMembership.members[0].city,
+              ad: this.Member.createMembership.members[0].adress,
+              pc: this.Member.createMembership.members[0].postalCode,
+              pn: this.Member.createMembership.members[0].phoneNumber,
+              nl: this.Member.createMembership.members[0].newsLetter,
+              ts: this.Member.createMembership.members[0].tos,
+              su: {
+                pv: this.logInMethod || 'email',
+                tn: this.memberID
               }
             }
-            let axiosFailQRCode = {
-              updateMembership: {
-                data: btoa(JSON.stringify(axiosFailQRPayload))
-              }
-            }
-            console.log(JSON.stringify(axiosFailQRCode) + " QR code content")
-            qr.addData(JSON.stringify(axiosFailQRCode))
-            qr.make();
           }
-          else {
-            let axiosFailQRCode = {
-              updateMembership: this.xmlPayload
+          let axiosFailQRCode = {
+            updateMembership: {
+              data: btoa(JSON.stringify(axiosFailQRPayload))
             }
-            console.log(JSON.stringify(axiosFailQRCode) + "This is the QR payload")
-            qr.addData(JSON.stringify(axiosFailQRCode))
-            qr.make();
-
           }
+          qr.addData(JSON.stringify(axiosFailQRCode))
+          qr.make();
         }
       }
-
       this.SvgTag = qr.createSvgTag({})
-
-      console.log(this.SvgTag)
     },
     makeXML() {
-
       let membershipData = {
         m: {
           fn: this.Member.createMembership.members[0].firstName,
@@ -173,22 +153,25 @@ export const useStore = defineStore('storeId', {
           }
         }
       }
-      console.log(JSON.stringify(membershipData))
 
-      let InnerXml = {
+      function bytesToBase64(bytes) {
+        const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
+        return btoa(binString);
+      }
+
+      const InnerXml = {
         PartitionKey: this.PartitionKey,
         RowKey: this.RowKey,
-        Data: btoa(JSON.stringify(membershipData)),
+        Data: bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData))),
         Image: '',
-        //Image: this.profilePicAsBase64
       }
 
       this.xmlPayload = InnerXml
-      console.log(JSON.stringify(InnerXml))
-      let completeXmlContent = JSON.stringify(InnerXml)
-
-      return `<QueueMessage>  
-                <MessageText>${completeXmlContent}</MessageText>  
+      const completeXmlContent = bytesToBase64(new TextEncoder().encode(JSON.stringify(InnerXml)))
+      return `<QueueMessage>
+                <MessageText>
+                  ${completeXmlContent}
+                </MessageText>
               </QueueMessage>`
 
     }

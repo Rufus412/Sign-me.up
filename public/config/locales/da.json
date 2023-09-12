@@ -4,6 +4,7 @@
       "emailButton": "Fuldfør med e-mail",
       "facebookButton": "Fuldfør med Facebook",
       "googleButton": "Fuldfør med Google",
+      "appleButton": "Fuldfør med Apple",
       "tac": "Vilkår og betingelser",
       "languageButtons": {
         "en": "English",
@@ -32,6 +33,7 @@
     },
     "selfie": {
       "header": "Ønsker du at tilføje et foto af dig selv?",
+      "headerRequired": "Tilføj venligst et billede af dig selv",
       "photoButton": "Tag foto",
       "skipButton": "Spring over",
       "newPhotoButton": "Nyt foto",

@@ -7,6 +7,7 @@ import SelfieView from '../views/SelfieView.vue'
 import CouponQR from '../components/CouponQR.vue'
 import SubmissionConfirmationView from '../views/SubmissionConfirmationView.vue'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,7 +17,7 @@ const router = createRouter({
       component: SignInOptionsView,
     },
     {
-      path: '/DoubleCheck',
+      path: '/reveiw',
       name: 'formCheck',
       component: FormCheckVue
     },
@@ -49,7 +50,7 @@ const router = createRouter({
       component: () => import('../views/QRview.vue')
     }
   ],
-  
+
 })
 
 router.beforeEach((to) => {
