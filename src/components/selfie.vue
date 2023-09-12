@@ -11,35 +11,14 @@ import Compressor from 'compressorjs';
 
 export default {
     async mounted() {   
-        const constraints = { video: true, audio: false };
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-                this.canUseCamera = true
-                this.reDraw()
-                const mediaStream = stream
-                const tracks = mediaStream.getTracks()
-                tracks.forEach((track) => {
-                    track.stop();
-                });
-            })
-            .catch((error) => {
-                this.canUseCamera = false
-            });
+        this.checkCamera()
     },
     data() {
         return {
-            delayInMilliseconds: 1000,
-            error: false,
-            pictureTaken: false,
-            canUseCamera: false,
-            imagePushed: false,
-            memberPushed: false,
+            apiTimeout: 1000,
+            canUseCamera: true,
             imageInPayload: false,
-            continueButtonText: 'Skip',
-            photoButtonText: 'Take Photo',
-            createError: false,
             store: useStore(),
-            isCaptureSupported: false,
             page: true
 
         }
@@ -47,10 +26,13 @@ export default {
     methods: {
         async azurePush() {
             const store = useStore()
+            if (!this.imageInPayload) {
+                this.checkCamera()
+                return
+            }
             if (this.imageInPayload) {
                 try {
                     await axiosService.postImageToQueue(store.profilePicAsBase64, store.RowKey)
-                    this.imagePushed = true
                 }
                 catch (error) {
                     console.log(`Failed to transfer image. Error: ${error}`)
@@ -59,7 +41,6 @@ export default {
             const xmlPayload = store.makeXML()
             try {
                 await axiosService.postToQueue(xmlPayload)
-                console.log("Success")
                 this.$router.push({ name: 'registered' })
             }
             catch (error) {
@@ -72,7 +53,7 @@ export default {
                         store.makeQR()
                         this.$router.push({ name: 'QR' })
                     }
-                }, this.delayInMilliseconds);
+                }, this.apiTimeout);
             }
         },
         readFile() {
@@ -118,7 +99,23 @@ export default {
             setTimeout(() => {
                 this.page = true
             }, 10)
-        }
+        },
+        async checkCamera() {
+            const constraints = { video: true, audio: false };
+            navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                this.canUseCamera = true
+                this.reDraw()
+                const mediaStream = stream
+                const tracks = mediaStream.getTracks()
+                tracks.forEach((track) => {
+                    track.stop();
+                });
+            })
+            .catch((error) => {
+                this.canUseCamera = false
+            });
+        },
     }
 }
 </script>
@@ -127,11 +124,14 @@ export default {
 <template>
     <div v-if="page" id="main" class="relative bg-white shadow-xl px-5 py-5 pb-10 rounded-xl h-fit w-full sm:w-full sm:max-w-[480px]"
         :class="{ 'mt-0': IIP(), 'mt-40': !IIP() }">
-        <div class="text-center">
+        <div v-if="store.imageRequired" class="text-center">
+            <h2 v-if="!IIP()">{{ $t('selfie.headerRequired') }}</h2>
+        </div>
+        <div v-else class="text-center">
             <h2 v-if="!IIP()">{{ $t('selfie.header') }}</h2>
         </div>
 
-        <div v-if="IIP()" class="absolute top-1 right-1 cursor-pointer">
+        <div v-if="IIP() && !store.imageRequired" class="absolute top-1 right-1 cursor-pointer">
             <img @click="clearImage" src="/images/deleteButton.svg" alt="" class="rot">
         </div>
 
@@ -140,18 +140,27 @@ export default {
         </div>
 
         <div id="buttons" class="flex flex-col mt-4">
-            <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden">
+            <input id="profilePic" type="file" @change="readFile" accept="image/*" capture="user" class="hidden" :class="{'disabled': !canUseCamera}">
             <div v-if="!IIP()" class="flex flex-col">
-                <label :class="{ ' bg-red-500 pointer-events-none ': !canUseCamera, }" ref="capture" for="profilePic"
-                    type="button"
-                    class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">
-                    {{ $t('selfie.photoButton') }}
-                </label>
-                <p v-if="!canUseCamera" class="text-sm text-red-500 peer">
+                <div class="flex flex-col">
+                    <label v-if="canUseCamera" ref="capture" for="profilePic"
+                        type="button"
+                        class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-indigo-500 font-semibold shadow-sm bg-indigo-600 border-0 sm:border-2 border-black border-solid">
+                        {{ $t('selfie.photoButton') }}
+                    </label>
+                    <button v-else @click="checkCamera"
+                        class=" text-center mb-2 rounded-md px-3.5 py-2.5 text-sm text-white hover:bg-red-500 font-semibold shadow-sm bg-red-500 border-0 sm:border-2 border-black border-solid">
+                        {{ $t('selfie.photoButton') }}
+                    </button>
+                </div>
+                <p v-if="!canUseCamera && !store.imageRequired" class="text-sm text-red-500 peer">
                     Please allow your web browser to access your camera to use this feature
                 </p>
-                <button type="button" @click="azurePush"
-                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 bg-gray-100 text-black border-0 sm:border-2 border-solid border-black">
+                <p v-else-if="!canUseCamera && store.imageRequired" class="text-sm text-red-500 peer">
+                    Please allow your web browser to access your camera to use this required feature
+                </p>
+                <button v-if="!store.imageRequired" type="button" @click="azurePush"
+                    class="rounded-md  px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-gray-50 text-black border-0 sm:border-2 border-solid border-black">
                     {{ $t('selfie.skipButton') }}
                 </button>
             </div>

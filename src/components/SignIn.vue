@@ -16,11 +16,11 @@ export default {
   data() {
     const store = useStore()
     return {
-      tos: '',
       languages: [],
       signinMethods: [],
       store: store,
-      size: 0
+      size: 0,
+      imageRequired_: Boolean
     }
   },
   methods: {
@@ -76,10 +76,12 @@ export default {
 
   },
   async created() {
+    const store = useStore()
     try {
-      const config = await loadConfigFiles('config');
-      this.languages = config.locales;
+      const config = await loadConfigFiles('config')
+      this.languages = config.locales
       this.signinMethods = config.signinMethods
+      store.imageRequired = config.imageRequired
 
     } catch (error) {
       console.error('Error loading config:', error);
@@ -92,7 +94,7 @@ export default {
     this.size = params.size
     if (params.get('coupon')) {
       const couponCode = JSON.parse(atob(params.get('coupon')))
-      store.makeQR("coupon", couponCode1.id)
+      store.makeQR("coupon", couponCode.id)
       store.couponDescription = couponCode.description ?? store.couponDescription
       this.$router.push({ name: 'coupon' })
     }
@@ -107,11 +109,9 @@ export default {
           phoneNumber: inData.phoneNumber
         })
         store.tosLink = inData.tos ?? ''
-        this.tos = inData.tos ?? ''
         store.Member.createMembership.itemNumber = inData.itemNumber ?? ''
         store.logoID = inData.logoID ?? ''
-        
-        console.log(`${store.PartitionKey}: ${store.RowKey}`)
+
         if ((store.PartitionKey ? false : true) || (store.RowKey ? false : true)) {
           console.log('Unable to fetch necessary resources from URL')
         }
@@ -127,10 +127,8 @@ export default {
         }
        
       }
-      console.log(typeof (params.get('SignUpFlow')))
       if (params.get('SignUpFlow') === 'Qr') {
         store.SignUpFlow = 0
-        console.log(store.SignUpFlow)
         this.$router.push({ name: 'formView' })
       }
       else {

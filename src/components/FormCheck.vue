@@ -8,7 +8,6 @@ export default {
   methods: {
     formConfirmed() {
       const store = useStore()
-      console.log(store.SignUpFlow)
       if (store.SignUpFlow === 0) {
         store.makeQR()
         this.$router.push({ name: 'QR' })

@@ -6,5 +6,6 @@
         "facebook": true,
         "google": true,
         "apple": true
-    }
+    },
+    "imageRequired": true
 }

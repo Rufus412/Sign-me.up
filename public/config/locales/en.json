@@ -33,6 +33,7 @@
     },
     "selfie": {
       "header": "Do you want to add a photo of yourself?",
+      "headerRequired": "Please add a photo of yourself",
       "photoButton": "Take Photo",
       "skipButton": "Skip",
       "newPhotoButton": "New Photo",

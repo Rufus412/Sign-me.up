@@ -15,7 +15,6 @@ export default {
         async login() {
             try {
                 const response = await googleTokenLogin()
-                console.log(response)
                 if(response && response.access_token && response.expires_in > 0) {
                     try {
                         const userData = await axiosService.getGoogleProfileInfo(response.access_token)
@@ -26,7 +25,7 @@ export default {
                             eMail: userData.data.email,
                         })
                         store.memberID = userData.data.id || ""
-                        store.profilePicAsURL = userData.data.picture || ""
+                        //store.profilePicAsURL = userData.data.picture || ""
                         store.logInMethod = "google"
                         this.$router.push({ name: "formCheck" })
                     }

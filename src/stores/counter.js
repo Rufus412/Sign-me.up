@@ -37,6 +37,7 @@ export const useStore = defineStore('storeId', {
       locale: '',
       logoID: 'https://www.navipartner.dk/wp-content/uploads/2022/11/NaviPartner_rgb-1.svg',
       couponDescription: 'Coupon code',
+      imageRequired: false,
 
     }
   },
@@ -127,7 +128,6 @@ export const useStore = defineStore('storeId', {
               data: btoa(JSON.stringify(axiosFailQRPayload))
             }
           }
-          console.log(JSON.stringify(axiosFailQRCode) + " QR code content")
           qr.addData(JSON.stringify(axiosFailQRCode))
           qr.make();
         }
@@ -153,19 +153,11 @@ export const useStore = defineStore('storeId', {
           }
         }
       }
-      console.log(JSON.stringify(membershipData))
-      console.log((document.characterSet))
 
       function bytesToBase64(bytes) {
         const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
         return btoa(binString);
       }
-
-
-      console.log((btoa(JSON.stringify(membershipData))).length + " length of btoa")
-      console.log((btoa(JSON.stringify(membershipData))))
-      console.log((bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData)))))
-      console.log((bytesToBase64(new TextEncoder().encode(JSON.stringify(membershipData)))).length)
 
       const InnerXml = {
         PartitionKey: this.PartitionKey,
@@ -174,21 +166,8 @@ export const useStore = defineStore('storeId', {
         Image: '',
       }
 
-      console.log(InnerXml.Data.length)
-      console.log(JSON.stringify(InnerXml) + " <- Innerxml")
-
       this.xmlPayload = InnerXml
-      console.log(JSON.stringify(InnerXml))
       const completeXmlContent = bytesToBase64(new TextEncoder().encode(JSON.stringify(InnerXml)))
-      console.log((document.characterSet))
-      const XML = `<QueueMessage>
-                    <MessageText>
-                      ${completeXmlContent}
-                    </MessageText>
-                  </QueueMessage>`
-
-      console.log(XML)
-
       return `<QueueMessage>
                 <MessageText>
                   ${completeXmlContent}
