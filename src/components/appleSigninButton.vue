@@ -14,7 +14,8 @@ export default {
                 const JWT = appleResponse.authorization.id_token
                 const token = this.parseJwt(JWT)
                 const store = useStore()
-                if (appleResponse && appleResponse.user && token.iss === "https://appleid.apple.com" && token.aud === import.meta.env.VITE_APPLE_IDENTIFIER) {
+                //console.log(appleResponse + "   " + appleResponse.user + "    " + token)
+                if (appleResponse && appleResponse.user && token.iss === "https://appleid.apple.com" ) {
                     const userData = appleResponse.user;
                     store.modifyMember({
                         eMail: userData.email,

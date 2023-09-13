@@ -1,9 +1,9 @@
 
-export function initAppleSdk(id) {
+export function initAppleSdk(keys) {
     AppleID.auth.init({
-        clientId: id,
+        clientId: keys.clientID,
         scope: 'email name',
-        redirectURI: `https://www.sannes.se/npk/member/m4/`,
+        redirectURI: keys.redirectURI,
         state: "ejOFDOWAPLWldaow203kdoadw",
         usePopup: true,
     });

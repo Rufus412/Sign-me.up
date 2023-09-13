@@ -34,7 +34,7 @@ const globalOptions = {
     const keys = config.keys
     const signinMethods = config.signinMethods
     if (signinMethods.apple) {
-        initAppleSdk(keys.appleKey)
+        initAppleSdk(keys.appleKeys)
     }
     if (signinMethods.facebook) {
         initFacebookSdk(keys.facebookKey)

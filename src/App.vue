@@ -16,6 +16,11 @@ export default {
   mounted() {
     const store = useStore()
     document.getElementById("logo").src = store.logoID
+  },
+  methods: {
+    homePage() {
+      this.$router.push({ name: 'home' })
+    }
   }
 }
 
@@ -24,7 +29,7 @@ export default {
 <template>
   <div class="h-full flex flex-col box bg-slate-300">
     <header class="row header bg-slate-300 round min-h-fit" >
-      <img id="logo" src="" alt="" class="flex max-w-[90%]">
+      <img id="logo" src="" alt="" class="flex max-w-[90%]" @click="homePage">
     </header>
   
     <div id="head" class="row content rounded-t-3xl bg-gray-200" >

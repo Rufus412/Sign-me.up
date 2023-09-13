@@ -7,7 +7,7 @@ import { resolve, dirname } from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/sannes/',
+  base: '/npk/member/m4/',
   plugins: [
     vue(),
     VueI18nPlugin({

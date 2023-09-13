@@ -9,7 +9,10 @@
     },
     "imageRequired": true,
     "keys": {
-        "appleKey": "se.sannes.registration",
+        "appleKeys": {
+            "clientID": "se.sannes.registration",
+            "redirectURI": "https://www.sannes.se/npk/member/m4/"
+        },
         "googleKey": "886736602258-smn2otlk08g3bfo60c3930bufmqs7k9a.apps.googleusercontent.com",
         "facebookKey": 594243916187907
     }
