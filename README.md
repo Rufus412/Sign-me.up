@@ -41,3 +41,13 @@ When the website is launched it checks for certain parameters in the url.
 
 * \*RowKey: String
 * \*PartitionKey: String
+* \*Data: Base64 JSON
+
+```javascript
+const Base64JSON = {
+  *firstName: String,
+  *phoneNumber: String,
+  *tos: String(URL),
+  *logoID: String(URL),
+}
+```
