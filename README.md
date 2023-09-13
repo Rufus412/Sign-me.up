@@ -45,9 +45,9 @@ When the website is launched it checks for certain parameters in the url.
 
 ```javascript
 const Base64JSON = {
-  *firstName: String,
-  *phoneNumber: String,
-  *tos: String(URL),
-  *logoID: String(URL),
+  *"firstName": String,
+  *"phoneNumber": String,
+  *"tos": String(URL),
+  *"logoID": String(URL),
 }
 ```
