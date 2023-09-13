@@ -72,8 +72,11 @@ const Base64JSON = {
 
 * \*coupon = Base64 JSON  <--- Enters coupon mode
 
+```javascript
+
 const Base64JSON = {
   *"id": String,
   "description": String //(Default: "Coupon Code")
 }
+
 ```
