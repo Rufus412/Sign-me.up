@@ -69,3 +69,11 @@ const Base64JSON = {
 ```
 
 ### Coupon Mode
+
+* \*coupon = Base64 JSON  <--- Enters coupon mode
+
+const Base64JSON = {
+  *"id": String,
+  "description": String //(Default: "Coupon Code")
+}
+```
