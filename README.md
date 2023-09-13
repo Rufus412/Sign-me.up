@@ -57,7 +57,8 @@ const *Base64JSON = {
 * \*SignUpFlow=Qr  <--- Enters QR mode
 * \*Data= Base64 JSON
 
-  ```javascript
+```javascript
+
 const Base64JSON = {
   *"itemNumber": String,
   "firstName": String,
