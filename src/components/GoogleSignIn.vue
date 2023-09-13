@@ -38,7 +38,7 @@ export default {
                 }
             }
             catch(error) {
-                console.log(`Failed to login with google. Error: ${error}`)
+                console.log(`User closed window. Error: ${error}`)
             }
         }
     }

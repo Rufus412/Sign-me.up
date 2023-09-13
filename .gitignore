@@ -34,7 +34,3 @@ process.env
 .env.test
 
 # dotenv environment variables file
-process.env
-.env
-.env.test
-.env.production
