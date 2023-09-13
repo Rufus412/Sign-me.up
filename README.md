@@ -21,5 +21,13 @@ VITE_BASE_URL= https://path.to.my.root/path/from/root/
 If that isn't the root, make sure to also add the path from the root as the BASE value in vite.config.js
 
 ```sh
+export default defineConfig({
+  base: '/path/from/root/',
+  ...
+  ...
+})
+```
+
+```sh
 npm run build
 ```
