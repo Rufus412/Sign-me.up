@@ -67,3 +67,5 @@ const Base64JSON = {
   "logoID": String(URL)
 }
 ```
+
+### Coupon Mode
