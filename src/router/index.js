@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import FormView from '../views/FromView.vue'
 import { useStore } from '../stores/counter'
 import FormCheckVue from '../views/FormCheckView.vue'
@@ -9,7 +9,7 @@ import SubmissionConfirmationView from '../views/SubmissionConfirmationView.vue'
 
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history:  createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -22,7 +22,7 @@ const router = createRouter({
       component: FormCheckVue
     },
     {
-      path: '/formview',
+      path: '/form',
       name: 'formView',
       component: FormView
     },
@@ -50,7 +50,7 @@ const router = createRouter({
       component: () => import('../views/QRview.vue')
     }
   ],
-
+  
 })
 
 router.beforeEach((to) => {

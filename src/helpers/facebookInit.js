@@ -1,18 +1,17 @@
 //import { accountService } from '@/_services';
 
-export function initFacebookSdk() {
+export function initFacebookSdk(id) {
     return new Promise(resolve => {
         // wait for facebook sdk to initialize before starting the vue app
-        console.log("In facebook loader")
-        window.fbAsyncInit = function () {
+        window.fbAsyncInit =  () => {
             FB.init({
-                appId: 594243916187907,
+                appId: id,
                 cookie: true,
                 xfbml: true,
                 version: 'v17.0'
             });
             FB.AppEvents.logPageView();
-            console.log("Init Passed")
+            console.log("Facebook initiated")
         };
 
         // load facebook sdk script

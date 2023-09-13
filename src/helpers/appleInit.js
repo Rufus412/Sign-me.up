@@ -1,12 +1,12 @@
 
-export function initAppleSdk() {
+export function initAppleSdk(id) {
     AppleID.auth.init({
-        clientId: import.meta.env.VITE_APPLE_IDENTIFIER,
+        clientId: id,
         scope: 'email name',
         redirectURI: `https://www.sannes.se/npk/member/m4/`,
         state: "ejOFDOWAPLWldaow203kdoadw",
         usePopup: true,
     });
-    console.log("apple initiated")
+    console.log("Apple initiated")
 
 }
