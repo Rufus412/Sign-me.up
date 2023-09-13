@@ -39,9 +39,9 @@ When the website is launched it checks for certain parameters in the url.
 
 ### Base Mode
 
-* \*RowKey= String
-* \*PartitionKey= String
-* \*Data= Base64 JSON
+* \*rowKey= String
+* \*partitionKey= String
+* \*data= Base64 JSON
 
 ```javascript
 const *Base64JSON = {
