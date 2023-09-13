@@ -12,7 +12,7 @@ npm run dev
 
 ### Compile and Minify for Production
 
-Update the VITE_BASE_URL variable in .env.production with the full URL that the website will be hosted at. 
+Update the VITE_BASE_URL variable in .env.production with the full (including http) URL that the website will be hosted at. 
 
 ```sh
 VITE_BASE_URL=https://path.to.my.root/path/from/root/
