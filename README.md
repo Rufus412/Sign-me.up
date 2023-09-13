@@ -35,4 +35,9 @@ npm run build
 ## Query Parameters
 
 When the website is launched it checks for certain parameters in the url.
-* = required
+\* = required
+
+### Base Mode
+
+* \*RowKey: String
+* \*PartitionKey: String
