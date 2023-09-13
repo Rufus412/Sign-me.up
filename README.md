@@ -27,7 +27,7 @@ export default defineConfig({
   ...
 })
 ```
-
+Compile with
 ```sh
 npm run build
 ```
