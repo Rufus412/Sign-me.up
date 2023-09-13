@@ -39,15 +39,30 @@ When the website is launched it checks for certain parameters in the url.
 
 ### Base Mode
 
-* \*RowKey: String
-* \*PartitionKey: String
-* \*Data: Base64 JSON
+* \*RowKey= String
+* \*PartitionKey= String
+* \*Data= Base64 JSON
 
 ```javascript
-const Base64JSON = {
+const *Base64JSON = {
   "firstName": String,
   "phoneNumber": String,
   "tos": String(URL),
-  "logoID": String(URL),
+  "logoID": String(URL)
+}
+```
+
+### QR Mode
+
+* \*SignUpFlow=Qr  <--- Enters QR mode
+* \*Data= Base64 JSON
+
+  ```javascript
+const Base64JSON = {
+  *"itemNumber": String,
+  "firstName": String,
+  "phoneNumber": String,
+  "tos": String(URL),
+  "logoID": String(URL)
 }
 ```
